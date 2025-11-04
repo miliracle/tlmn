@@ -839,11 +839,17 @@ Socket.io for bidirectional communication
                      │
                      │
 ┌────────────────────┴────────────────────────────┐
-│              DATABASE (MongoDB)                 │
+│          DATABASE (PostgreSQL)                  │
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐       │
 │  │  Users   │  │   Bots   │  │  Games   │       │
 │  │          │  │          │  │ (History)│       │
 │  └──────────┘  └──────────┘  └──────────┘       │
+│  ┌──────────────────────────────────────────┐   │
+│  │      Table Sessions (16/32 games)        │   │
+│  └──────────────────────────────────────────┘   │
+│  ┌──────────────────────────────────────────┐   │
+│  │      Game Players (Junction Table)       │   │
+│  └──────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -852,11 +858,11 @@ Socket.io for bidirectional communication
 #### Frontend
 
 - **Framework:** React 18+ (with Hooks)
-- **State Management:** React Context API or Zustand
-- **UI:** Custom SVG card components, Tailwind CSS, Framer Motion
+- **State Management:** @reduxjs/toolkit for UI state and @tanstack/react-query for server state
+- **UI:** Custom SVG card components, Tailwind CSS, Framer Motion, ShadcnUI
 - **Code Editor:** Monaco Editor
 - **WebSocket:** socket.io-client
-- **Router:** React Router v6
+- **Router:** @tanstack/react-router
 - **Build:** Vite
 
 **Key Libraries:**
@@ -864,35 +870,43 @@ Socket.io for bidirectional communication
 ```json
 {
   "react": "^18.2.0",
+  "@reduxjs/toolkit": "^2.0.0",
+  "@tanstack/react-query": "^5.0.0",
+  "@tanstack/react-router": "^1.0.0",
   "socket.io-client": "^4.6.0",
   "@monaco-editor/react": "^4.5.0",
   "tailwindcss": "^3.3.0",
   "framer-motion": "^10.0.0",
-  "zustand": "^4.3.0"
+  "shadcn-ui": "latest"
 }
 ```
 
 #### Backend
 
 - **Runtime:** Node.js v18+
-- **Framework:** Express.js
+- **Framework:** Nest.js
 - **WebSocket:** Socket.io v4
-- **ORM:** Prisma or Drizzle ORM
+- **ORM:** Prisma ORM
 - **Auth:** JWT (optional: OAuth)
 - **Bot Execution:** 
    - MVP: Web Workers
    - Future: isolated-vm/Docker
-- **Validation:** Joi or Zod
+- **Validation:** Zod
+- **Database:** PostgreSQL
 
 **Key Libraries:**
 
 ```json
 {
-  "express": "^4.18.0",
+  "@nestjs/core": "^10.0.0",
+  "@nestjs/common": "^10.0.0",
+  "@nestjs/platform-socket.io": "^10.0.0",
+  "@nestjs/jwt": "^10.0.0",
+  "@nestjs/passport": "^10.0.0",
   "socket.io": "^4.6.0",
-  "jsonwebtoken": "^9.0.0",
-  "bcrypt": "^5.1.0",
+  "@prisma/client": "^5.0.0",
   "prisma": "^5.0.0",
+  "bcrypt": "^5.1.0",
   "zod": "^3.21.0"
 }
 ```
@@ -900,43 +914,82 @@ Socket.io for bidirectional communication
 #### Database
 
 - **Primary:** PostgreSQL 15+
-- **Schema:**
+- **Provider:** Neon or Supabase (managed PostgreSQL)
+- **Schema:** (Prisma schema format for PostgreSQL)
 
-```sql
--- Users table
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  username VARCHAR(50) UNIQUE NOT NULL,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  password_hash VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP DEFAULT NOW()
-);
+```prisma
+// Users table
+model User {
+  id            Int      @id @default(autoincrement())
+  username      String   @unique
+  email         String   @unique
+  passwordHash  String   @map("password_hash")
+  createdAt     DateTime @default(now()) @map("created_at")
+  bots          Bot[]
+  gamePlayers   GamePlayer[]
 
--- Bots table
-CREATE TABLE bots (
-  id SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  name VARCHAR(100) NOT NULL,
-  code TEXT NOT NULL, -- JS code
-  description TEXT,
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
-);
+  @@map("users")
+}
 
--- Games table (history)
-CREATE TABLE games (
-  id SERIAL PRIMARY KEY,
-  table_id VARCHAR(50) UNIQUE NOT NULL,
-  players JSONB NOT NULL, -- Array of player info
-  winner_id INTEGER,
-  scores JSONB, -- Final scores per player
-  total_rounds INTEGER,
-  started_at TIMESTAMP,
-  ended_at TIMESTAMP,
-  game_log JSONB -- Play-by-play
-);
+// Bots table
+model Bot {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  code        Text
+  description String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
 
--- (Future): Leaderboards, tournaments, etc.
+  @@map("bots")
+}
+
+// Games table
+model Game {
+  id          Int      @id @default(autoincrement())
+  tableId     String   @unique @map("table_id")
+  players     Json     // Array of player info
+  winnerId    Int?     @map("winner_id")
+  scores      Json?    // Final scores per player
+  totalRounds Int      @map("total_rounds")
+  startedAt   DateTime @default(now()) @map("started_at")
+  endedAt     DateTime? @map("ended_at")
+  gameLog     Json?    @map("game_log") // Play-by-play
+  sessionId   Int?     @map("session_id")
+  session     TableSession? @relation(fields: [sessionId], references: [id])
+  gamePlayers GamePlayer[]
+
+  @@map("games")
+}
+
+// Table Sessions table
+model TableSession {
+  id          Int      @id @default(autoincrement())
+  config      Json     // Session configuration
+  status      String   // Waiting, Ready, In Progress, Completed
+  startedAt   DateTime? @map("started_at")
+  endedAt     DateTime? @map("ended_at")
+  games       Game[]
+
+  @@map("table_sessions")
+}
+
+// Game Players table (junction table for many-to-many relationship)
+model GamePlayer {
+  id        Int      @id @default(autoincrement())
+  gameId    Int      @map("game_id")
+  userId    Int      @map("user_id")
+  position  Int      // Player position (0-3)
+  finalScore Int?    @map("final_score")
+  game      Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([gameId, userId])
+  @@map("game_players")
+}
+
+// (Future): Leaderboards, tournaments, etc.
 ```
 
 #### Infrastructure
@@ -946,7 +999,7 @@ CREATE TABLE games (
   - Backend: Railway/Render/DigitalOcean
 
 - **Database:**  
-  - Managed PostgreSQL (Supabase, Neon, Railway)
+  - Managed PostgreSQL (Neon, Supabase, Railway)
 
 - **CDN:** Cloudflare
 
