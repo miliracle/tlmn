@@ -93,5 +93,7 @@ See `docs/` folder for:
 
 ## License
 
-Private project
+This project is licensed under the MIT Non-Commercial License. See [LICENSE](LICENSE) for details.
+
+**Commercial use is prohibited** without explicit written permission from the copyright holder.
 
