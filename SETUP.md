@@ -4,7 +4,7 @@
 
 - Node.js >= 18.0.0
 - pnpm >= 8.0.0
-- PostgreSQL 15+ (or use Neon/Supabase)
+- Docker and Docker Compose (for local development database) OR PostgreSQL 15+ (or use Neon/Supabase)
 
 ## Initial Setup
 
@@ -16,7 +16,34 @@ pnpm install
 
 ### 2. Database Setup
 
-#### Option A: Local PostgreSQL
+#### Option A: Docker Compose (Recommended for Development)
+
+1. Start PostgreSQL using Docker Compose:
+```bash
+docker-compose -f docker-compose.dev.yml up -d
+```
+
+2. Copy the environment example file:
+```bash
+cp backend/env.example backend/.env
+```
+
+3. The database connection is already configured in `backend/env.example`:
+```
+DATABASE_URL="postgresql://user:password@localhost:5432/tienlen?schema=public"
+```
+
+To stop the database:
+```bash
+docker-compose -f docker-compose.dev.yml down
+```
+
+To remove the database and all data:
+```bash
+docker-compose -f docker-compose.dev.yml down -v
+```
+
+#### Option B: Local PostgreSQL
 
 1. Create a PostgreSQL database:
 ```bash
@@ -33,7 +60,7 @@ cp backend/env.example backend/.env
 DATABASE_URL="postgresql://user:password@localhost:5432/tienlen?schema=public"
 ```
 
-#### Option B: Neon/Supabase (Cloud)
+#### Option C: Neon/Supabase (Cloud)
 
 1. Create a new database on Neon or Supabase
 2. Copy the connection string to `backend/.env`
@@ -167,9 +194,10 @@ FRONTEND_URL="http://localhost:3000"
 
 ### Database Connection Issues
 
-- Make sure PostgreSQL is running
+- **If using Docker Compose**: Make sure the container is running with `docker-compose -f docker-compose.dev.yml ps`
+- **If using local PostgreSQL**: Make sure PostgreSQL is running
 - Check your `DATABASE_URL` in `backend/.env`
-- Verify database exists: `psql -l | grep tienlen`
+- Verify database exists: `psql -l | grep tienlen` (for local PostgreSQL) or check Docker logs: `docker-compose -f docker-compose.dev.yml logs postgres`
 
 ### Port Already in Use
 
