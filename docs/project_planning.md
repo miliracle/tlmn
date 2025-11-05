@@ -17,9 +17,9 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 ### Story 1.1: Project Setup & Development Environment
 
 #### Task 1.1.1: Frontend Project Initialization
-- **Subtask 1.1.1.1:** Initialize React project with Vite
-- **Subtask 1.1.1.2:** Install and configure Tailwind CSS
-- **Subtask 1.1.1.3:** Set up @tanstack/react-router
+- **Subtask 1.1.1.1:** Initialize React project with Vite - Done
+- **Subtask 1.1.1.2:** Install and configure Tailwind CSS - Done
+- **Subtask 1.1.1.3:** Set up @tanstack/react-router - Done
 - **Subtask 1.1.1.4:** Configure ESLint and Prettier
 - **Subtask 1.1.1.5:** Set up folder structure (components, pages, hooks, utils, services, store, features)
 - **Subtask 1.1.1.6:** Install core dependencies (React, @reduxjs/toolkit, @tanstack/react-query, @tanstack/react-router, socket.io-client, Framer Motion, ShadcnUI)
