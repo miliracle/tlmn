@@ -1,0 +1,17 @@
+# compiled output
+dist/
+*.tsbuildinfo
+
+# dependencies
+node_modules/
+
+# environment variables
+.env
+.env.local
+
+# logs
+*.log
+
+# testing
+coverage/
+

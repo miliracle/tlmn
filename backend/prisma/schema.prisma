@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  bots        Bot[]
+  gamePlayers GamePlayer[]
+
+  @@map("users")
+}
+
+model Bot {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  code        Text
+  description String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("bots")
+}
+
+model TableSession {
+  id        Int      @id @default(autoincrement())
+  config    Json     // Session configuration (player count, game count, etc.)
+  status    String   // Waiting, Ready, In Progress, Completed
+  startedAt DateTime? @map("started_at")
+  endedAt   DateTime? @map("ended_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+
+  games Game[]
+
+  @@map("table_sessions")
+}
+
+model Game {
+  id          Int      @id @default(autoincrement())
+  sessionId   Int?     @map("session_id")
+  session     TableSession? @relation(fields: [sessionId], references: [id])
+  tableId     String   @unique @map("table_id")
+  winnerId    Int?     @map("winner_id")
+  scores      Json?    // Final scores per player
+  totalRounds Int      @default(0) @map("total_rounds")
+  gameLog     Json?    @map("game_log") // Play-by-play
+  startedAt   DateTime @default(now()) @map("started_at")
+  endedAt     DateTime? @map("ended_at")
+
+  gamePlayers GamePlayer[]
+
+  @@map("games")
+}
+
+model GamePlayer {
+  id        Int   @id @default(autoincrement())
+  gameId    Int   @map("game_id")
+  game      Game  @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  userId    Int   @map("user_id")
+  user      User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  position  Int   // Player position (0-3)
+  finalScore Int? @map("final_score")
+
+  @@unique([gameId, userId])
+  @@map("game_players")
+}
+
