@@ -3,12 +3,36 @@ export { calculateCardValue, getCardValue } from './cardValue';
 export { calculateCardPoints, getCardPoints } from './cardPoints';
 export { generateDeck, shuffleDeck, generateShuffledDeck } from './deck';
 export { dealCards, hasTuQuyHeo, type DealCardsResult } from './deal';
+export {
+  detectSingle,
+  detectPair,
+  detectTriple,
+  detectStraight,
+  detectConsecutivePairs,
+  detectFourOfKind,
+  detectCombination,
+  compareCombinations,
+  canBeatCombination,
+  type CombinationType,
+  type CardCombination,
+} from './combinations';
 
 // Game engine utilities object for backward compatibility
 import { calculateCardValue, getCardValue } from './cardValue';
 import { calculateCardPoints, getCardPoints } from './cardPoints';
 import { generateDeck, shuffleDeck, generateShuffledDeck } from './deck';
 import { dealCards, hasTuQuyHeo } from './deal';
+import {
+  detectSingle,
+  detectPair,
+  detectTriple,
+  detectStraight,
+  detectConsecutivePairs,
+  detectFourOfKind,
+  detectCombination,
+  compareCombinations,
+  canBeatCombination,
+} from './combinations';
 
 export const gameEngine = {
   calculateCardValue,
@@ -20,5 +44,13 @@ export const gameEngine = {
   generateShuffledDeck,
   dealCards,
   hasTuQuyHeo,
+  detectSingle,
+  detectPair,
+  detectTriple,
+  detectStraight,
+  detectConsecutivePairs,
+  detectFourOfKind,
+  detectCombination,
+  compareCombinations,
+  canBeatCombination,
 };
-

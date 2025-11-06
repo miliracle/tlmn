@@ -74,33 +74,33 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 ### Story 2.2: Combination Detection & Validation
 
 #### Task 2.2.1: Basic Combination Detection
-- [ ] **Subtask 2.2.1.1:** Implement single card detection
-- [ ] **Subtask 2.2.1.2:** Implement pair detection (đôi)
-- [ ] **Subtask 2.2.1.3:** Implement triple detection (ba/sám cô)
-- [ ] **Subtask 2.2.1.4:** Create combination type enum/constants
+- [x] **Subtask 2.2.1.1:** Implement single card detection
+- [x] **Subtask 2.2.1.2:** Implement pair detection (đôi)
+- [x] **Subtask 2.2.1.3:** Implement triple detection (ba/sám cô)
+- [x] **Subtask 2.2.1.4:** Create combination type enum/constants
 
 #### Task 2.2.2: Straight Detection (Sảnh)
-- [ ] **Subtask 2.2.2.1:** Implement straight validation (3-12 cards, consecutive ranks)
-- [ ] **Subtask 2.2.2.2:** Validate straight cannot include rank 2
-- [ ] **Subtask 2.2.2.3:** Implement straight comparison (length > rank)
-- [ ] **Subtask 2.2.2.4:** Handle same-length straight comparison (highest card + suit)
+- [x] **Subtask 2.2.2.1:** Implement straight validation (3-12 cards, consecutive ranks)
+- [x] **Subtask 2.2.2.2:** Validate straight cannot include rank 2
+- [x] **Subtask 2.2.2.3:** Implement straight comparison (length > rank)
+- [x] **Subtask 2.2.2.4:** Handle same-length straight comparison (highest card + suit)
 
 #### Task 2.2.3: Consecutive Pairs Detection (Đôi Thông)
-- [ ] **Subtask 2.2.3.1:** Implement consecutive pairs detection (3-6 pairs)
-- [ ] **Subtask 2.2.3.2:** Validate pairs are consecutive ranks (cannot include 2)
-- [ ] **Subtask 2.2.3.3:** Implement comparison logic (length > rank)
-- [ ] **Subtask 2.2.3.4:** Handle same-length comparison (highest pair rank + suit)
+- [x] **Subtask 2.2.3.1:** Implement consecutive pairs detection (3-6 pairs)
+- [x] **Subtask 2.2.3.2:** Validate pairs are consecutive ranks (cannot include 2)
+- [x] **Subtask 2.2.3.3:** Implement comparison logic (length > rank)
+- [x] **Subtask 2.2.3.4:** Handle same-length comparison (highest pair rank + suit)
 
 #### Task 2.2.4: Four of a Kind Detection (Tứ Quý)
-- [ ] **Subtask 2.2.4.1:** Implement four of a kind detection
-- [ ] **Subtask 2.2.4.2:** Validate tứ quý cannot be formed with rank 2 (heo)
-- [ ] **Subtask 2.2.4.3:** Implement tứ quý comparison (by rank only)
+- [x] **Subtask 2.2.4.1:** Implement four of a kind detection
+- [x] **Subtask 2.2.4.2:** Validate tứ quý cannot be formed with rank 2 (heo)
+- [x] **Subtask 2.2.4.3:** Implement tứ quý comparison (by rank only)
 
 #### Task 2.2.5: Combination Comparison System
-- [ ] **Subtask 2.2.5.1:** Create function to compare two combinations
-- [ ] **Subtask 2.2.5.2:** Implement type-based comparison (same type required)
-- [ ] **Subtask 2.2.5.3:** Handle tie-breaking (suit comparison for same rank)
-- [ ] **Subtask 2.2.5.4:** Create comprehensive test cases
+- [x] **Subtask 2.2.5.1:** Create function to compare two combinations
+- [x] **Subtask 2.2.5.2:** Implement type-based comparison (same type required)
+- [x] **Subtask 2.2.5.3:** Handle tie-breaking (suit comparison for same rank)
+- [x] **Subtask 2.2.5.4:** Create comprehensive test cases
 
 ### Story 2.3: Instant Win Conditions (Tới Trắng)
 
