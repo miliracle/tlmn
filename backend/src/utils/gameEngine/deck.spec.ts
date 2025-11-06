@@ -1,5 +1,5 @@
-import { generateDeck, shuffleDeck, generateShuffledDeck } from './gameEngine';
-import { Card, CARD_RANKS, CARD_SUITS } from '../types/game';
+import { generateDeck, shuffleDeck, generateShuffledDeck } from './deck';
+import { Card, CARD_RANKS, CARD_SUITS } from '../../types/game';
 
 describe('Deck Generation & Shuffling', () => {
   describe('generateDeck', () => {
@@ -24,11 +24,11 @@ describe('Deck Generation & Shuffling', () => {
 
     it('should include all ranks for each suit', () => {
       const deck = generateDeck();
-      
+
       for (const suit of CARD_SUITS) {
         const cardsOfSuit = deck.filter((card) => card.suit === suit);
         expect(cardsOfSuit).toHaveLength(CARD_RANKS.length);
-        
+
         const ranksInSuit = cardsOfSuit.map((card) => card.rank);
         for (const rank of CARD_RANKS) {
           expect(ranksInSuit).toContain(rank);
@@ -38,11 +38,11 @@ describe('Deck Generation & Shuffling', () => {
 
     it('should include all suits for each rank', () => {
       const deck = generateDeck();
-      
+
       for (const rank of CARD_RANKS) {
         const cardsOfRank = deck.filter((card) => card.rank === rank);
         expect(cardsOfRank).toHaveLength(CARD_SUITS.length);
-        
+
         const suitsInRank = cardsOfRank.map((card) => card.suit);
         for (const suit of CARD_SUITS) {
           expect(suitsInRank).toContain(suit);
@@ -52,14 +52,14 @@ describe('Deck Generation & Shuffling', () => {
 
     it('should generate cards with correct structure', () => {
       const deck = generateDeck();
-      
+
       for (const card of deck) {
         expect(card).toHaveProperty('id');
         expect(card).toHaveProperty('rank');
         expect(card).toHaveProperty('suit');
         expect(card).toHaveProperty('value');
         expect(card).toHaveProperty('points');
-        
+
         expect(typeof card.id).toBe('string');
         expect(typeof card.rank).toBe('string');
         expect(typeof card.suit).toBe('string');
@@ -70,7 +70,7 @@ describe('Deck Generation & Shuffling', () => {
 
     it('should generate cards with correct ID format', () => {
       const deck = generateDeck();
-      
+
       for (const card of deck) {
         expect(card.id).toMatch(/^[2-9JQKA]|10-[A-Za-z]+$/);
         const [rank, suit] = card.id.split('-');
@@ -81,7 +81,7 @@ describe('Deck Generation & Shuffling', () => {
 
     it('should generate cards with valid values (0-51)', () => {
       const deck = generateDeck();
-      
+
       for (const card of deck) {
         expect(card.value).toBeGreaterThanOrEqual(0);
         expect(card.value).toBeLessThanOrEqual(51);
@@ -97,7 +97,7 @@ describe('Deck Generation & Shuffling', () => {
 
     it('should generate cards with valid point values (1, 2, or 4)', () => {
       const deck = generateDeck();
-      
+
       for (const card of deck) {
         expect([1, 2, 4]).toContain(card.points);
       }
@@ -128,13 +128,13 @@ describe('Deck Generation & Shuffling', () => {
     it('should contain all the same cards (no duplicates, no missing)', () => {
       const deck = generateDeck();
       const shuffled = shuffleDeck(deck);
-      
+
       const originalIds = new Set(deck.map((card) => card.id));
       const shuffledIds = new Set(shuffled.map((card) => card.id));
-      
+
       expect(shuffledIds.size).toBe(52);
       expect(originalIds.size).toBe(shuffledIds.size);
-      
+
       for (const id of originalIds) {
         expect(shuffledIds).toContain(id);
       }
@@ -145,18 +145,16 @@ describe('Deck Generation & Shuffling', () => {
       const shuffle1 = shuffleDeck(deck);
       const shuffle2 = shuffleDeck(deck);
       const shuffle3 = shuffleDeck(deck);
-      
+
       // Compare first few cards - very unlikely all three will match
       const orders = [
         shuffle1.slice(0, 5).map((c) => c.id),
         shuffle2.slice(0, 5).map((c) => c.id),
         shuffle3.slice(0, 5).map((c) => c.id),
       ];
-      
+
       // At least two should be different (very high probability)
-      const allSame = orders.every((order) => 
-        JSON.stringify(order) === JSON.stringify(orders[0])
-      );
+      const allSame = orders.every((order) => JSON.stringify(order) === JSON.stringify(orders[0]));
       expect(allSame).toBe(false);
     });
 
@@ -192,24 +190,22 @@ describe('Deck Generation & Shuffling', () => {
       const deck1 = generateShuffledDeck();
       const deck2 = generateShuffledDeck();
       const deck3 = generateShuffledDeck();
-      
+
       // Compare first few cards - very unlikely all three will match
       const orders = [
         deck1.slice(0, 5).map((c) => c.id),
         deck2.slice(0, 5).map((c) => c.id),
         deck3.slice(0, 5).map((c) => c.id),
       ];
-      
+
       // At least two should be different (very high probability)
-      const allSame = orders.every((order) => 
-        JSON.stringify(order) === JSON.stringify(orders[0])
-      );
+      const allSame = orders.every((order) => JSON.stringify(order) === JSON.stringify(orders[0]));
       expect(allSame).toBe(false);
     });
 
     it('should generate cards with correct structure', () => {
       const deck = generateShuffledDeck();
-      
+
       for (const card of deck) {
         expect(card).toHaveProperty('id');
         expect(card).toHaveProperty('rank');
@@ -231,13 +227,13 @@ describe('Deck Generation & Shuffling', () => {
     it('should validate that shuffled deck maintains all cards', () => {
       const originalDeck = generateDeck();
       const shuffledDeck = shuffleDeck(originalDeck);
-      
+
       const originalIds = new Set(originalDeck.map((card) => card.id));
       const shuffledIds = new Set(shuffledDeck.map((card) => card.id));
-      
+
       expect(originalIds.size).toBe(shuffledIds.size);
       expect(originalIds.size).toBe(52);
-      
+
       for (const id of originalIds) {
         expect(shuffledIds).toContain(id);
       }
@@ -245,29 +241,25 @@ describe('Deck Generation & Shuffling', () => {
 
     it('should validate that all cards have correct value calculations', () => {
       const deck = generateDeck();
-      
+
       for (const card of deck) {
         // Value should be in range 0-51
         expect(card.value).toBeGreaterThanOrEqual(0);
         expect(card.value).toBeLessThanOrEqual(51);
-        
+
         // Value should be consistent with rank and suit
-        const expectedValue = card.value;
-        const calculatedValue = 
-          (CARD_RANKS.indexOf(card.rank) * 4) + 
-          CARD_SUITS.indexOf(card.suit);
-        // Note: This is a simplified check - actual calculation uses order maps
-        expect(typeof expectedValue).toBe('number');
+        // Note: Actual calculation uses order maps, not array index
+        expect(typeof card.value).toBe('number');
       }
     });
 
     it('should validate that all cards have correct point calculations', () => {
       const deck = generateDeck();
-      
+
       for (const card of deck) {
         // Points should be 1, 2, or 4
         expect([1, 2, 4]).toContain(card.points);
-        
+
         // Heo (rank '2') should have points 2 or 4
         if (card.rank === '2') {
           expect([2, 4]).toContain(card.points);
@@ -280,12 +272,10 @@ describe('Deck Generation & Shuffling', () => {
 
     it('should validate deck completeness (all rank-suit combinations)', () => {
       const deck = generateDeck();
-      
+
       for (const rank of CARD_RANKS) {
         for (const suit of CARD_SUITS) {
-          const card = deck.find(
-            (c) => c.rank === rank && c.suit === suit
-          );
+          const card = deck.find((c) => c.rank === rank && c.suit === suit);
           expect(card).toBeDefined();
           expect(card?.id).toBe(`${rank}-${suit}`);
         }
@@ -293,4 +283,3 @@ describe('Deck Generation & Shuffling', () => {
     });
   });
 });
-

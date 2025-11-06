@@ -66,10 +66,10 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 - [x] **Subtask 2.1.2.3:** Create deck validation tests
 
 #### Task 2.1.3: Card Distribution
-- [ ] **Subtask 2.1.3.1:** Implement dealCards function (13 cards per player)
-- [ ] **Subtask 2.1.3.2:** Handle unused cards for 2-3 player games
-- [ ] **Subtask 2.1.3.3:** Validate card distribution (all players get 13 cards)
-- [ ] **Subtask 2.1.3.4:** Check for Tứ Quý Heo during deal (instant win condition)
+- [x] **Subtask 2.1.3.1:** Implement dealCards function (13 cards per player)
+- [x] **Subtask 2.1.3.2:** Handle unused cards for 2-3 player games
+- [x] **Subtask 2.1.3.3:** Validate card distribution (all players get 13 cards)
+- [x] **Subtask 2.1.3.4:** Check for Tứ Quý Heo during deal (instant win condition)
 
 ### Story 2.2: Combination Detection & Validation
 
