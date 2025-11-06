@@ -57,8 +57,8 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 - [x] **Subtask 2.1.1.1:** Define card interface/type (rank, suit, value, points, id)
 - [x] **Subtask 2.1.1.2:** Create card ranking constants (2 > A > K > ... > 3)
 - [x] **Subtask 2.1.1.3:** Create suit ranking constants (Hearts > Diamonds > Clubs > Spades)
-- [ ] **Subtask 2.1.1.4:** Implement card value calculation function
-- [ ] **Subtask 2.1.1.5:** Implement card point calculation (heo values: 1-2, hàng: 4)
+- [x] **Subtask 2.1.1.4:** Implement card value calculation function
+- [x] **Subtask 2.1.1.5:** Implement card point calculation (heo values: 1-2, hàng: 4)
 
 #### Task 2.1.2: Deck Initialization & Shuffling
 - [ ] **Subtask 2.1.2.1:** Create function to generate 52-card deck
