@@ -61,9 +61,9 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 - [x] **Subtask 2.1.1.5:** Implement card point calculation (heo values: 1-2, hàng: 4)
 
 #### Task 2.1.2: Deck Initialization & Shuffling
-- [ ] **Subtask 2.1.2.1:** Create function to generate 52-card deck
-- [ ] **Subtask 2.1.2.2:** Implement Fisher-Yates shuffle algorithm
-- [ ] **Subtask 2.1.2.3:** Create deck validation tests
+- [x] **Subtask 2.1.2.1:** Create function to generate 52-card deck
+- [x] **Subtask 2.1.2.2:** Implement Fisher-Yates shuffle algorithm
+- [x] **Subtask 2.1.2.3:** Create deck validation tests
 
 #### Task 2.1.3: Card Distribution
 - [ ] **Subtask 2.1.3.1:** Implement dealCards function (13 cards per player)
