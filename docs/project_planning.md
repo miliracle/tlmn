@@ -25,7 +25,7 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 - [x] **Subtask 1.1.1.6:** Install core dependencies (React, @reduxjs/toolkit, @tanstack/react-query, @tanstack/react-router, socket.io-client, Framer Motion, ShadcnUI)
 - [x] **Subtask 1.1.1.7:** Configure Redux Toolkit store (slices for UI state)
 - [x] **Subtask 1.1.1.8:** Configure React Query (query client, providers)
-- [ ] **Subtask 1.1.1.9:** Set up ShadcnUI components
+- [x] **Subtask 1.1.1.9:** Set up ShadcnUI components
 
 #### Task 1.1.2: Backend Project Initialization
 - [x] **Subtask 1.1.2.1:** Initialize Nest.js project with TypeScript
@@ -39,7 +39,7 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 - [x] **Subtask 1.1.3.2:** Configure Prisma ORM for PostgreSQL
 - [x] **Subtask 1.1.3.3:** Create initial Prisma schema (Users, Bots, Games, TableSessions, GamePlayers models)
 - [x] **Subtask 1.1.3.4:** Set up Prisma migrations for PostgreSQL
-- [ ] **Subtask 1.1.3.5:** Create seed scripts for testing
+- [x] **Subtask 1.1.3.5:** Create seed scripts for testing
 
 #### Task 1.1.4: Development Tools Setup
 - [x] **Subtask 1.1.4.1:** Configure Git repository and .gitignore
