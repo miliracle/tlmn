@@ -130,6 +130,25 @@ export {
   type RoundTransitionContext,
   type RoundTransitionResult,
 } from './roundTransition';
+export {
+  detectGameEnd,
+  hasPlayerWonGame as hasPlayerWonGameByHands,
+  countCardsRemaining,
+  calculateTotalCardValue,
+  rankPlayers,
+  determineVeBet,
+  hasPlayerPlayedAnyCards,
+  detectCong,
+  hasHangInHand,
+  hasHeoInHand,
+  detectDenBai,
+  calculateDenBaiPenalty,
+  type GameEndDetectionContext,
+  type GameEndDetectionResult,
+  type PlayerRanking,
+  type CongDetectionResult,
+  type DenBaiDetectionResult,
+} from './gameEndDetection';
 
 // Game engine utilities object for backward compatibility
 import { calculateCardValue, getCardValue } from './cardValue';

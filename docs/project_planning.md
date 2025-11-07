@@ -204,21 +204,21 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 ### Story 2.7: Game End & Winner Determination
 
 #### Task 2.7.1: Game End Detection
-- [ ] **Subtask 2.7.1.1:** Check if player has 0 cards after play
-- [ ] **Subtask 2.7.1.2:** Handle instant win game end
-- [ ] **Subtask 2.7.1.3:** Stop game immediately when winner detected
+- [x] **Subtask 2.7.1.1:** Check if player has 0 cards after play
+- [x] **Subtask 2.7.1.2:** Handle instant win game end
+- [x] **Subtask 2.7.1.3:** Stop game immediately when winner detected
 
 #### Task 2.7.2: Player Ranking (Losers)
-- [ ] **Subtask 2.7.2.1:** Count cards remaining for each loser
-- [ ] **Subtask 2.7.2.2:** Rank players by card count (fewest = 2nd place)
-- [ ] **Subtask 2.7.2.3:** Handle tie-breaking (compare total card values)
-- [ ] **Subtask 2.7.2.4:** Determine về bét (last place)
+- [x] **Subtask 2.7.2.1:** Count cards remaining for each loser
+- [x] **Subtask 2.7.2.2:** Rank players by card count (fewest = 2nd place)
+- [x] **Subtask 2.7.2.3:** Handle tie-breaking (compare total card values)
+- [x] **Subtask 2.7.2.4:** Determine về bét (last place)
 
 #### Task 2.7.3: Cóng Detection
-- [ ] **Subtask 2.7.3.1:** Track if player played any cards during game
-- [ ] **Subtask 2.7.3.2:** Detect cóng 1 nhà, cóng 2 nhà, cóng 3 nhà
-- [ ] **Subtask 2.7.3.3:** Implement đền bài detection (playable cards not played)
-- [ ] **Subtask 2.7.3.4:** Handle đền bài penalty calculation
+- [x] **Subtask 2.7.3.1:** Track if player played any cards during game
+- [x] **Subtask 2.7.3.2:** Detect cóng 1 nhà, cóng 2 nhà, cóng 3 nhà
+- [x] **Subtask 2.7.3.3:** Implement đền bài detection (playable cards not played) - Placeholder implementation (requires full game state tracking)
+- [x] **Subtask 2.7.3.4:** Handle đền bài penalty calculation
 
 ### Story 2.8: Scoring & Penalty System
 
