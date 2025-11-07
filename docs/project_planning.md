@@ -158,28 +158,28 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 ### Story 2.5: Cutting Rules (Chặt) Implementation
 
 #### Task 2.5.1: Vòng Detection
-- [ ] **Subtask 2.5.1.1:** Track if any player has played in current round
-- [ ] **Subtask 2.5.1.2:** Create hasVong function
-- [ ] **Subtask 2.5.1.3:** Handle first player exception (no vòng)
+- [x] **Subtask 2.5.1.1:** Track if any player has played in current round
+- [x] **Subtask 2.5.1.2:** Create hasVong function
+- [x] **Subtask 2.5.1.3:** Handle first player exception (no vòng)
 
 #### Task 2.5.2: Single Heo Tracking
-- [ ] **Subtask 2.5.2.1:** Track consecutive single heo plays
-- [ ] **Subtask 2.5.2.2:** Distinguish between single heo vs đôi heo
-- [ ] **Subtask 2.5.2.3:** Reset tracking on new round or non-heo play
-- [ ] **Subtask 2.5.2.4:** Count how many single heo in sequence
+- [x] **Subtask 2.5.2.1:** Track consecutive single heo plays
+- [x] **Subtask 2.5.2.2:** Distinguish between single heo vs đôi heo
+- [x] **Subtask 2.5.2.3:** Reset tracking on new round or non-heo play
+- [x] **Subtask 2.5.2.4:** Count how many single heo in sequence
 
 #### Task 2.5.3: Cutting Rule Validation
-- [ ] **Subtask 2.5.3.1:** Implement 3 đôi thông cutting rules
-- [ ] **Subtask 2.5.3.2:** Implement tứ quý cutting rules
-- [ ] **Subtask 2.5.3.3:** Implement 4 đôi thông cutting rules (no vòng requirement)
-- [ ] **Subtask 2.5.3.4:** Validate 3 con heo cannot be cut
-- [ ] **Subtask 2.5.3.5:** Create canCut function
+- [x] **Subtask 2.5.3.1:** Implement 3 đôi thông cutting rules
+- [x] **Subtask 2.5.3.2:** Implement tứ quý cutting rules
+- [x] **Subtask 2.5.3.3:** Implement 4 đôi thông cutting rules (no vòng requirement)
+- [x] **Subtask 2.5.3.4:** Validate 3 con heo cannot be cut
+- [x] **Subtask 2.5.3.5:** Create canCut function
 
 #### Task 2.5.4: Chặt Chồng (Stacked Cutting)
-- [ ] **Subtask 2.5.4.1:** Track cutting chain
-- [ ] **Subtask 2.5.4.2:** Implement penalty transfer logic
-- [ ] **Subtask 2.5.4.3:** Calculate cumulative penalties for last person cut
-- [ ] **Subtask 2.5.4.4:** Handle chặt and finish rule (no penalty if winner finishes)
+- [x] **Subtask 2.5.4.1:** Track cutting chain
+- [x] **Subtask 2.5.4.2:** Implement penalty transfer logic
+- [x] **Subtask 2.5.4.3:** Calculate cumulative penalties for last person cut
+- [x] **Subtask 2.5.4.4:** Handle chặt and finish rule (no penalty if winner finishes)
 
 ### Story 2.6: Round Management
 

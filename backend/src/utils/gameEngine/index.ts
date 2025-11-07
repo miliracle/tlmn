@@ -63,6 +63,39 @@ export {
   canFormCombinationWithSpade3,
   type FindSpade3Result,
 } from './firstRound';
+export {
+  initializeVongState,
+  markPlayerPlayed,
+  hasVong,
+  resetVongState,
+  hasAnyPlayerPlayed,
+  getFirstPlayerIndex,
+  type VongState,
+} from './vongDetection';
+export {
+  initializeSingleHeoTracking,
+  recordPlay,
+  isSingleHeo,
+  isDoiHeo,
+  isBaConHeo,
+  getConsecutiveSingleHeoCount,
+  getConsecutiveSingleHeos,
+  resetSingleHeoTracking,
+  type SingleHeoTrackingState,
+} from './singleHeoTracking';
+export { canCut, type CanCutResult } from './cuttingRules';
+export {
+  initializeCuttingChain,
+  addCutToChain,
+  markCutPlayerFinished,
+  calculateCumulativePenalties,
+  getPenaltyReceiver,
+  resetCuttingChain,
+  getCuttingChain,
+  getChainLength,
+  type CuttingChainState,
+  type CutEntry,
+} from './cuttingChain';
 
 // Game engine utilities object for backward compatibility
 import { calculateCardValue, getCardValue } from './cardValue';
