@@ -186,4 +186,3 @@ describe('Card Points Calculation', () => {
     });
   });
 });
-

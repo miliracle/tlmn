@@ -16,6 +16,14 @@ export {
   type CombinationType,
   type CardCombination,
 } from './combinations';
+export {
+  checkInitialRoundInstantWin,
+  checkOtherRoundInstantWin,
+  checkInstantWin,
+  type InitialRoundInstantWinType,
+  type OtherRoundInstantWinType,
+  type InstantWinResult,
+} from './instantWin';
 
 // Game engine utilities object for backward compatibility
 import { calculateCardValue, getCardValue } from './cardValue';
