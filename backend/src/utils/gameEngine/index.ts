@@ -96,6 +96,40 @@ export {
   type CuttingChainState,
   type CutEntry,
 } from './cuttingChain';
+export {
+  initializeRoundState,
+  getCurrentRoundNumber,
+  setLastPlay,
+  getLastPlay,
+  addPassedPlayer,
+  getRoundPassedPlayers,
+  hasPlayerPassed,
+  setRoundWinner,
+  getRoundWinner,
+  hasRoundWinner,
+  resetRoundState,
+  incrementRoundNumber,
+  type RoundState,
+} from './roundState';
+export {
+  hasThreeConsecutivePasses,
+  hasAllRemainingPassed,
+  determineRoundWinnerFromPasses,
+  determineRoundWinnerFromPassesWithLastPlayer,
+  hasPlayerWonGame,
+  detectRoundEnd,
+  getPlayerToWinnersRight,
+  type RoundEndDetectionContext,
+  type RoundEndDetectionResult,
+  type RoundEndReason,
+} from './roundEndDetection';
+export {
+  determineNextRoundLeader,
+  transitionToNextRound,
+  clearPlayedCardsHistory,
+  type RoundTransitionContext,
+  type RoundTransitionResult,
+} from './roundTransition';
 
 // Game engine utilities object for backward compatibility
 import { calculateCardValue, getCardValue } from './cardValue';

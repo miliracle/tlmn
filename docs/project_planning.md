@@ -184,22 +184,22 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 ### Story 2.6: Round Management
 
 #### Task 2.6.1: Round State Tracking
-- [ ] **Subtask 2.6.1.1:** Track current round number
-- [ ] **Subtask 2.6.1.2:** Track last play in round
-- [ ] **Subtask 2.6.1.3:** Track passed players array
-- [ ] **Subtask 2.6.1.4:** Track round winner
+- [x] **Subtask 2.6.1.1:** Track current round number
+- [x] **Subtask 2.6.1.2:** Track last play in round
+- [x] **Subtask 2.6.1.3:** Track passed players array
+- [x] **Subtask 2.6.1.4:** Track round winner
 
 #### Task 2.6.2: Round End Detection
-- [ ] **Subtask 2.6.2.1:** Detect 3 consecutive passes
-- [ ] **Subtask 2.6.2.2:** Detect all remaining players passed
-- [ ] **Subtask 2.6.2.3:** Handle Hưởng Sái rule (player to winner's right starts next round)
-- [ ] **Subtask 2.6.2.4:** Check for game end (winner has no cards)
+- [x] **Subtask 2.6.2.1:** Detect 3 consecutive passes
+- [x] **Subtask 2.6.2.2:** Detect all remaining players passed
+- [x] **Subtask 2.6.2.3:** Handle Hưởng Sái rule (player to winner's right starts next round)
+- [x] **Subtask 2.6.2.4:** Check for game end (winner has no cards)
 
 #### Task 2.6.3: Round Transition
-- [ ] **Subtask 2.6.3.1:** Determine next round leader
-- [ ] **Subtask 2.6.3.2:** Reset round state (passed players, last play)
-- [ ] **Subtask 2.6.3.3:** Increment round counter
-- [ ] **Subtask 2.6.3.4:** Clear played cards history
+- [x] **Subtask 2.6.3.1:** Determine next round leader
+- [x] **Subtask 2.6.3.2:** Reset round state (passed players, last play)
+- [x] **Subtask 2.6.3.3:** Increment round counter
+- [x] **Subtask 2.6.3.4:** Clear played cards history
 
 ### Story 2.7: Game End & Winner Determination
 
