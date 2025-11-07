@@ -1,4 +1,10 @@
-import { CARD_RANK_ORDER, CARD_SUIT_ORDER } from '../../types/game';
+import {
+  CARD_RANK_ORDER,
+  CARD_SUIT_ORDER,
+  RANK_2,
+  SUIT_DIAMONDS,
+  SUIT_HEARTS,
+} from '../../types/game';
 import { ValidationException } from '../../common/exceptions';
 
 /**
@@ -42,10 +48,10 @@ export function calculateCardPoints(rank: string, suit: string): number {
   }
 
   // Heo (rank '2') have special point values based on suit
-  if (rank === '2') {
+  if (rank === RANK_2) {
     // Diamonds (♦2) and Hearts (♥2) = 2 points
     // Spades (♠2) and Clubs (♣2) = 1 point
-    if (suit === 'Diamonds' || suit === 'Hearts') {
+    if (suit === SUIT_DIAMONDS || suit === SUIT_HEARTS) {
       return 4;
     }
     // Spades or Clubs
@@ -65,4 +71,3 @@ export function calculateCardPoints(rank: string, suit: string): number {
 export function getCardPoints(card: { rank: string; suit: string }): number {
   return calculateCardPoints(card.rank, card.suit);
 }
-

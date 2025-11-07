@@ -1,4 +1,4 @@
-import { Card, CARD_RANK_ORDER } from '../../types/game';
+import { Card, CARD_RANK_ORDER, RANK_2 } from '../../types/game';
 import { ValidationException } from '../../common/exceptions';
 import { getCardValue } from './cardValue';
 
@@ -244,7 +244,7 @@ export function detectFourOfKind(cards: Card[]): CardCombination | null {
   }
 
   // Cannot be formed with rank 2 (heo) - that's an instant win condition
-  if (cards[0].rank === '2') {
+  if (cards[0].rank === RANK_2) {
     return null;
   }
 

@@ -5,11 +5,7 @@ import { AppException } from './base.exception';
  * Business logic exception - for domain-specific errors
  */
 export class BusinessException extends AppException {
-  constructor(
-    message: string,
-    code?: string,
-    metadata?: Record<string, any>,
-  ) {
+  constructor(message: string, code?: string, metadata?: Record<string, any>) {
     super(message, HttpStatus.BAD_REQUEST, code || 'BUSINESS_ERROR', metadata);
   }
 }
@@ -18,20 +14,11 @@ export class BusinessException extends AppException {
  * Validation exception - for input validation errors
  */
 export class ValidationException extends AppException {
-  constructor(
-    message: string,
-    errors?: Record<string, string[]>,
-    metadata?: Record<string, any>,
-  ) {
-    super(
-      message,
-      HttpStatus.UNPROCESSABLE_ENTITY,
-      'VALIDATION_ERROR',
-      {
-        ...metadata,
-        ...(errors && { errors }),
-      },
-    );
+  constructor(message: string, errors?: Record<string, string[]>, metadata?: Record<string, any>) {
+    super(message, HttpStatus.UNPROCESSABLE_ENTITY, 'VALIDATION_ERROR', {
+      ...metadata,
+      ...(errors && { errors }),
+    });
   }
 }
 
@@ -39,11 +26,7 @@ export class ValidationException extends AppException {
  * Not found exception - for resource not found errors
  */
 export class NotFoundException extends AppException {
-  constructor(
-    resource: string,
-    identifier?: string | number,
-    metadata?: Record<string, any>,
-  ) {
+  constructor(resource: string, identifier?: string | number, metadata?: Record<string, any>) {
     const message = identifier
       ? `${resource} with identifier '${identifier}' not found`
       : `${resource} not found`;
@@ -60,11 +43,7 @@ export class NotFoundException extends AppException {
  * Conflict exception - for resource conflict errors (e.g., duplicate entries)
  */
 export class ConflictException extends AppException {
-  constructor(
-    message: string,
-    code?: string,
-    metadata?: Record<string, any>,
-  ) {
+  constructor(message: string, code?: string, metadata?: Record<string, any>) {
     super(message, HttpStatus.CONFLICT, code || 'CONFLICT', metadata);
   }
 }
@@ -89,4 +68,3 @@ export class ForbiddenException extends AppException {
     super(message, HttpStatus.FORBIDDEN, 'FORBIDDEN', metadata);
   }
 }
-

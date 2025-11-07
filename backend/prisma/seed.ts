@@ -1,22 +1,22 @@
 /**
  * Database Seed Script
- * 
+ *
  * This script populates the database with test data for development and testing.
- * 
+ *
  * Usage:
  *   npm run db:seed          - Run the seed script
  *   npx prisma db seed       - Alternative way to run the seed
- * 
+ *
  * What it creates:
  *   - 5 test users (alice, bob, charlie, diana, eve)
  *   - 3 bots (associated with users)
  *   - 4 table sessions (various statuses: Waiting, Ready, In Progress, Completed)
  *   - 4 games (with different states)
  *   - Multiple game players (linking users to games)
- * 
+ *
  * Test credentials:
  *   All users have the password: password123
- * 
+ *
  * Note: The script clears all existing data before seeding.
  *       Comment out the cleanup section if you want to preserve existing data.
  */
@@ -112,7 +112,7 @@ function playCard(hand, lastPlayed) {
         userId: users[1].id,
         name: 'Bob Bot',
         code: botCode,
-        description: 'Bob\'s aggressive bot strategy',
+        description: "Bob's aggressive bot strategy",
       },
     }),
     prisma.bot.create({
@@ -120,7 +120,7 @@ function playCard(hand, lastPlayed) {
         userId: users[0].id,
         name: 'Alice Bot Pro',
         code: botCode,
-        description: 'Alice\'s advanced bot',
+        description: "Alice's advanced bot",
       },
     }),
   ]);
@@ -258,7 +258,7 @@ function playCard(hand, lastPlayed) {
           userId: users[i].id,
           position: i,
         },
-      })
+      }),
     );
   }
 
@@ -271,7 +271,7 @@ function playCard(hand, lastPlayed) {
           userId: users[i].id,
           position: i,
         },
-      })
+      }),
     );
   }
 
@@ -285,7 +285,7 @@ function playCard(hand, lastPlayed) {
           position: i,
           finalScore: (games[2].scores as any)?.[users[i].id] || null,
         },
-      })
+      }),
     );
   }
 
@@ -298,7 +298,7 @@ function playCard(hand, lastPlayed) {
           userId: users[i].id,
           position: i,
         },
-      })
+      }),
     );
   }
 
@@ -327,4 +327,3 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
-

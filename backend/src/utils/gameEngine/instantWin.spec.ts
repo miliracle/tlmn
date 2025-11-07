@@ -5,6 +5,27 @@ import {
 } from './instantWin';
 import { generateDeck } from './deck';
 import { createCard, createCardsOfRank } from './testHelpers';
+import {
+  RANK_2,
+  RANK_A,
+  RANK_K,
+  RANK_Q,
+  RANK_J,
+  RANK_10,
+  RANK_9,
+  RANK_8,
+  RANK_7,
+  RANK_6,
+  RANK_5,
+  RANK_4,
+  RANK_3,
+  SUIT_HEARTS,
+  SUIT_DIAMONDS,
+  SUIT_CLUBS,
+  SUIT_SPADES,
+} from '../../types/game';
+
+// Helper constants for readability
 
 describe('Initial Round Instant Win Detection', () => {
   describe('checkInitialRoundInstantWin', () => {
@@ -21,19 +42,19 @@ describe('Initial Round Instant Win Detection', () => {
       // Create a hand that definitely doesn't match any instant win condition
       // Use diverse ranks and suits
       const normalHand = [
-        createCard('3', 'Clubs'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Diamonds'),
-        createCard('6', 'Spades'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Hearts'),
-        createCard('9', 'Diamonds'),
-        createCard('10', 'Spades'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Hearts'),
-        createCard('K', 'Diamonds'),
-        createCard('A', 'Spades'),
-        createCard('2', 'Clubs'), // One heo, not all 4
+        createCard(RANK_3, SUIT_CLUBS),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_DIAMONDS),
+        createCard(RANK_6, SUIT_SPADES),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_DIAMONDS),
+        createCard(RANK_10, SUIT_SPADES),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_HEARTS),
+        createCard(RANK_K, SUIT_DIAMONDS),
+        createCard(RANK_A, SUIT_SPADES),
+        createCard(RANK_2, SUIT_CLUBS), // One heo, not all 4
       ];
       const result = checkInitialRoundInstantWin(normalHand);
 
@@ -45,16 +66,16 @@ describe('Initial Round Instant Win Detection', () => {
   describe('Subtask 2.3.1.1: Tứ quý 3', () => {
     it('should detect tứ quý 3 (four 3s)', () => {
       const hand = [
-        ...createCardsOfRank('3', ['Spades', 'Hearts', 'Diamonds', 'Clubs']),
-        createCard('4', 'Clubs'),
-        createCard('5', 'Clubs'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Clubs'),
+        ...createCardsOfRank(RANK_3, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]),
+        createCard(RANK_4, SUIT_CLUBS),
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_CLUBS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -65,17 +86,17 @@ describe('Initial Round Instant Win Detection', () => {
 
     it('should not detect tứ quý 3 with only 3 cards of rank 3', () => {
       const hand = [
-        ...createCardsOfRank('3', ['Spades', 'Hearts', 'Diamonds']),
-        createCard('4', 'Clubs'),
-        createCard('5', 'Clubs'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Clubs'),
-        createCard('K', 'Clubs'),
+        ...createCardsOfRank(RANK_3, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS]),
+        createCard(RANK_4, SUIT_CLUBS),
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_CLUBS),
+        createCard(RANK_K, SUIT_CLUBS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -87,16 +108,16 @@ describe('Initial Round Instant Win Detection', () => {
   describe('Subtask 2.3.1.2: Tứ quý heo', () => {
     it('should detect tứ quý heo (all four 2s)', () => {
       const hand = [
-        ...createCardsOfRank('2', ['Spades', 'Hearts', 'Diamonds', 'Clubs']),
-        createCard('3', 'Clubs'),
-        createCard('4', 'Clubs'),
-        createCard('5', 'Clubs'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
+        ...createCardsOfRank(RANK_2, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]),
+        createCard(RANK_3, SUIT_CLUBS),
+        createCard(RANK_4, SUIT_CLUBS),
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -107,17 +128,17 @@ describe('Initial Round Instant Win Detection', () => {
 
     it('should not detect tứ quý heo with only 3 cards of rank 2', () => {
       const hand = [
-        ...createCardsOfRank('2', ['Spades', 'Hearts', 'Diamonds']),
-        createCard('3', 'Clubs'),
-        createCard('4', 'Clubs'),
-        createCard('5', 'Clubs'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Clubs'),
+        ...createCardsOfRank(RANK_2, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS]),
+        createCard(RANK_3, SUIT_CLUBS),
+        createCard(RANK_4, SUIT_CLUBS),
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_CLUBS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -131,19 +152,19 @@ describe('Initial Round Instant Win Detection', () => {
       // Create 3 consecutive pairs: 3-3, 4-4, 5-5, with ♠3 included
       // Make sure we don't have all 4 cards of rank 2 (tứ quý heo)
       const hand = [
-        createCard('3', 'Spades'), // ♠3
-        createCard('3', 'Hearts'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Clubs'),
+        createCard(RANK_3, SUIT_SPADES), // ♠3
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_CLUBS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -155,19 +176,19 @@ describe('Initial Round Instant Win Detection', () => {
     it('should not detect if ♠3 is not in the consecutive pairs', () => {
       // 3 consecutive pairs but ♠3 is not part of them
       const hand = [
-        createCard('3', 'Hearts'), // Not ♠3
-        createCard('3', 'Diamonds'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('3', 'Spades'), // ♠3 but not in the pairs
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
+        createCard(RANK_3, SUIT_HEARTS), // Not ♠3
+        createCard(RANK_3, SUIT_DIAMONDS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_3, SUIT_SPADES), // ♠3 but not in the pairs
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -177,19 +198,19 @@ describe('Initial Round Instant Win Detection', () => {
 
     it('should not detect if hand does not have ♠3', () => {
       const hand = [
-        createCard('3', 'Hearts'),
-        createCard('3', 'Diamonds'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Clubs'),
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_3, SUIT_DIAMONDS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_CLUBS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -203,19 +224,19 @@ describe('Initial Round Instant Win Detection', () => {
       // Create 4 consecutive pairs: 3-3, 4-4, 5-5, 6-6, with ♠3 included
       // Make sure we don't have all 4 cards of rank 2 (tứ quý heo)
       const hand = [
-        createCard('3', 'Spades'), // ♠3
-        createCard('3', 'Hearts'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Spades'),
-        createCard('6', 'Hearts'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
+        createCard(RANK_3, SUIT_SPADES), // ♠3
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_SPADES),
+        createCard(RANK_6, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -226,19 +247,19 @@ describe('Initial Round Instant Win Detection', () => {
 
     it('should not detect if only 3 consecutive pairs', () => {
       const hand = [
-        createCard('3', 'Spades'),
-        createCard('3', 'Hearts'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Clubs'),
+        createCard(RANK_3, SUIT_SPADES),
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_CLUBS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -254,13 +275,13 @@ describe('Initial Round Instant Win Detection', () => {
       // Create 3 triples: 3-3-3, 4-4-4, 5-5-5
       // Use Clubs instead of Spades for rank 3 to avoid matching "3 đôi thông có ♠3"
       const hand = [
-        ...createCardsOfRank('3', ['Clubs', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('4', ['Clubs', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('5', ['Clubs', 'Hearts', 'Diamonds']),
-        createCard('7', 'Clubs'), // Extra cards to make 13
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
+        ...createCardsOfRank(RANK_3, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_4, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_5, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        createCard(RANK_7, SUIT_CLUBS), // Extra cards to make 13
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -273,11 +294,11 @@ describe('Initial Round Instant Win Detection', () => {
       // Create 4 triples: should detect as 4 sám cô
       // Use non-consecutive ranks to avoid matching consecutive pairs
       const hand = [
-        ...createCardsOfRank('3', ['Clubs', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('5', ['Clubs', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('7', ['Clubs', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('9', ['Clubs', 'Hearts', 'Diamonds']),
-        createCard('J', 'Clubs'), // 1 extra card to make 13
+        ...createCardsOfRank(RANK_3, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_5, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_7, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_9, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        createCard(RANK_J, SUIT_CLUBS), // 1 extra card to make 13
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -289,13 +310,13 @@ describe('Initial Round Instant Win Detection', () => {
 
     it('should not detect with only 2 triples', () => {
       const hand = [
-        ...createCardsOfRank('3', ['Clubs', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('4', ['Clubs', 'Hearts', 'Diamonds']),
-        createCard('5', 'Clubs'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
+        ...createCardsOfRank(RANK_3, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_4, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -308,11 +329,11 @@ describe('Initial Round Instant Win Detection', () => {
     it('should detect 4 sám cô (four triples)', () => {
       // Create 4 triples: use non-consecutive ranks to avoid matching consecutive pairs
       const hand = [
-        ...createCardsOfRank('3', ['Clubs', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('5', ['Clubs', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('7', ['Clubs', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('9', ['Clubs', 'Hearts', 'Diamonds']),
-        createCard('J', 'Clubs'), // 1 extra card to make 13
+        ...createCardsOfRank(RANK_3, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_5, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_7, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_9, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        createCard(RANK_J, SUIT_CLUBS), // 1 extra card to make 13
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -323,13 +344,13 @@ describe('Initial Round Instant Win Detection', () => {
 
     it('should not detect with only 3 triples', () => {
       const hand = [
-        ...createCardsOfRank('3', ['Clubs', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('5', ['Clubs', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('7', ['Clubs', 'Hearts', 'Diamonds']),
-        createCard('9', 'Clubs'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Clubs'),
-        createCard('K', 'Clubs'),
+        ...createCardsOfRank(RANK_3, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_5, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_7, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_CLUBS),
+        createCard(RANK_K, SUIT_CLUBS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -345,10 +366,10 @@ describe('Initial Round Instant Win Detection', () => {
       // Create 3 four of a kinds: 4-4-4-4, 5-5-5-5, 6-6-6-6
       // Don't use rank 3 to avoid matching "tứ quý 3"
       const hand = [
-        ...createCardsOfRank('4', ['Spades', 'Hearts', 'Diamonds', 'Clubs']),
-        ...createCardsOfRank('5', ['Spades', 'Hearts', 'Diamonds', 'Clubs']),
-        ...createCardsOfRank('6', ['Spades', 'Hearts', 'Diamonds', 'Clubs']),
-        createCard('7', 'Spades'), // 1 extra card to make 13
+        ...createCardsOfRank(RANK_4, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]),
+        ...createCardsOfRank(RANK_5, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]),
+        ...createCardsOfRank(RANK_6, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]),
+        createCard(RANK_7, SUIT_SPADES), // 1 extra card to make 13
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -360,10 +381,10 @@ describe('Initial Round Instant Win Detection', () => {
     it('should not count tứ quý heo as part of 3 tứ quý', () => {
       // 2 four of a kinds + tứ quý heo should not count as 3 tứ quý
       const hand = [
-        ...createCardsOfRank('2', ['Spades', 'Hearts', 'Diamonds', 'Clubs']), // Tứ quý heo
-        ...createCardsOfRank('4', ['Spades', 'Hearts', 'Diamonds', 'Clubs']),
-        ...createCardsOfRank('5', ['Spades', 'Hearts', 'Diamonds', 'Clubs']),
-        createCard('6', 'Spades'),
+        ...createCardsOfRank(RANK_2, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]), // Tứ quý heo
+        ...createCardsOfRank(RANK_4, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]),
+        ...createCardsOfRank(RANK_5, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]),
+        createCard(RANK_6, SUIT_SPADES),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -375,13 +396,13 @@ describe('Initial Round Instant Win Detection', () => {
 
     it('should not detect with only 2 four of a kinds', () => {
       const hand = [
-        ...createCardsOfRank('4', ['Spades', 'Hearts', 'Diamonds', 'Clubs']),
-        ...createCardsOfRank('5', ['Spades', 'Hearts', 'Diamonds', 'Clubs']),
-        createCard('6', 'Spades'),
-        createCard('7', 'Spades'),
-        createCard('8', 'Spades'),
-        createCard('9', 'Spades'),
-        createCard('10', 'Spades'),
+        ...createCardsOfRank(RANK_4, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]),
+        ...createCardsOfRank(RANK_5, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]),
+        createCard(RANK_6, SUIT_SPADES),
+        createCard(RANK_7, SUIT_SPADES),
+        createCard(RANK_8, SUIT_SPADES),
+        createCard(RANK_9, SUIT_SPADES),
+        createCard(RANK_10, SUIT_SPADES),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -396,19 +417,19 @@ describe('Initial Round Instant Win Detection', () => {
       // Use non-consecutive ranks to avoid matching "5 đôi thông 1 sám"
       // Example: 3-3, 5-5, 7-7, 9-9, J-J, 4-4-4
       const hand = [
-        createCard('3', 'Clubs'),
-        createCard('3', 'Hearts'),
-        createCard('4', 'Clubs'),
-        createCard('4', 'Hearts'),
-        createCard('4', 'Diamonds'), // Triple
-        createCard('5', 'Clubs'),
-        createCard('5', 'Hearts'),
-        createCard('7', 'Clubs'),
-        createCard('7', 'Hearts'),
-        createCard('9', 'Clubs'),
-        createCard('9', 'Hearts'),
-        createCard('J', 'Clubs'),
-        createCard('J', 'Hearts'),
+        createCard(RANK_3, SUIT_CLUBS),
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_CLUBS),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_DIAMONDS), // Triple
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_HEARTS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_HEARTS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -421,19 +442,19 @@ describe('Initial Round Instant Win Detection', () => {
       // 5 pairs: 3-3, 5-5, 7-7, 9-9, J-J (non-consecutive)
       // 1 triple: 4-4-4
       const hand = [
-        createCard('3', 'Clubs'),
-        createCard('3', 'Hearts'),
-        createCard('4', 'Clubs'),
-        createCard('4', 'Hearts'),
-        createCard('4', 'Diamonds'), // Triple
-        createCard('5', 'Clubs'),
-        createCard('5', 'Hearts'),
-        createCard('7', 'Clubs'),
-        createCard('7', 'Hearts'),
-        createCard('9', 'Clubs'),
-        createCard('9', 'Hearts'),
-        createCard('J', 'Clubs'),
-        createCard('J', 'Hearts'),
+        createCard(RANK_3, SUIT_CLUBS),
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_CLUBS),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_DIAMONDS), // Triple
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_HEARTS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_HEARTS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -445,19 +466,19 @@ describe('Initial Round Instant Win Detection', () => {
     it('should not detect if cannot form exactly 5 pairs + 1 triple', () => {
       // 6 pairs but no triple - use non-consecutive pairs to avoid matching "3 đôi thông có ♠3"
       const hand = [
-        createCard('3', 'Clubs'),
-        createCard('3', 'Hearts'),
-        createCard('5', 'Clubs'),
-        createCard('5', 'Hearts'),
-        createCard('7', 'Clubs'),
-        createCard('7', 'Hearts'),
-        createCard('9', 'Clubs'),
-        createCard('9', 'Hearts'),
-        createCard('J', 'Clubs'),
-        createCard('J', 'Hearts'),
-        createCard('K', 'Clubs'),
-        createCard('K', 'Hearts'),
-        createCard('A', 'Clubs'), // Single card, not a triple
+        createCard(RANK_3, SUIT_CLUBS),
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_HEARTS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_HEARTS),
+        createCard(RANK_K, SUIT_CLUBS),
+        createCard(RANK_K, SUIT_HEARTS),
+        createCard(RANK_A, SUIT_CLUBS), // Single card, not a triple
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -471,19 +492,19 @@ describe('Initial Round Instant Win Detection', () => {
       // 5 consecutive pairs: 4-4, 5-5, 6-6, 7-7, 8-8 (don't include rank 3 to avoid matching "3 đôi thông có ♠3")
       // 1 triple: 9-9-9
       const hand = [
-        createCard('4', 'Clubs'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Clubs'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Clubs'),
-        createCard('6', 'Hearts'),
-        createCard('7', 'Clubs'),
-        createCard('7', 'Hearts'),
-        createCard('8', 'Clubs'),
-        createCard('8', 'Hearts'),
-        createCard('9', 'Clubs'),
-        createCard('9', 'Hearts'),
-        createCard('9', 'Diamonds'),
+        createCard(RANK_4, SUIT_CLUBS),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_6, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_HEARTS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_DIAMONDS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -495,19 +516,19 @@ describe('Initial Round Instant Win Detection', () => {
     it('should not detect if pairs are not consecutive', () => {
       // 5 pairs but not consecutive: 4-4, 5-5, 6-6, 8-8, 9-9 (missing 7)
       const hand = [
-        createCard('4', 'Clubs'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Clubs'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Clubs'),
-        createCard('6', 'Hearts'),
-        createCard('8', 'Clubs'),
-        createCard('8', 'Hearts'),
-        createCard('9', 'Clubs'),
-        createCard('9', 'Hearts'),
-        createCard('10', 'Clubs'),
-        createCard('10', 'Hearts'),
-        createCard('10', 'Diamonds'),
+        createCard(RANK_4, SUIT_CLUBS),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_6, SUIT_HEARTS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_HEARTS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_HEARTS),
+        createCard(RANK_10, SUIT_DIAMONDS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -520,19 +541,19 @@ describe('Initial Round Instant Win Detection', () => {
     it('should not detect if cannot form exactly 5 consecutive pairs + 1 triple', () => {
       // 5 consecutive pairs but leftover cards don't form a triple
       const hand = [
-        createCard('4', 'Clubs'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Clubs'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Clubs'),
-        createCard('6', 'Hearts'),
-        createCard('7', 'Clubs'),
-        createCard('7', 'Hearts'),
-        createCard('8', 'Clubs'),
-        createCard('8', 'Hearts'),
-        createCard('9', 'Clubs'),
-        createCard('9', 'Hearts'),
-        createCard('10', 'Clubs'), // Single card, not a triple
+        createCard(RANK_4, SUIT_CLUBS),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_6, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_HEARTS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_HEARTS),
+        createCard(RANK_10, SUIT_CLUBS), // Single card, not a triple
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -545,10 +566,10 @@ describe('Initial Round Instant Win Detection', () => {
     it('should detect tứ quý 3 before other conditions', () => {
       // Hand has both tứ quý 3 and 3 sám cô
       const hand = [
-        ...createCardsOfRank('3', ['Spades', 'Hearts', 'Diamonds', 'Clubs']), // Tứ quý 3
-        ...createCardsOfRank('4', ['Spades', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('5', ['Spades', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('6', ['Spades', 'Hearts', 'Diamonds']),
+        ...createCardsOfRank(RANK_3, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]), // Tứ quý 3
+        ...createCardsOfRank(RANK_4, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_5, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_6, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS]),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -560,10 +581,10 @@ describe('Initial Round Instant Win Detection', () => {
     it('should detect tứ quý heo before 3 sám cô', () => {
       // Hand has both tứ quý heo and 3 sám cô
       const hand = [
-        ...createCardsOfRank('2', ['Spades', 'Hearts', 'Diamonds', 'Clubs']), // Tứ quý heo
-        ...createCardsOfRank('3', ['Spades', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('4', ['Spades', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('5', ['Spades', 'Hearts', 'Diamonds']),
+        ...createCardsOfRank(RANK_2, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]), // Tứ quý heo
+        ...createCardsOfRank(RANK_3, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_4, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_5, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS]),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -575,11 +596,11 @@ describe('Initial Round Instant Win Detection', () => {
     it('should detect 4 sám cô before 3 sám cô', () => {
       // Hand has 4 triples - use non-consecutive ranks to avoid matching consecutive pairs
       const hand = [
-        ...createCardsOfRank('3', ['Clubs', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('5', ['Clubs', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('7', ['Clubs', 'Hearts', 'Diamonds']),
-        ...createCardsOfRank('9', ['Clubs', 'Hearts', 'Diamonds']),
-        createCard('J', 'Clubs'),
+        ...createCardsOfRank(RANK_3, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_5, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_7, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        ...createCardsOfRank(RANK_9, [SUIT_CLUBS, SUIT_HEARTS, SUIT_DIAMONDS]),
+        createCard(RANK_J, SUIT_CLUBS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -592,19 +613,19 @@ describe('Initial Round Instant Win Detection', () => {
       // Hand has 4 consecutive pairs including ♠3
       // Make sure we don't have all 4 cards of rank 2 (tứ quý heo)
       const hand = [
-        createCard('3', 'Spades'), // ♠3
-        createCard('3', 'Hearts'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Spades'),
-        createCard('6', 'Hearts'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
+        createCard(RANK_3, SUIT_SPADES), // ♠3
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_SPADES),
+        createCard(RANK_6, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
       ];
 
       const result = checkInitialRoundInstantWin(hand);
@@ -630,19 +651,19 @@ describe('Other Round Instant Win Detection', () => {
       // Create a hand that definitely doesn't match any instant win condition
       // Don't include all ranks from 3 to A (which would be sảnh rồng)
       const normalHand = [
-        createCard('3', 'Clubs'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Diamonds'),
-        createCard('6', 'Spades'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Hearts'),
-        createCard('9', 'Diamonds'),
-        createCard('10', 'Spades'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Hearts'),
-        createCard('K', 'Diamonds'),
-        createCard('2', 'Clubs'), // One heo, not all 4
-        createCard('2', 'Hearts'), // Missing A, so not sảnh rồng
+        createCard(RANK_3, SUIT_CLUBS),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_DIAMONDS),
+        createCard(RANK_6, SUIT_SPADES),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_DIAMONDS),
+        createCard(RANK_10, SUIT_SPADES),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_HEARTS),
+        createCard(RANK_K, SUIT_DIAMONDS),
+        createCard(RANK_2, SUIT_CLUBS), // One heo, not all 4
+        createCard(RANK_2, SUIT_HEARTS), // Missing A, so not sảnh rồng
       ];
       const result = checkOtherRoundInstantWin(normalHand);
 
@@ -654,16 +675,16 @@ describe('Other Round Instant Win Detection', () => {
   describe('Subtask 2.3.2.1: Tứ quý heo', () => {
     it('should detect tứ quý heo (all four 2s)', () => {
       const hand = [
-        ...createCardsOfRank('2', ['Spades', 'Hearts', 'Diamonds', 'Clubs']),
-        createCard('3', 'Clubs'),
-        createCard('4', 'Clubs'),
-        createCard('5', 'Clubs'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
+        ...createCardsOfRank(RANK_2, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]),
+        createCard(RANK_3, SUIT_CLUBS),
+        createCard(RANK_4, SUIT_CLUBS),
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -674,17 +695,17 @@ describe('Other Round Instant Win Detection', () => {
 
     it('should not detect tứ quý heo with only 3 cards of rank 2', () => {
       const hand = [
-        ...createCardsOfRank('2', ['Spades', 'Hearts', 'Diamonds']),
-        createCard('3', 'Clubs'),
-        createCard('4', 'Clubs'),
-        createCard('5', 'Clubs'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Clubs'),
+        ...createCardsOfRank(RANK_2, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS]),
+        createCard(RANK_3, SUIT_CLUBS),
+        createCard(RANK_4, SUIT_CLUBS),
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_CLUBS),
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -697,19 +718,19 @@ describe('Other Round Instant Win Detection', () => {
     it('should detect 5 đôi thông (5 consecutive pairs)', () => {
       // 5 consecutive pairs: 3-3, 4-4, 5-5, 6-6, 7-7
       const hand = [
-        createCard('3', 'Spades'),
-        createCard('3', 'Hearts'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Spades'),
-        createCard('6', 'Hearts'),
-        createCard('7', 'Spades'),
-        createCard('7', 'Hearts'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
+        createCard(RANK_3, SUIT_SPADES),
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_SPADES),
+        createCard(RANK_6, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_SPADES),
+        createCard(RANK_7, SUIT_HEARTS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -720,19 +741,19 @@ describe('Other Round Instant Win Detection', () => {
 
     it('should not detect if only 4 consecutive pairs', () => {
       const hand = [
-        createCard('3', 'Spades'),
-        createCard('3', 'Hearts'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Spades'),
-        createCard('6', 'Hearts'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
+        createCard(RANK_3, SUIT_SPADES),
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_SPADES),
+        createCard(RANK_6, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -743,19 +764,19 @@ describe('Other Round Instant Win Detection', () => {
     it('should not detect if pairs are not consecutive', () => {
       // 5 pairs but not consecutive: 3-3, 4-4, 5-5, 7-7, 8-8 (missing 6)
       const hand = [
-        createCard('3', 'Spades'),
-        createCard('3', 'Hearts'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('7', 'Spades'),
-        createCard('7', 'Hearts'),
-        createCard('8', 'Spades'),
-        createCard('8', 'Hearts'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
+        createCard(RANK_3, SUIT_SPADES),
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_SPADES),
+        createCard(RANK_7, SUIT_HEARTS),
+        createCard(RANK_8, SUIT_SPADES),
+        createCard(RANK_8, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -766,19 +787,19 @@ describe('Other Round Instant Win Detection', () => {
     it('should not detect if consecutive pairs include rank 2', () => {
       // Cannot have consecutive pairs with rank 2
       const hand = [
-        createCard('A', 'Spades'),
-        createCard('A', 'Hearts'),
-        createCard('2', 'Spades'),
-        createCard('2', 'Hearts'),
-        createCard('3', 'Spades'),
-        createCard('3', 'Hearts'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
+        createCard(RANK_A, SUIT_SPADES),
+        createCard(RANK_A, SUIT_HEARTS),
+        createCard(RANK_2, SUIT_SPADES),
+        createCard(RANK_2, SUIT_HEARTS),
+        createCard(RANK_3, SUIT_SPADES),
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -791,19 +812,19 @@ describe('Other Round Instant Win Detection', () => {
     it('should detect 6 đôi bất kì (6 pairs, any ranks)', () => {
       // 6 pairs: 3-3, 4-4, 5-5, 7-7, 9-9, J-J (non-consecutive is OK)
       const hand = [
-        createCard('3', 'Spades'),
-        createCard('3', 'Hearts'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('7', 'Spades'),
-        createCard('7', 'Hearts'),
-        createCard('9', 'Spades'),
-        createCard('9', 'Hearts'),
-        createCard('J', 'Spades'),
-        createCard('J', 'Hearts'),
-        createCard('K', 'Clubs'), // Single card
+        createCard(RANK_3, SUIT_SPADES),
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_SPADES),
+        createCard(RANK_7, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_SPADES),
+        createCard(RANK_9, SUIT_HEARTS),
+        createCard(RANK_J, SUIT_SPADES),
+        createCard(RANK_J, SUIT_HEARTS),
+        createCard(RANK_K, SUIT_CLUBS), // Single card
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -815,19 +836,19 @@ describe('Other Round Instant Win Detection', () => {
     it('should detect 6 đôi bất kì with consecutive pairs', () => {
       // 6 consecutive pairs: 3-3, 4-4, 5-5, 6-6, 7-7, 8-8
       const hand = [
-        createCard('3', 'Spades'),
-        createCard('3', 'Hearts'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Spades'),
-        createCard('6', 'Hearts'),
-        createCard('7', 'Spades'),
-        createCard('7', 'Hearts'),
-        createCard('8', 'Spades'),
-        createCard('8', 'Hearts'),
-        createCard('9', 'Clubs'), // Single card
+        createCard(RANK_3, SUIT_SPADES),
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_SPADES),
+        createCard(RANK_6, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_SPADES),
+        createCard(RANK_7, SUIT_HEARTS),
+        createCard(RANK_8, SUIT_SPADES),
+        createCard(RANK_8, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_CLUBS), // Single card
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -838,19 +859,19 @@ describe('Other Round Instant Win Detection', () => {
 
     it('should not detect with only 5 pairs', () => {
       const hand = [
-        createCard('3', 'Spades'),
-        createCard('3', 'Hearts'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('7', 'Spades'),
-        createCard('7', 'Hearts'),
-        createCard('9', 'Spades'),
-        createCard('9', 'Hearts'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Clubs'),
-        createCard('K', 'Clubs'),
+        createCard(RANK_3, SUIT_SPADES),
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_SPADES),
+        createCard(RANK_7, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_SPADES),
+        createCard(RANK_9, SUIT_HEARTS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_CLUBS),
+        createCard(RANK_K, SUIT_CLUBS),
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -861,19 +882,19 @@ describe('Other Round Instant Win Detection', () => {
     it('should detect 6 đôi bất kì even if one pair is rank 2', () => {
       // 6 pairs including a pair of 2s: 2-2, 3-3, 4-4, 5-5, 6-6, 7-7
       const hand = [
-        createCard('2', 'Spades'),
-        createCard('2', 'Hearts'),
-        createCard('3', 'Spades'),
-        createCard('3', 'Hearts'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Spades'),
-        createCard('6', 'Hearts'),
-        createCard('7', 'Spades'),
-        createCard('7', 'Hearts'),
-        createCard('8', 'Clubs'), // Single card
+        createCard(RANK_2, SUIT_SPADES),
+        createCard(RANK_2, SUIT_HEARTS),
+        createCard(RANK_3, SUIT_SPADES),
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_SPADES),
+        createCard(RANK_6, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_SPADES),
+        createCard(RANK_7, SUIT_HEARTS),
+        createCard(RANK_8, SUIT_CLUBS), // Single card
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -887,19 +908,19 @@ describe('Other Round Instant Win Detection', () => {
     it('should detect sảnh rồng (3 to A straight - 12 cards)', () => {
       // Straight from 3 to A: 3, 4, 5, 6, 7, 8, 9, 10, J, Q, K, A
       const hand = [
-        createCard('3', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Diamonds'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Spades'),
-        createCard('8', 'Hearts'),
-        createCard('9', 'Diamonds'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Spades'),
-        createCard('Q', 'Hearts'),
-        createCard('K', 'Diamonds'),
-        createCard('A', 'Clubs'),
-        createCard('2', 'Spades'), // Extra card
+        createCard(RANK_3, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_DIAMONDS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_SPADES),
+        createCard(RANK_8, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_DIAMONDS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_SPADES),
+        createCard(RANK_Q, SUIT_HEARTS),
+        createCard(RANK_K, SUIT_DIAMONDS),
+        createCard(RANK_A, SUIT_CLUBS),
+        createCard(RANK_2, SUIT_SPADES), // Extra card
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -911,19 +932,19 @@ describe('Other Round Instant Win Detection', () => {
     it('should not detect if straight is shorter than 12 cards', () => {
       // Missing A, so only 11 cards from 3 to K
       const hand = [
-        createCard('3', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Diamonds'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Spades'),
-        createCard('8', 'Hearts'),
-        createCard('9', 'Diamonds'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Spades'),
-        createCard('Q', 'Hearts'),
-        createCard('K', 'Diamonds'),
-        createCard('2', 'Spades'),
-        createCard('2', 'Hearts'),
+        createCard(RANK_3, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_DIAMONDS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_SPADES),
+        createCard(RANK_8, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_DIAMONDS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_SPADES),
+        createCard(RANK_Q, SUIT_HEARTS),
+        createCard(RANK_K, SUIT_DIAMONDS),
+        createCard(RANK_2, SUIT_SPADES),
+        createCard(RANK_2, SUIT_HEARTS),
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -934,19 +955,19 @@ describe('Other Round Instant Win Detection', () => {
     it('should not detect if missing a rank in 3 to A sequence', () => {
       // Missing rank 4, so cannot form sảnh rồng
       const hand = [
-        createCard('3', 'Spades'),
-        createCard('5', 'Hearts'), // Missing 4
-        createCard('6', 'Diamonds'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Spades'),
-        createCard('9', 'Hearts'),
-        createCard('10', 'Diamonds'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Spades'),
-        createCard('K', 'Hearts'),
-        createCard('A', 'Diamonds'),
-        createCard('2', 'Clubs'),
-        createCard('2', 'Spades'),
+        createCard(RANK_3, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS), // Missing 4
+        createCard(RANK_6, SUIT_DIAMONDS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_SPADES),
+        createCard(RANK_9, SUIT_HEARTS),
+        createCard(RANK_10, SUIT_DIAMONDS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_SPADES),
+        createCard(RANK_K, SUIT_HEARTS),
+        createCard(RANK_A, SUIT_DIAMONDS),
+        createCard(RANK_2, SUIT_CLUBS),
+        createCard(RANK_2, SUIT_SPADES),
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -957,19 +978,19 @@ describe('Other Round Instant Win Detection', () => {
     it('should not detect if cards are not consecutive', () => {
       // Missing some ranks in the sequence
       const hand = [
-        createCard('3', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Diamonds'),
-        createCard('7', 'Clubs'), // Missing 6
-        createCard('8', 'Spades'),
-        createCard('9', 'Hearts'),
-        createCard('10', 'Diamonds'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Spades'),
-        createCard('K', 'Hearts'),
-        createCard('A', 'Diamonds'),
-        createCard('2', 'Clubs'),
-        createCard('2', 'Spades'),
+        createCard(RANK_3, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_DIAMONDS),
+        createCard(RANK_7, SUIT_CLUBS), // Missing 6
+        createCard(RANK_8, SUIT_SPADES),
+        createCard(RANK_9, SUIT_HEARTS),
+        createCard(RANK_10, SUIT_DIAMONDS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_SPADES),
+        createCard(RANK_K, SUIT_HEARTS),
+        createCard(RANK_A, SUIT_DIAMONDS),
+        createCard(RANK_2, SUIT_CLUBS),
+        createCard(RANK_2, SUIT_SPADES),
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -983,19 +1004,19 @@ describe('Other Round Instant Win Detection', () => {
       // All red cards: Hearts and Diamonds
       // Don't include all ranks 3-A (which would be sảnh rồng)
       const hand = [
-        createCard('3', 'Hearts'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Diamonds'),
-        createCard('6', 'Hearts'),
-        createCard('7', 'Diamonds'),
-        createCard('8', 'Hearts'),
-        createCard('9', 'Diamonds'),
-        createCard('10', 'Hearts'),
-        createCard('J', 'Diamonds'),
-        createCard('Q', 'Hearts'),
-        createCard('K', 'Diamonds'),
-        createCard('2', 'Hearts'), // Missing A, so not sảnh rồng
-        createCard('2', 'Diamonds'),
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_DIAMONDS),
+        createCard(RANK_6, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_DIAMONDS),
+        createCard(RANK_8, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_DIAMONDS),
+        createCard(RANK_10, SUIT_HEARTS),
+        createCard(RANK_J, SUIT_DIAMONDS),
+        createCard(RANK_Q, SUIT_HEARTS),
+        createCard(RANK_K, SUIT_DIAMONDS),
+        createCard(RANK_2, SUIT_HEARTS), // Missing A, so not sảnh rồng
+        createCard(RANK_2, SUIT_DIAMONDS),
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -1008,19 +1029,19 @@ describe('Other Round Instant Win Detection', () => {
       // All black cards: Clubs and Spades
       // Don't include all ranks 3-A (which would be sảnh rồng)
       const hand = [
-        createCard('3', 'Clubs'),
-        createCard('4', 'Spades'),
-        createCard('5', 'Clubs'),
-        createCard('6', 'Spades'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Spades'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Spades'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Spades'),
-        createCard('K', 'Clubs'),
-        createCard('2', 'Spades'), // Missing A, so not sảnh rồng
-        createCard('2', 'Clubs'),
+        createCard(RANK_3, SUIT_CLUBS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_6, SUIT_SPADES),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_SPADES),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_SPADES),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_SPADES),
+        createCard(RANK_K, SUIT_CLUBS),
+        createCard(RANK_2, SUIT_SPADES), // Missing A, so not sảnh rồng
+        createCard(RANK_2, SUIT_CLUBS),
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -1033,19 +1054,19 @@ describe('Other Round Instant Win Detection', () => {
       // Mix of red and black cards
       // Don't include all ranks 3-A (which would be sảnh rồng)
       const hand = [
-        createCard('3', 'Hearts'), // Red
-        createCard('4', 'Clubs'), // Black
-        createCard('5', 'Diamonds'), // Red
-        createCard('6', 'Spades'), // Black
-        createCard('7', 'Hearts'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Diamonds'),
-        createCard('10', 'Spades'),
-        createCard('J', 'Hearts'),
-        createCard('Q', 'Clubs'),
-        createCard('K', 'Diamonds'),
-        createCard('2', 'Spades'), // Missing A, so not sảnh rồng
-        createCard('2', 'Hearts'),
+        createCard(RANK_3, SUIT_HEARTS), // Red
+        createCard(RANK_4, SUIT_CLUBS), // Black
+        createCard(RANK_5, SUIT_DIAMONDS), // Red
+        createCard(RANK_6, SUIT_SPADES), // Black
+        createCard(RANK_7, SUIT_HEARTS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_DIAMONDS),
+        createCard(RANK_10, SUIT_SPADES),
+        createCard(RANK_J, SUIT_HEARTS),
+        createCard(RANK_Q, SUIT_CLUBS),
+        createCard(RANK_K, SUIT_DIAMONDS),
+        createCard(RANK_2, SUIT_SPADES), // Missing A, so not sảnh rồng
+        createCard(RANK_2, SUIT_HEARTS),
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -1056,19 +1077,19 @@ describe('Other Round Instant Win Detection', () => {
     it('should detect đồng chất đồng màu even with all same suit', () => {
       // All same color (red) but different suits, missing A so not sảnh rồng
       const hand = [
-        createCard('3', 'Hearts'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Hearts'),
-        createCard('7', 'Hearts'),
-        createCard('8', 'Hearts'),
-        createCard('9', 'Hearts'),
-        createCard('10', 'Hearts'),
-        createCard('J', 'Hearts'),
-        createCard('Q', 'Hearts'),
-        createCard('K', 'Hearts'),
-        createCard('2', 'Hearts'),
-        createCard('2', 'Diamonds'), // Same color (red) but different suit
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_HEARTS),
+        createCard(RANK_8, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_HEARTS),
+        createCard(RANK_10, SUIT_HEARTS),
+        createCard(RANK_J, SUIT_HEARTS),
+        createCard(RANK_Q, SUIT_HEARTS),
+        createCard(RANK_K, SUIT_HEARTS),
+        createCard(RANK_2, SUIT_HEARTS),
+        createCard(RANK_2, SUIT_DIAMONDS), // Same color (red) but different suit
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -1084,16 +1105,16 @@ describe('Other Round Instant Win Detection', () => {
       // 4 twos (4 cards = 2 pairs) + 4 more pairs (8 cards) + 1 leftover = 13 cards
       // Total: 6 pairs + 1 leftover = 6 đôi bất kì, but tứ quý heo should be detected first
       const hand = [
-        ...createCardsOfRank('2', ['Spades', 'Hearts', 'Diamonds', 'Clubs']), // Tứ quý heo (4 cards = 2 pairs)
-        createCard('3', 'Spades'),
-        createCard('3', 'Hearts'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Spades'),
-        createCard('6', 'Hearts'),
-        createCard('8', 'Clubs'), // Single card (leftover)
+        ...createCardsOfRank(RANK_2, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]), // Tứ quý heo (4 cards = 2 pairs)
+        createCard(RANK_3, SUIT_SPADES),
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_SPADES),
+        createCard(RANK_6, SUIT_HEARTS),
+        createCard(RANK_8, SUIT_CLUBS), // Single card (leftover)
       ];
       // Count: 4 twos (2 pairs) + 4 pairs (8 cards) + 1 leftover = 13 cards, 6 pairs total
 
@@ -1107,19 +1128,19 @@ describe('Other Round Instant Win Detection', () => {
       // Hand has 5 consecutive pairs (which also forms 6 đôi bất kì if we count differently)
       // But we should detect 5 đôi thông first
       const hand = [
-        createCard('3', 'Spades'),
-        createCard('3', 'Hearts'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Spades'),
-        createCard('6', 'Hearts'),
-        createCard('7', 'Spades'),
-        createCard('7', 'Hearts'),
-        createCard('8', 'Spades'),
-        createCard('8', 'Hearts'),
-        createCard('9', 'Clubs'),
+        createCard(RANK_3, SUIT_SPADES),
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_SPADES),
+        createCard(RANK_6, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_SPADES),
+        createCard(RANK_7, SUIT_HEARTS),
+        createCard(RANK_8, SUIT_SPADES),
+        createCard(RANK_8, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_CLUBS),
       ];
 
       const result = checkOtherRoundInstantWin(hand);
@@ -1147,16 +1168,16 @@ describe('Task 2.3.3: Instant Win Handler', () => {
     it('should call checkInitialRoundInstantWin when isInitialRound is true', () => {
       // Hand with tứ quý 3 (initial round instant win)
       const hand = [
-        ...createCardsOfRank('3', ['Spades', 'Hearts', 'Diamonds', 'Clubs']),
-        createCard('4', 'Clubs'),
-        createCard('5', 'Clubs'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Clubs'),
+        ...createCardsOfRank(RANK_3, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]),
+        createCard(RANK_4, SUIT_CLUBS),
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_CLUBS),
       ];
 
       const result = checkInstantWin(hand, true);
@@ -1167,16 +1188,16 @@ describe('Task 2.3.3: Instant Win Handler', () => {
     it('should call checkOtherRoundInstantWin when isInitialRound is false', () => {
       // Hand with tứ quý heo (other round instant win)
       const hand = [
-        ...createCardsOfRank('2', ['Spades', 'Hearts', 'Diamonds', 'Clubs']),
-        createCard('3', 'Clubs'),
-        createCard('4', 'Clubs'),
-        createCard('5', 'Clubs'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
+        ...createCardsOfRank(RANK_2, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]),
+        createCard(RANK_3, SUIT_CLUBS),
+        createCard(RANK_4, SUIT_CLUBS),
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
       ];
 
       const result = checkInstantWin(hand, false);
@@ -1188,19 +1209,19 @@ describe('Task 2.3.3: Instant Win Handler', () => {
       // Hand that matches other round condition (5 đôi thông) but not initial round
       // Use non-consecutive pairs and ensure no ♠3 to avoid matching initial round conditions
       const hand = [
-        createCard('3', 'Hearts'), // Not ♠3
-        createCard('3', 'Diamonds'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Spades'),
-        createCard('6', 'Hearts'),
-        createCard('7', 'Spades'),
-        createCard('7', 'Hearts'),
-        createCard('9', 'Clubs'), // Skip 8 to break consecutive pattern
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
+        createCard(RANK_3, SUIT_HEARTS), // Not ♠3
+        createCard(RANK_3, SUIT_DIAMONDS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_SPADES),
+        createCard(RANK_6, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_SPADES),
+        createCard(RANK_7, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_CLUBS), // Skip 8 to break consecutive pattern
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
       ];
 
       const result = checkInstantWin(hand, true);
@@ -1210,16 +1231,16 @@ describe('Task 2.3.3: Instant Win Handler', () => {
     it('should return false when isInitialRound is false but hand does not match other round conditions', () => {
       // Hand that matches initial round condition (tứ quý 3) but not other round
       const hand = [
-        ...createCardsOfRank('3', ['Spades', 'Hearts', 'Diamonds', 'Clubs']),
-        createCard('4', 'Clubs'),
-        createCard('5', 'Clubs'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Clubs'),
+        ...createCardsOfRank(RANK_3, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]),
+        createCard(RANK_4, SUIT_CLUBS),
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_CLUBS),
       ];
 
       const result = checkInstantWin(hand, false);
@@ -1231,16 +1252,16 @@ describe('Task 2.3.3: Instant Win Handler', () => {
     it('should return correct result for initial round instant win', () => {
       // Test tứ quý 3
       const hand1 = [
-        ...createCardsOfRank('3', ['Spades', 'Hearts', 'Diamonds', 'Clubs']),
-        createCard('4', 'Clubs'),
-        createCard('5', 'Clubs'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Clubs'),
+        ...createCardsOfRank(RANK_3, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]),
+        createCard(RANK_4, SUIT_CLUBS),
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_CLUBS),
       ];
 
       const result1 = checkInstantWin(hand1, true);
@@ -1249,19 +1270,19 @@ describe('Task 2.3.3: Instant Win Handler', () => {
 
       // Test 3 đôi thông có ♠3
       const hand2 = [
-        createCard('3', 'Spades'), // ♠3
-        createCard('3', 'Hearts'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Clubs'),
+        createCard(RANK_3, SUIT_SPADES), // ♠3
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_CLUBS),
       ];
 
       const result2 = checkInstantWin(hand2, true);
@@ -1272,19 +1293,19 @@ describe('Task 2.3.3: Instant Win Handler', () => {
     it('should return correct result for other round instant win', () => {
       // Test 5 đôi thông
       const hand1 = [
-        createCard('3', 'Spades'),
-        createCard('3', 'Hearts'),
-        createCard('4', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Spades'),
-        createCard('5', 'Hearts'),
-        createCard('6', 'Spades'),
-        createCard('6', 'Hearts'),
-        createCard('7', 'Spades'),
-        createCard('7', 'Hearts'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
+        createCard(RANK_3, SUIT_SPADES),
+        createCard(RANK_3, SUIT_HEARTS),
+        createCard(RANK_4, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_SPADES),
+        createCard(RANK_5, SUIT_HEARTS),
+        createCard(RANK_6, SUIT_SPADES),
+        createCard(RANK_6, SUIT_HEARTS),
+        createCard(RANK_7, SUIT_SPADES),
+        createCard(RANK_7, SUIT_HEARTS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
       ];
 
       const result1 = checkInstantWin(hand1, false);
@@ -1293,19 +1314,19 @@ describe('Task 2.3.3: Instant Win Handler', () => {
 
       // Test sảnh rồng
       const hand2 = [
-        createCard('3', 'Spades'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Diamonds'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Spades'),
-        createCard('8', 'Hearts'),
-        createCard('9', 'Diamonds'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Spades'),
-        createCard('Q', 'Hearts'),
-        createCard('K', 'Diamonds'),
-        createCard('A', 'Clubs'),
-        createCard('2', 'Spades'), // Extra card
+        createCard(RANK_3, SUIT_SPADES),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_DIAMONDS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_SPADES),
+        createCard(RANK_8, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_DIAMONDS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_SPADES),
+        createCard(RANK_Q, SUIT_HEARTS),
+        createCard(RANK_K, SUIT_DIAMONDS),
+        createCard(RANK_A, SUIT_CLUBS),
+        createCard(RANK_2, SUIT_SPADES), // Extra card
       ];
 
       const result2 = checkInstantWin(hand2, false);
@@ -1317,19 +1338,19 @@ describe('Task 2.3.3: Instant Win Handler', () => {
       // Normal hand without any instant win conditions
       // Missing rank A to avoid sảnh rồng, and ensure no other conditions
       const normalHand = [
-        createCard('3', 'Clubs'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Diamonds'),
-        createCard('6', 'Spades'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Hearts'),
-        createCard('9', 'Diamonds'),
-        createCard('10', 'Spades'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Hearts'),
-        createCard('K', 'Diamonds'),
-        createCard('2', 'Clubs'), // One heo, not all 4
-        createCard('2', 'Hearts'), // Two heos, not all 4
+        createCard(RANK_3, SUIT_CLUBS),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_DIAMONDS),
+        createCard(RANK_6, SUIT_SPADES),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_DIAMONDS),
+        createCard(RANK_10, SUIT_SPADES),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_HEARTS),
+        createCard(RANK_K, SUIT_DIAMONDS),
+        createCard(RANK_2, SUIT_CLUBS), // One heo, not all 4
+        createCard(RANK_2, SUIT_HEARTS), // Two heos, not all 4
       ];
 
       const resultInitial = checkInstantWin(normalHand, true);
@@ -1344,16 +1365,16 @@ describe('Task 2.3.3: Instant Win Handler', () => {
     it('should return correct type for tứ quý heo in both round types', () => {
       // Tứ quý heo is valid in both initial and other rounds
       const hand = [
-        ...createCardsOfRank('2', ['Spades', 'Hearts', 'Diamonds', 'Clubs']),
-        createCard('3', 'Clubs'),
-        createCard('4', 'Clubs'),
-        createCard('5', 'Clubs'),
-        createCard('6', 'Clubs'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Clubs'),
-        createCard('9', 'Clubs'),
-        createCard('10', 'Clubs'),
-        createCard('J', 'Clubs'),
+        ...createCardsOfRank(RANK_2, [SUIT_SPADES, SUIT_HEARTS, SUIT_DIAMONDS, SUIT_CLUBS]),
+        createCard(RANK_3, SUIT_CLUBS),
+        createCard(RANK_4, SUIT_CLUBS),
+        createCard(RANK_5, SUIT_CLUBS),
+        createCard(RANK_6, SUIT_CLUBS),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_CLUBS),
+        createCard(RANK_9, SUIT_CLUBS),
+        createCard(RANK_10, SUIT_CLUBS),
+        createCard(RANK_J, SUIT_CLUBS),
       ];
 
       const resultInitial = checkInstantWin(hand, true);
@@ -1369,8 +1390,8 @@ describe('Task 2.3.3: Instant Win Handler', () => {
   describe('Subtask 2.3.3.4: Handle instant win game end flow', () => {
     it('should validate hand size before checking instant win', () => {
       const smallHand = [
-        createCard('3', 'Clubs'),
-        createCard('4', 'Hearts'),
+        createCard(RANK_3, SUIT_CLUBS),
+        createCard(RANK_4, SUIT_HEARTS),
         // ... only 2 cards, not 13
       ];
 
@@ -1381,19 +1402,19 @@ describe('Task 2.3.3: Instant Win Handler', () => {
     it('should handle edge case: hand with exactly 13 cards but invalid instant win', () => {
       // Hand that has 13 cards but doesn't match any instant win condition
       const hand = [
-        createCard('3', 'Clubs'),
-        createCard('4', 'Hearts'),
-        createCard('5', 'Diamonds'),
-        createCard('6', 'Spades'),
-        createCard('7', 'Clubs'),
-        createCard('8', 'Hearts'),
-        createCard('9', 'Diamonds'),
-        createCard('10', 'Spades'),
-        createCard('J', 'Clubs'),
-        createCard('Q', 'Hearts'),
-        createCard('K', 'Diamonds'),
-        createCard('A', 'Spades'),
-        createCard('2', 'Clubs'),
+        createCard(RANK_3, SUIT_CLUBS),
+        createCard(RANK_4, SUIT_HEARTS),
+        createCard(RANK_5, SUIT_DIAMONDS),
+        createCard(RANK_6, SUIT_SPADES),
+        createCard(RANK_7, SUIT_CLUBS),
+        createCard(RANK_8, SUIT_HEARTS),
+        createCard(RANK_9, SUIT_DIAMONDS),
+        createCard(RANK_10, SUIT_SPADES),
+        createCard(RANK_J, SUIT_CLUBS),
+        createCard(RANK_Q, SUIT_HEARTS),
+        createCard(RANK_K, SUIT_DIAMONDS),
+        createCard(RANK_A, SUIT_SPADES),
+        createCard(RANK_2, SUIT_CLUBS),
       ];
 
       const result = checkInstantWin(hand, true);

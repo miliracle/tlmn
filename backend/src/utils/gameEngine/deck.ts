@@ -76,4 +76,3 @@ export function generateShuffledDeck(): Card[] {
   const deck = generateDeck();
   return shuffleDeck(deck);
 }
-

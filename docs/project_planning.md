@@ -69,7 +69,6 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 - [x] **Subtask 2.1.3.1:** Implement dealCards function (13 cards per player)
 - [x] **Subtask 2.1.3.2:** Handle unused cards for 2-3 player games
 - [x] **Subtask 2.1.3.3:** Validate card distribution (all players get 13 cards)
-- [x] **Subtask 2.1.3.4:** Check for Tứ Quý Heo during deal (instant win condition)
 
 ### Story 2.2: Combination Detection & Validation
 
@@ -131,30 +130,30 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 ### Story 2.4: Move Validation & Turn Management
 
 #### Task 2.4.1: Move Validation System
-- [ ] **Subtask 2.4.1.1:** Create isValidMove function
-- [ ] **Subtask 2.4.1.2:** Validate combination type matches last play
-- [ ] **Subtask 2.4.1.3:** Validate combination beats last play (higher value)
-- [ ] **Subtask 2.4.1.4:** Handle first player in round (no restrictions except ♠3 rule)
-- [ ] **Subtask 2.4.1.5:** Validate player has selected cards in hand
-- [ ] **Subtask 2.4.1.6:** Return detailed validation errors
+- [x] **Subtask 2.4.1.1:** Create isValidMove function
+- [x] **Subtask 2.4.1.2:** Validate combination type matches last play
+- [x] **Subtask 2.4.1.3:** Validate combination beats last play (higher value)
+- [x] **Subtask 2.4.1.4:** Handle first player in round (no restrictions except ♠3 rule)
+- [x] **Subtask 2.4.1.5:** Validate player has selected cards in hand
+- [x] **Subtask 2.4.1.6:** Return detailed validation errors
 
 #### Task 2.4.2: Turn Order Management
-- [ ] **Subtask 2.4.2.1:** Implement counter-clockwise turn order
-- [ ] **Subtask 2.4.2.2:** Track current turn player index
-- [ ] **Subtask 2.4.2.3:** Handle turn advancement
-- [ ] **Subtask 2.4.2.4:** Implement turn timeout (30 seconds)
+- [x] **Subtask 2.4.2.1:** Implement counter-clockwise turn order
+- [x] **Subtask 2.4.2.2:** Track current turn player index
+- [x] **Subtask 2.4.2.3:** Handle turn advancement
+- [x] **Subtask 2.4.2.4:** Implement turn timeout (30 seconds)
 
 #### Task 2.4.3: Passing System
-- [ ] **Subtask 2.4.3.1:** Implement passTurn function
-- [ ] **Subtask 2.4.3.2:** Track passed players per round
-- [ ] **Subtask 2.4.3.3:** Enforce pass rule (cannot play again in same round)
-- [ ] **Subtask 2.4.3.4:** Reset passed status for new round
+- [x] **Subtask 2.4.3.1:** Implement passTurn function
+- [x] **Subtask 2.4.3.2:** Track passed players per round
+- [x] **Subtask 2.4.3.3:** Enforce pass rule (cannot play again in same round)
+- [x] **Subtask 2.4.3.4:** Reset passed status for new round
 
 #### Task 2.4.4: First Round Special Rules (Ván Khởi Đầu)
-- [ ] **Subtask 2.4.4.1:** Find player with ♠3
-- [ ] **Subtask 2.4.4.2:** Validate first play includes ♠3
-- [ ] **Subtask 2.4.4.3:** Handle player cannot form combination with ♠3 (play as single)
-- [ ] **Subtask 2.4.4.4:** Set initial round flag
+- [x] **Subtask 2.4.4.1:** Find player with ♠3
+- [x] **Subtask 2.4.4.2:** Validate first play includes ♠3
+- [x] **Subtask 2.4.4.3:** Handle player cannot form combination with ♠3 (play as single)
+- [x] **Subtask 2.4.4.4:** Set initial round flag
 
 ### Story 2.5: Cutting Rules (Chặt) Implementation
 

@@ -1,4 +1,20 @@
-import { Card, CARD_RANK_ORDER } from '../../types/game';
+import {
+  Card,
+  CARD_RANK_ORDER,
+  RANK_10,
+  RANK_2,
+  RANK_3,
+  RANK_4,
+  RANK_5,
+  RANK_6,
+  RANK_7,
+  RANK_8,
+  RANK_9,
+  RANK_A,
+  RANK_J,
+  RANK_K,
+  RANK_Q,
+} from '../../types/game';
 
 /**
  * Instant win types for initial rounds (Ván Khởi Đầu)
@@ -172,7 +188,7 @@ function findAllConsecutivePairsSequences(hand: Card[]): Card[][][] {
 
   // Get all ranks that have pairs (excluding rank 2)
   const ranksWithPairs = Object.keys(pairsByRank)
-    .filter((rank) => rank !== '2')
+    .filter((rank) => rank !== RANK_2)
     .sort((a, b) => (CARD_RANK_ORDER[a] ?? 0) - (CARD_RANK_ORDER[b] ?? 0));
 
   // Try to find consecutive sequences starting from each rank
@@ -269,7 +285,7 @@ function check4SamCo(hand: Card[]): boolean {
 function check3TuQuy(hand: Card[]): boolean {
   const fourOfKinds = findFourOfKinds(hand);
   // Filter out tứ quý heo (rank 2) as it's a separate instant win condition
-  const nonHeoFourOfKinds = fourOfKinds.filter((fok) => fok[0].rank !== '2');
+  const nonHeoFourOfKinds = fourOfKinds.filter((fok) => fok[0].rank !== RANK_2);
   return nonHeoFourOfKinds.length >= 3;
 }
 
@@ -343,7 +359,7 @@ function canForm5ConsecutivePairs1Triple(hand: Card[]): boolean {
   if (hand.length !== 13) return false;
 
   const grouped = groupCardsByRank(hand);
-  const ranks = Object.keys(grouped).filter((rank) => rank !== '2'); // Exclude rank 2 from consecutive pairs
+  const ranks = Object.keys(grouped).filter((rank) => rank !== RANK_2); // Exclude rank 2 from consecutive pairs
 
   // Convert to counts
   const cardCounts: { [rank: string]: number } = {};
@@ -511,7 +527,7 @@ function check5DoiThong(hand: Card[]): boolean {
 
   // Get all ranks that have at least 2 cards (can form pairs), excluding rank 2
   const ranksWithPairs = Object.keys(grouped)
-    .filter((rank) => rank !== '2' && grouped[rank].length >= 2)
+    .filter((rank) => rank !== RANK_2 && grouped[rank].length >= 2)
     .sort((a, b) => (CARD_RANK_ORDER[a] ?? 0) - (CARD_RANK_ORDER[b] ?? 0));
 
   // Try to find 5 consecutive pairs
@@ -593,7 +609,20 @@ function checkSanhRong(hand: Card[]): boolean {
   if (hand.length !== 13) return false;
 
   const grouped = groupCardsByRank(hand);
-  const ranksNeeded = ['3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+  const ranksNeeded = [
+    RANK_3,
+    RANK_4,
+    RANK_5,
+    RANK_6,
+    RANK_7,
+    RANK_8,
+    RANK_9,
+    RANK_10,
+    RANK_J,
+    RANK_Q,
+    RANK_K,
+    RANK_A,
+  ];
 
   // Check if we have at least one card of each required rank (3 to A)
   for (const rank of ranksNeeded) {

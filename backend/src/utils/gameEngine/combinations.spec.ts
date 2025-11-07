@@ -10,8 +10,27 @@ import {
   canBeatCombination,
 } from './combinations';
 import { generateDeck } from './deck';
-import { Card } from '../../types/game';
+import {
+  Card,
+  RANK_2,
+  RANK_3,
+  RANK_4,
+  RANK_6,
+  RANK_7,
+  RANK_8,
+  RANK_9,
+  RANK_10,
+  RANK_J,
+  RANK_Q,
+  RANK_K,
+  RANK_A,
+  SUIT_CLUBS,
+  SUIT_DIAMONDS,
+  SUIT_HEARTS,
+  SUIT_SPADES,
+} from '../../types/game';
 import { ValidationException } from '../../common/exceptions';
+import { RANK_5 } from '../../types/game';
 
 describe('Combination Detection', () => {
   describe('detectSingle', () => {
@@ -41,8 +60,8 @@ describe('Combination Detection', () => {
   describe('detectPair', () => {
     it('should detect a valid pair', () => {
       const deck = generateDeck();
-      const card1 = deck.find((c) => c.rank === '3' && c.suit === 'Spades')!;
-      const card2 = deck.find((c) => c.rank === '3' && c.suit === 'Hearts')!;
+      const card1 = deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!;
+      const card2 = deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_HEARTS)!;
       const result = detectPair([card1, card2]);
 
       expect(result).not.toBeNull();
@@ -52,8 +71,8 @@ describe('Combination Detection', () => {
 
     it('should return null for cards of different ranks', () => {
       const deck = generateDeck();
-      const card1 = deck.find((c) => c.rank === '3' && c.suit === 'Spades')!;
-      const card2 = deck.find((c) => c.rank === '4' && c.suit === 'Spades')!;
+      const card1 = deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!;
+      const card2 = deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_SPADES)!;
       const result = detectPair([card1, card2]);
       expect(result).toBeNull();
     });
@@ -70,9 +89,9 @@ describe('Combination Detection', () => {
   describe('detectTriple', () => {
     it('should detect a valid triple', () => {
       const deck = generateDeck();
-      const card1 = deck.find((c) => c.rank === '3' && c.suit === 'Spades')!;
-      const card2 = deck.find((c) => c.rank === '3' && c.suit === 'Hearts')!;
-      const card3 = deck.find((c) => c.rank === '3' && c.suit === 'Diamonds')!;
+      const card1 = deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!;
+      const card2 = deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_HEARTS)!;
+      const card3 = deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_DIAMONDS)!;
       const result = detectTriple([card1, card2, card3]);
 
       expect(result).not.toBeNull();
@@ -82,9 +101,9 @@ describe('Combination Detection', () => {
 
     it('should return null for cards of different ranks', () => {
       const deck = generateDeck();
-      const card1 = deck.find((c) => c.rank === '3' && c.suit === 'Spades')!;
-      const card2 = deck.find((c) => c.rank === '3' && c.suit === 'Hearts')!;
-      const card3 = deck.find((c) => c.rank === '4' && c.suit === 'Spades')!;
+      const card1 = deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!;
+      const card2 = deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_HEARTS)!;
+      const card3 = deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_SPADES)!;
       const result = detectTriple([card1, card2, card3]);
       expect(result).toBeNull();
     });
@@ -101,9 +120,9 @@ describe('Combination Detection', () => {
   describe('detectStraight', () => {
     it('should detect a valid 3-card straight', () => {
       const deck = generateDeck();
-      const card1 = deck.find((c) => c.rank === '3' && c.suit === 'Spades')!;
-      const card2 = deck.find((c) => c.rank === '4' && c.suit === 'Hearts')!;
-      const card3 = deck.find((c) => c.rank === '5' && c.suit === 'Diamonds')!;
+      const card1 = deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!;
+      const card2 = deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_HEARTS)!;
+      const card3 = deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_DIAMONDS)!;
       const result = detectStraight([card1, card2, card3]);
 
       expect(result).not.toBeNull();
@@ -114,11 +133,11 @@ describe('Combination Detection', () => {
     it('should detect a valid 5-card straight', () => {
       const deck = generateDeck();
       const cards = [
-        deck.find((c) => c.rank === '3' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Diamonds')!,
-        deck.find((c) => c.rank === '6' && c.suit === 'Clubs')!,
-        deck.find((c) => c.rank === '7' && c.suit === 'Spades')!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_DIAMONDS)!,
+        deck.find((c) => c.rank === RANK_6 && c.suit === SUIT_CLUBS)!,
+        deck.find((c) => c.rank === RANK_7 && c.suit === SUIT_SPADES)!,
       ];
       const result = detectStraight(cards);
 
@@ -129,18 +148,18 @@ describe('Combination Detection', () => {
 
     it('should return null if straight includes rank 2', () => {
       const deck = generateDeck();
-      const card1 = deck.find((c) => c.rank === 'A' && c.suit === 'Spades')!;
-      const card2 = deck.find((c) => c.rank === 'K' && c.suit === 'Hearts')!;
-      const card3 = deck.find((c) => c.rank === '2' && c.suit === 'Diamonds')!;
+      const card1 = deck.find((c) => c.rank === RANK_A && c.suit === SUIT_SPADES)!;
+      const card2 = deck.find((c) => c.rank === RANK_K && c.suit === SUIT_HEARTS)!;
+      const card3 = deck.find((c) => c.rank === RANK_2 && c.suit === SUIT_DIAMONDS)!;
       const result = detectStraight([card1, card2, card3]);
       expect(result).toBeNull();
     });
 
     it('should return null for non-consecutive ranks', () => {
       const deck = generateDeck();
-      const card1 = deck.find((c) => c.rank === '3' && c.suit === 'Spades')!;
-      const card2 = deck.find((c) => c.rank === '4' && c.suit === 'Hearts')!;
-      const card3 = deck.find((c) => c.rank === '6' && c.suit === 'Diamonds')!;
+      const card1 = deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!;
+      const card2 = deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_HEARTS)!;
+      const card3 = deck.find((c) => c.rank === RANK_6 && c.suit === SUIT_DIAMONDS)!;
       const result = detectStraight([card1, card2, card3]);
       expect(result).toBeNull();
     });
@@ -153,7 +172,7 @@ describe('Combination Detection', () => {
 
     it('should return null for more than 12 cards', () => {
       const deck = generateDeck();
-      const cards = deck.filter((c) => c.rank !== '2').slice(0, 13);
+      const cards = deck.filter((c) => c.rank !== RANK_2).slice(0, 13);
       const result = detectStraight(cards);
       expect(result).toBeNull();
     });
@@ -163,12 +182,12 @@ describe('Combination Detection', () => {
     it('should detect 3 consecutive pairs', () => {
       const deck = generateDeck();
       const cards = [
-        deck.find((c) => c.rank === '3' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '3' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Hearts')!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_HEARTS)!,
       ];
       const result = detectConsecutivePairs(cards);
 
@@ -180,14 +199,14 @@ describe('Combination Detection', () => {
     it('should detect 4 consecutive pairs', () => {
       const deck = generateDeck();
       const cards = [
-        deck.find((c) => c.rank === '3' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '3' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '6' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '6' && c.suit === 'Hearts')!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_6 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_6 && c.suit === SUIT_HEARTS)!,
       ];
       const result = detectConsecutivePairs(cards);
 
@@ -199,12 +218,12 @@ describe('Combination Detection', () => {
     it('should return null if consecutive pairs include rank 2', () => {
       const deck = generateDeck();
       const cards = [
-        deck.find((c) => c.rank === 'A' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === 'A' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === 'K' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === 'K' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '2' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '2' && c.suit === 'Hearts')!,
+        deck.find((c) => c.rank === RANK_A && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_A && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_K && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_K && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_2 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_2 && c.suit === SUIT_HEARTS)!,
       ];
       const result = detectConsecutivePairs(cards);
       expect(result).toBeNull();
@@ -213,12 +232,12 @@ describe('Combination Detection', () => {
     it('should return null for non-consecutive pairs', () => {
       const deck = generateDeck();
       const cards = [
-        deck.find((c) => c.rank === '3' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '3' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '6' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '6' && c.suit === 'Hearts')!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_6 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_6 && c.suit === SUIT_HEARTS)!,
       ];
       const result = detectConsecutivePairs(cards);
       expect(result).toBeNull();
@@ -227,10 +246,10 @@ describe('Combination Detection', () => {
     it('should return null for less than 3 pairs', () => {
       const deck = generateDeck();
       const cards = [
-        deck.find((c) => c.rank === '3' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '3' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Hearts')!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_HEARTS)!,
       ];
       const result = detectConsecutivePairs(cards);
       expect(result).toBeNull();
@@ -239,7 +258,20 @@ describe('Combination Detection', () => {
     it('should return null for more than 6 pairs', () => {
       const deck = generateDeck();
       const cards: Card[] = [];
-      const ranks = ['3', '4', '5', '6', '7', '8', '9'];
+      const ranks = [
+        RANK_3,
+        RANK_4,
+        RANK_5,
+        RANK_6,
+        RANK_7,
+        RANK_8,
+        RANK_9,
+        RANK_10,
+        RANK_J,
+        RANK_Q,
+        RANK_K,
+        RANK_A,
+      ];
       for (const rank of ranks) {
         const pair = deck.filter((c) => c.rank === rank).slice(0, 2);
         cards.push(...pair);
@@ -251,13 +283,13 @@ describe('Combination Detection', () => {
     it('should return null if a rank has more than 2 cards', () => {
       const deck = generateDeck();
       const cards = [
-        deck.find((c) => c.rank === '3' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '3' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '3' && c.suit === 'Diamonds')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Hearts')!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_DIAMONDS)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_HEARTS)!,
       ];
       const result = detectConsecutivePairs(cards);
       expect(result).toBeNull();
@@ -267,7 +299,7 @@ describe('Combination Detection', () => {
   describe('detectFourOfKind', () => {
     it('should detect a valid four of a kind', () => {
       const deck = generateDeck();
-      const cards = deck.filter((c) => c.rank === '3');
+      const cards = deck.filter((c) => c.rank === RANK_3);
       const result = detectFourOfKind(cards);
 
       expect(result).not.toBeNull();
@@ -277,7 +309,7 @@ describe('Combination Detection', () => {
 
     it('should return null for four of a kind with rank 2', () => {
       const deck = generateDeck();
-      const cards = deck.filter((c) => c.rank === '2');
+      const cards = deck.filter((c) => c.rank === RANK_2);
       const result = detectFourOfKind(cards);
       expect(result).toBeNull();
     });
@@ -285,10 +317,10 @@ describe('Combination Detection', () => {
     it('should return null for cards of different ranks', () => {
       const deck = generateDeck();
       const cards = [
-        deck.find((c) => c.rank === '3' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '3' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '3' && c.suit === 'Diamonds')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Spades')!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_DIAMONDS)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_SPADES)!,
       ];
       const result = detectFourOfKind(cards);
       expect(result).toBeNull();
@@ -296,9 +328,12 @@ describe('Combination Detection', () => {
 
     it('should return null for wrong number of cards', () => {
       const deck = generateDeck();
-      const cards3 = deck.filter((c) => c.rank === '3').slice(0, 3);
+      const cards3 = deck.filter((c) => c.rank === RANK_3).slice(0, 3);
       // Create 5 cards by adding a different rank card
-      const cards5 = [...deck.filter((c) => c.rank === '3'), deck.find((c) => c.rank === '4')!];
+      const cards5 = [
+        ...deck.filter((c) => c.rank === RANK_3),
+        deck.find((c) => c.rank === RANK_4)!,
+      ];
       const result1 = detectFourOfKind(cards3);
       const result2 = detectFourOfKind(cards5);
       expect(result1).toBeNull();
@@ -315,15 +350,15 @@ describe('Combination Detection', () => {
 
     it('should detect pair over single', () => {
       const deck = generateDeck();
-      const card1 = deck.find((c) => c.rank === '3' && c.suit === 'Spades')!;
-      const card2 = deck.find((c) => c.rank === '3' && c.suit === 'Hearts')!;
+      const card1 = deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!;
+      const card2 = deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_HEARTS)!;
       const result = detectCombination([card1, card2]);
       expect(result?.type).toBe('pair');
     });
 
     it('should detect triple over pair', () => {
       const deck = generateDeck();
-      const cards = deck.filter((c) => c.rank === '3').slice(0, 3);
+      const cards = deck.filter((c) => c.rank === RANK_3).slice(0, 3);
       const result = detectCombination(cards);
       expect(result?.type).toBe('triple');
     });
@@ -331,9 +366,9 @@ describe('Combination Detection', () => {
     it('should detect straight over triple', () => {
       const deck = generateDeck();
       const cards = [
-        deck.find((c) => c.rank === '3' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Diamonds')!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_DIAMONDS)!,
       ];
       const result = detectCombination(cards);
       expect(result?.type).toBe('straight');
@@ -342,12 +377,12 @@ describe('Combination Detection', () => {
     it('should detect consecutive pairs over straight', () => {
       const deck = generateDeck();
       const cards = [
-        deck.find((c) => c.rank === '3' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '3' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Hearts')!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_HEARTS)!,
       ];
       const result = detectCombination(cards);
       expect(result?.type).toBe('consecutive_pairs');
@@ -355,7 +390,7 @@ describe('Combination Detection', () => {
 
     it('should detect four of a kind over consecutive pairs', () => {
       const deck = generateDeck();
-      const cards = deck.filter((c) => c.rank === '3');
+      const cards = deck.filter((c) => c.rank === RANK_3);
       const result = detectCombination(cards);
       expect(result?.type).toBe('four_of_kind');
     });
@@ -363,9 +398,9 @@ describe('Combination Detection', () => {
     it('should return null for invalid combination', () => {
       const deck = generateDeck();
       const cards = [
-        deck.find((c) => c.rank === '3' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '7' && c.suit === 'Diamonds')!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_7 && c.suit === SUIT_DIAMONDS)!,
       ];
       const result = detectCombination(cards);
       expect(result).toBeNull();
@@ -375,8 +410,8 @@ describe('Combination Detection', () => {
   describe('compareCombinations', () => {
     it('should compare single cards correctly', () => {
       const deck = generateDeck();
-      const card1 = deck.find((c) => c.rank === 'A' && c.suit === 'Hearts')!;
-      const card2 = deck.find((c) => c.rank === '3' && c.suit === 'Spades')!;
+      const card1 = deck.find((c) => c.rank === RANK_A && c.suit === SUIT_HEARTS)!;
+      const card2 = deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!;
       const combo1 = detectSingle([card1])!;
       const combo2 = detectSingle([card2])!;
 
@@ -387,12 +422,12 @@ describe('Combination Detection', () => {
     it('should compare pairs correctly', () => {
       const deck = generateDeck();
       const pair1 = [
-        deck.find((c) => c.rank === 'A' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === 'A' && c.suit === 'Diamonds')!,
+        deck.find((c) => c.rank === RANK_A && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_A && c.suit === SUIT_DIAMONDS)!,
       ];
       const pair2 = [
-        deck.find((c) => c.rank === '3' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '3' && c.suit === 'Diamonds')!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_DIAMONDS)!,
       ];
       const combo1 = detectPair(pair1)!;
       const combo2 = detectPair(pair2)!;
@@ -404,16 +439,16 @@ describe('Combination Detection', () => {
     it('should compare straights: longer beats shorter', () => {
       const deck = generateDeck();
       const straight3 = [
-        deck.find((c) => c.rank === '3' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Diamonds')!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_DIAMONDS)!,
       ];
       const straight5 = [
-        deck.find((c) => c.rank === '3' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Diamonds')!,
-        deck.find((c) => c.rank === '6' && c.suit === 'Clubs')!,
-        deck.find((c) => c.rank === '7' && c.suit === 'Spades')!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_DIAMONDS)!,
+        deck.find((c) => c.rank === RANK_6 && c.suit === SUIT_CLUBS)!,
+        deck.find((c) => c.rank === RANK_7 && c.suit === SUIT_SPADES)!,
       ];
       const combo1 = detectStraight(straight5)!;
       const combo2 = detectStraight(straight3)!;
@@ -425,14 +460,14 @@ describe('Combination Detection', () => {
     it('should compare same-length straights by highest card', () => {
       const deck = generateDeck();
       const straight1 = [
-        deck.find((c) => c.rank === 'A' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === 'K' && c.suit === 'Diamonds')!,
-        deck.find((c) => c.rank === 'Q' && c.suit === 'Clubs')!,
+        deck.find((c) => c.rank === RANK_A && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_K && c.suit === SUIT_DIAMONDS)!,
+        deck.find((c) => c.rank === RANK_Q && c.suit === SUIT_CLUBS)!,
       ];
       const straight2 = [
-        deck.find((c) => c.rank === '3' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Diamonds')!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_DIAMONDS)!,
       ];
       const combo1 = detectStraight(straight1)!;
       const combo2 = detectStraight(straight2)!;
@@ -444,22 +479,22 @@ describe('Combination Detection', () => {
     it('should compare consecutive pairs: longer beats shorter', () => {
       const deck = generateDeck();
       const pairs3 = [
-        deck.find((c) => c.rank === '3' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '3' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Hearts')!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_HEARTS)!,
       ];
       const pairs4 = [
-        deck.find((c) => c.rank === '3' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '3' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '4' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '5' && c.suit === 'Hearts')!,
-        deck.find((c) => c.rank === '6' && c.suit === 'Spades')!,
-        deck.find((c) => c.rank === '6' && c.suit === 'Hearts')!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_4 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_5 && c.suit === SUIT_HEARTS)!,
+        deck.find((c) => c.rank === RANK_6 && c.suit === SUIT_SPADES)!,
+        deck.find((c) => c.rank === RANK_6 && c.suit === SUIT_HEARTS)!,
       ];
       const combo1 = detectConsecutivePairs(pairs4)!;
       const combo2 = detectConsecutivePairs(pairs3)!;
@@ -470,8 +505,8 @@ describe('Combination Detection', () => {
 
     it('should compare four of a kind by rank', () => {
       const deck = generateDeck();
-      const fourA = deck.filter((c) => c.rank === 'A');
-      const four3 = deck.filter((c) => c.rank === '3');
+      const fourA = deck.filter((c) => c.rank === RANK_A);
+      const four3 = deck.filter((c) => c.rank === RANK_3);
       const combo1 = detectFourOfKind(fourA)!;
       const combo2 = detectFourOfKind(four3)!;
 
@@ -491,8 +526,8 @@ describe('Combination Detection', () => {
   describe('canBeatCombination', () => {
     it('should return true if new combination beats last', () => {
       const deck = generateDeck();
-      const card1 = deck.find((c) => c.rank === 'A' && c.suit === 'Hearts')!;
-      const card2 = deck.find((c) => c.rank === '3' && c.suit === 'Spades')!;
+      const card1 = deck.find((c) => c.rank === RANK_A && c.suit === SUIT_HEARTS)!;
+      const card2 = deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!;
       const combo1 = detectSingle([card1])!;
       const combo2 = detectSingle([card2])!;
 
@@ -502,8 +537,8 @@ describe('Combination Detection', () => {
 
     it('should return false if new combination does not beat last', () => {
       const deck = generateDeck();
-      const card1 = deck.find((c) => c.rank === '3' && c.suit === 'Spades')!;
-      const card2 = deck.find((c) => c.rank === 'A' && c.suit === 'Hearts')!;
+      const card1 = deck.find((c) => c.rank === RANK_3 && c.suit === SUIT_SPADES)!;
+      const card2 = deck.find((c) => c.rank === RANK_A && c.suit === SUIT_HEARTS)!;
       const combo1 = detectSingle([card1])!;
       const combo2 = detectSingle([card2])!;
 

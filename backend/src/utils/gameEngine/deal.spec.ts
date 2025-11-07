@@ -131,7 +131,5 @@ describe('Card Distribution', () => {
         expect(result.playerHands[i].length).toBe(13);
       }
     });
-
   });
-
 });

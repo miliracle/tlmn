@@ -24,6 +24,45 @@ export {
   type OtherRoundInstantWinType,
   type InstantWinResult,
 } from './instantWin';
+export {
+  isValidMove,
+  MOVE_VALIDATION_ERROR_CODES,
+  MOVE_VALIDATION_ERROR_MESSAGES,
+  type MoveValidationResult,
+  type MoveValidationContext,
+} from './moveValidation';
+export {
+  getNextPlayerIndex,
+  getPreviousPlayerIndex,
+  initializeTurnOrder,
+  advanceTurn,
+  isTurnTimedOut,
+  getRemainingTurnTime,
+  updateTurnStartTime,
+  setCurrentPlayer,
+  TURN_TIMEOUT_MS,
+  type TurnOrderState,
+  type AdvanceTurnResult,
+} from './turnOrder';
+export {
+  initializePassingState,
+  passTurn,
+  hasPassed,
+  resetPassedPlayers,
+  getPassedPlayersCount,
+  getPassedPlayers,
+  hasAllButOnePassed,
+  hasConsecutivePasses,
+  type PassingState,
+  type PassTurnResult,
+} from './passing';
+export {
+  findPlayerWithSpade3,
+  findCombinationsWithSpade3,
+  isInitialRound,
+  canFormCombinationWithSpade3,
+  type FindSpade3Result,
+} from './firstRound';
 
 // Game engine utilities object for backward compatibility
 import { calculateCardValue, getCardValue } from './cardValue';

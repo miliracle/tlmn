@@ -53,4 +53,3 @@ export function calculateCardValue(rank: string, suit: string): number {
 export function getCardValue(card: { rank: string; suit: string }): number {
   return calculateCardValue(card.rank, card.suit);
 }
-
