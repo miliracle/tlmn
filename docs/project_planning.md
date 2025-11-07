@@ -105,28 +105,28 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 ### Story 2.3: Instant Win Conditions (Tới Trắng)
 
 #### Task 2.3.1: Initial Round Instant Win Detection
-- [ ] **Subtask 2.3.1.1:** Check for tứ quý 3 (four 3s)
-- [ ] **Subtask 2.3.1.2:** Check for tứ quý heo (all four 2s)
-- [ ] **Subtask 2.3.1.3:** Check for 3 đôi thông có ♠3
-- [ ] **Subtask 2.3.1.4:** Check for 4 đôi thông có ♠3
-- [ ] **Subtask 2.3.1.5:** Check for 3 sám cô
-- [ ] **Subtask 2.3.1.6:** Check for 4 sám cô
-- [ ] **Subtask 2.3.1.7:** Check for 3 tứ quý
-- [ ] **Subtask 2.3.1.8:** Check for 5 đôi 1 sám
-- [ ] **Subtask 2.3.1.9:** Check for 5 đôi thông 1 sám
+- [x] **Subtask 2.3.1.1:** Check for tứ quý 3 (four 3s)
+- [x] **Subtask 2.3.1.2:** Check for tứ quý heo (all four 2s)
+- [x] **Subtask 2.3.1.3:** Check for 3 đôi thông có ♠3
+- [x] **Subtask 2.3.1.4:** Check for 4 đôi thông có ♠3
+- [x] **Subtask 2.3.1.5:** Check for 3 sám cô
+- [x] **Subtask 2.3.1.6:** Check for 4 sám cô
+- [x] **Subtask 2.3.1.7:** Check for 3 tứ quý
+- [x] **Subtask 2.3.1.8:** Check for 5 đôi 1 sám
+- [x] **Subtask 2.3.1.9:** Check for 5 đôi thông 1 sám
 
 #### Task 2.3.2: Other Round Instant Win Detection
-- [ ] **Subtask 2.3.2.1:** Check for tứ quý heo
-- [ ] **Subtask 2.3.2.2:** Check for 5 đôi thông
-- [ ] **Subtask 2.3.2.3:** Check for 6 đôi bất kì
-- [ ] **Subtask 2.3.2.4:** Check for sảnh rồng (3 to A straight)
-- [ ] **Subtask 2.3.2.5:** Check for đồng chất đồng màu (all same color)
+- [x] **Subtask 2.3.2.1:** Check for tứ quý heo
+- [x] **Subtask 2.3.2.2:** Check for 5 đôi thông
+- [x] **Subtask 2.3.2.3:** Check for 6 đôi bất kì
+- [x] **Subtask 2.3.2.4:** Check for sảnh rồng (3 to A straight)
+- [x] **Subtask 2.3.2.5:** Check for đồng chất đồng màu (all same color)
 
 #### Task 2.3.3: Instant Win Handler
-- [ ] **Subtask 2.3.3.1:** Create checkInstantWin function
-- [ ] **Subtask 2.3.3.2:** Determine which round type (initial vs other)
-- [ ] **Subtask 2.3.3.3:** Return instant win result and type
-- [ ] **Subtask 2.3.3.4:** Handle instant win game end flow
+- [x] **Subtask 2.3.3.1:** Create checkInstantWin function
+- [x] **Subtask 2.3.3.2:** Determine which round type (initial vs other)
+- [x] **Subtask 2.3.3.3:** Return instant win result and type
+- [x] **Subtask 2.3.3.4:** Handle instant win game end flow
 
 ### Story 2.4: Move Validation & Turn Management
 
