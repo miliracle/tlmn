@@ -2,7 +2,7 @@
 export { calculateCardValue, getCardValue } from './cardValue';
 export { calculateCardPoints, getCardPoints } from './cardPoints';
 export { generateDeck, shuffleDeck, generateShuffledDeck } from './deck';
-export { dealCards, hasTuQuyHeo, type DealCardsResult } from './deal';
+export { dealCards, type DealCardsResult } from './deal';
 export {
   detectSingle,
   detectPair,
@@ -29,7 +29,7 @@ export {
 import { calculateCardValue, getCardValue } from './cardValue';
 import { calculateCardPoints, getCardPoints } from './cardPoints';
 import { generateDeck, shuffleDeck, generateShuffledDeck } from './deck';
-import { dealCards, hasTuQuyHeo } from './deal';
+import { dealCards } from './deal';
 import {
   detectSingle,
   detectPair,
@@ -51,7 +51,6 @@ export const gameEngine = {
   shuffleDeck,
   generateShuffledDeck,
   dealCards,
-  hasTuQuyHeo,
   detectSingle,
   detectPair,
   detectTriple,

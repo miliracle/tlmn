@@ -9,26 +9,6 @@ export interface DealCardsResult {
   playerHands: Card[][];
   /** Cards not dealt (for 2-3 player games) */
   unusedCards: Card[];
-  /** Instant win information if Tứ Quý Heo is detected */
-  instantWin: {
-    hasInstantWin: boolean;
-    playerIndex?: number;
-    type?: string;
-  };
-}
-
-/**
- * Checks if a player's hand contains Tứ Quý Heo (all four cards of rank '2').
- *
- * Tứ Quý Heo is an instant win condition where a player receives all 4 cards
- * of rank '2' (heo: ♠2, ♣2, ♦2, ♥2) during the deal.
- *
- * @param hand - The player's hand (array of cards)
- * @returns true if the hand contains all four cards of rank '2', false otherwise
- */
-export function hasTuQuyHeo(hand: Card[]): boolean {
-  const heoCards = hand.filter((card) => card.rank === '2');
-  return heoCards.length === 4;
 }
 
 /**
@@ -42,13 +22,9 @@ export function hasTuQuyHeo(hand: Card[]): boolean {
  *   - 3 players: 13 cards unused (3 × 13 = 39 cards dealt)
  *   - 4 players: 0 cards unused (4 × 13 = 52 cards dealt)
  *
- * Special rule - Tứ Quý Heo:
- * If all 4 cards of rank '2' (heo) are dealt to a single player,
- * that player wins immediately (tới trắng).
- *
  * @param deck - Shuffled deck of cards (should be 52 cards)
  * @param numPlayers - Number of players (2, 3, or 4)
- * @returns DealCardsResult containing player hands, unused cards, and instant win info
+ * @returns DealCardsResult containing player hands and unused cards
  * @throws ValidationException if deck is invalid or numPlayers is out of range
  */
 export function dealCards(deck: Card[], numPlayers: number): DealCardsResult {
@@ -109,23 +85,8 @@ export function dealCards(deck: Card[], numPlayers: number): DealCardsResult {
     }
   }
 
-  // Check for Tứ Quý Heo (instant win condition)
-  let instantWinPlayerIndex: number | undefined;
-  for (let i = 0; i < numPlayers; i++) {
-    if (hasTuQuyHeo(playerHands[i])) {
-      instantWinPlayerIndex = i;
-      break;
-    }
-  }
-
   return {
     playerHands,
     unusedCards,
-    instantWin: {
-      hasInstantWin: instantWinPlayerIndex !== undefined,
-      playerIndex: instantWinPlayerIndex,
-      type: instantWinPlayerIndex !== undefined ? 'tu_quy_heo' : undefined,
-    },
   };
 }
-

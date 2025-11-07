@@ -144,8 +144,9 @@ function checkTuQuy3(hand: Card[]): boolean {
 
 /**
  * Subtask 2.3.1.2: Check for tứ quý heo (all four 2s)
+ * Exported for reuse in other modules (e.g., deal.ts)
  */
-function checkTuQuyHeo(hand: Card[]): boolean {
+export function checkTuQuyHeo(hand: Card[]): boolean {
   const grouped = groupCardsByRank(hand);
   const twos = grouped['2'];
   return twos !== undefined && twos.length === 4;
@@ -494,11 +495,10 @@ function isBlackCard(card: Card): boolean {
 
 /**
  * Subtask 2.3.2.1: Check for tứ quý heo (all four 2s) - for other rounds
+ * Uses the same logic as checkTuQuyHeo
  */
 function checkTuQuyHeoOtherRound(hand: Card[]): boolean {
-  const grouped = groupCardsByRank(hand);
-  const twos = grouped['2'];
-  return twos !== undefined && twos.length === 4;
+  return checkTuQuyHeo(hand);
 }
 
 /**
