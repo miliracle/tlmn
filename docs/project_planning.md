@@ -431,41 +431,111 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 
 ## Epic 5: User Authentication & Management
 
-### Story 5.1: User Registration & Login
+### Story 5.1: User Registration & Login (Backend)
 
-#### Task 5.1.1: Registration System
-- [ ] **Subtask 5.1.1.1:** Create registration form UI
-- [ ] **Subtask 5.1.1.2:** Implement password hashing (bcrypt)
-- [ ] **Subtask 5.1.1.3:** Validate unique username/email
-- [ ] **Subtask 5.1.1.4:** Create user in database
-- [ ] **Subtask 5.1.1.5:** Return JWT token on success
+#### Task 5.1.1: Registration System (Backend)
+- [x] **Subtask 5.1.1.1:** Implement password hashing (bcrypt)
+- [x] **Subtask 5.1.1.2:** Validate unique username/email
+- [x] **Subtask 5.1.1.3:** Create user in database
+- [x] **Subtask 5.1.1.4:** Return JWT token on success
 
-#### Task 5.1.2: Login System
-- [ ] **Subtask 5.1.2.1:** Create login form UI
-- [ ] **Subtask 5.1.2.2:** Verify password
-- [ ] **Subtask 5.1.2.3:** Generate JWT token
-- [ ] **Subtask 5.1.2.4:** Return token and user info
+#### Task 5.1.2: Login System (Backend)
+- [x] **Subtask 5.1.2.1:** Verify password
+- [x] **Subtask 5.1.2.2:** Generate JWT token
+- [x] **Subtask 5.1.2.3:** Return token and user info
 
-#### Task 5.1.3: Session Management
+#### Task 5.1.3: Session Management (Frontend)
 - [ ] **Subtask 5.1.3.1:** Store token in localStorage/cookies
 - [ ] **Subtask 5.1.3.2:** Implement token refresh logic
 - [ ] **Subtask 5.1.3.3:** Handle token expiration
 - [ ] **Subtask 5.1.3.4:** Create logout function
+- [ ] **Subtask 5.1.3.5:** Sync token with Redux auth slice
 
-### Story 5.2: User Profile
+### Story 5.2: User Profile (Backend API)
 
-#### Task 5.2.1: Profile Display
-- [ ] **Subtask 5.2.1.1:** Create profile page UI
-- [ ] **Subtask 5.2.1.2:** Display user stats (games played, wins, etc.)
-- [ ] **Subtask 5.2.1.3:** Show bot count
-- [ ] **Subtask 5.2.1.4:** Display recent games
-
-#### Task 5.2.2: Profile Updates
-- [ ] **Subtask 5.2.2.1:** Create profile edit form
-- [ ] **Subtask 5.2.2.2:** Update username/email
-- [ ] **Subtask 5.2.2.3:** Change password functionality
+#### Task 5.2.1: Profile API Endpoints
+- [ ] **Subtask 5.2.1.1:** GET /api/users/:id/stats (user statistics)
+- [ ] **Subtask 5.2.1.2:** GET /api/users/:id/games (user game history)
+- [ ] **Subtask 5.2.1.3:** PUT /api/users/:id (update profile)
+- [ ] **Subtask 5.2.1.4:** PUT /api/users/:id/password (change password)
 
 ---
+
+## Epic 5.5: Frontend State Management
+
+### Story 5.5.1: Redux Store Setup
+
+#### Task 5.5.1.1: Redux Slices Implementation
+- [ ] **Subtask 5.5.1.1:** Create `uiSlice` for UI state
+  - Navigation state (sidebarOpen, bottomMenuActiveItem)
+  - Modal state (currentModal, modalStack)
+  - Theme and appearance preferences
+  - Notifications array
+  - Loading states (page transitions, dragging)
+  - Form drafts
+  - UI preferences (sound, animations, card display)
+- [ ] **Subtask 5.5.1.2:** Create `gameSlice` for game UI state
+  - Current context (currentTableId, currentGameId)
+  - WebSocket connection state (isConnected, connectionError)
+  - Game UI state (selectedCards, isSortingHand, showSuggestions)
+  - Turn UI state (turnTimer, isMyTurn, canPlay, canPass)
+  - Game board UI (animations, optimistic updates)
+- [ ] **Subtask 5.5.1.3:** Create `authSlice` for authentication UI state
+  - Authentication status (isAuthenticated, token, tokenExpiry)
+  - Auth form drafts (loginForm, registerForm)
+  - Auth flow state (isLoggingIn, isRegistering, authError)
+- [ ] **Subtask 5.5.1.4:** Configure Redux store with all slices
+- [ ] **Subtask 5.5.1.5:** Set up Redux persist for critical UI state (theme, preferences)
+
+### Story 5.5.2: TanStack Query Setup
+
+#### Task 5.5.2.1: Query Keys Factory
+- [ ] **Subtask 5.5.2.1:** Create query keys factory pattern
+  - User queries (all, detail, me, stats, games)
+  - Table queries (all, detail, players)
+  - Game queries (all, detail, history)
+  - Bot queries (all, detail, myBots)
+  - Session queries (all, detail, summary)
+- [ ] **Subtask 5.5.2.2:** Configure TanStack Query client
+- [ ] **Subtask 5.5.2.3:** Set up query client provider
+
+#### Task 5.5.2.2: User Queries
+- [ ] **Subtask 5.5.2.2.1:** Implement `useCurrentUser` query
+- [ ] **Subtask 5.5.2.2.2:** Implement `useUserStats` query
+- [ ] **Subtask 5.5.2.2.3:** Implement `useUserGames` infinite query
+
+#### Task 5.5.2.3: Table Queries
+- [ ] **Subtask 5.5.2.3.1:** Implement `useTables` infinite query
+- [ ] **Subtask 5.5.2.3.2:** Implement `useTable` query
+- [ ] **Subtask 5.5.2.3.3:** Implement `useTablePlayers` query
+
+#### Task 5.5.2.4: Game Queries
+- [ ] **Subtask 5.5.2.4.1:** Implement `useGame` query
+- [ ] **Subtask 5.5.2.4.2:** Implement `useGameHistory` query
+
+#### Task 5.5.2.5: Bot Queries
+- [ ] **Subtask 5.5.2.5.1:** Implement `useMyBots` query
+- [ ] **Subtask 5.5.2.5.2:** Implement `useBot` query
+
+#### Task 5.5.2.6: Session Queries
+- [ ] **Subtask 5.5.2.6.1:** Implement `useSession` query
+- [ ] **Subtask 5.5.2.6.2:** Implement `useSessionSummary` query
+
+#### Task 5.5.2.7: Mutations
+- [ ] **Subtask 5.5.2.7.1:** Implement user mutations (updateProfile, changePassword)
+- [ ] **Subtask 5.5.2.7.2:** Implement table mutations (createTable, joinTable, leaveTable)
+- [ ] **Subtask 5.5.2.7.3:** Implement bot mutations (createBot, updateBot, deleteBot)
+- [ ] **Subtask 5.5.2.7.4:** Set up query invalidation on mutations
+
+### Story 5.5.3: WebSocket State Integration
+
+#### Task 5.5.3.1: WebSocket Connection Management
+- [ ] **Subtask 5.5.3.1.1:** Create WebSocket service/hook
+- [ ] **Subtask 5.5.3.1.2:** Update Redux gameSlice with connection state
+- [ ] **Subtask 5.5.3.1.3:** Handle WebSocket events and update TanStack Query cache
+  - `table_updated` → Invalidate table queries
+  - `player_joined` → Invalidate player queries
+  - `game_state_update` → Update Redux gameSlice (optimistic) and sync with server
 
 ## Epic 6: Table Management System
 
@@ -529,119 +599,323 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 
 ## Epic 7: Game UI & Frontend Components
 
-### Story 7.1: Main Application Layout
+### Story 7.1: Main Application Layout & Navigation
 
-#### Task 7.1.1: Navigation Bar
-- [ ] **Subtask 7.1.1.1:** Create navbar component
-- [ ] **Subtask 7.1.1.2:** Logo/Home link
-- [ ] **Subtask 7.1.1.3:** Create Table button
-- [ ] **Subtask 7.1.1.4:** My Bots link
-- [ ] **Subtask 7.1.1.5:** How to Play link
-- [ ] **Subtask 7.1.1.6:** User profile/login button
-- [ ] **Subtask 7.1.1.7:** Responsive mobile menu
+#### Task 7.1.1: Bottom Menu Bar (Primary Navigation)
+- [ ] **Subtask 7.1.1.1:** Create bottom menu bar component (always visible on mobile)
+- [ ] **Subtask 7.1.1.2:** Implement User icon/button (left position)
+  - Show login/signup when logged out
+  - Show user avatar/username when logged in
+  - Navigate to login page or profile page
+- [ ] **Subtask 7.1.1.3:** Implement Tables icon/button (center position)
+  - Navigate to table list page
+  - Show active state when on table list
+  - Show badge for active tables
+- [ ] **Subtask 7.1.1.4:** Implement My Bot icon/button (right position)
+  - Navigate to bot editor page
+  - Show "Coming Soon" badge if not implemented
+  - Disabled state with visual indicator
+- [ ] **Subtask 7.1.1.5:** Add active state indicators for menu items
+- [ ] **Subtask 7.1.1.6:** Implement responsive behavior (always visible on mobile, optional on desktop)
+- [ ] **Subtask 7.1.1.7:** Add user profile menu/drawer (when logged in)
+  - View Profile option
+  - Game History option
+  - Settings option
+  - Logout option
 
-#### Task 7.1.2: Home/Dashboard Page
-- [ ] **Subtask 7.1.2.1:** Create dashboard component
-- [ ] **Subtask 7.1.2.2:** Quick action buttons (Create Table, Join by Link, Practice)
-- [ ] **Subtask 7.1.2.3:** Active tables list
-- [ ] **Subtask 7.1.2.4:** Recent matches history
-- [ ] **Subtask 7.1.2.5:** Responsive grid layout
+#### Task 7.1.2: Top Bar / Header (Optional)
+- [ ] **Subtask 7.1.2.1:** Create top bar component (optional, context-dependent)
+- [ ] **Subtask 7.1.2.2:** Add back button functionality
+- [ ] **Subtask 7.1.2.3:** Add page title display
+- [ ] **Subtask 7.1.2.4:** Add settings/actions menu (context-specific)
+- [ ] **Subtask 7.1.2.5:** Add share button (for table pages)
 
-### Story 7.2: Card Components
+#### Task 7.1.3: Landing Page (Future Implementation)
+- [ ] **Subtask 7.1.3.1:** Create landing page component (`LandingPage.tsx`)
+- [ ] **Subtask 7.1.3.2:** Add game introduction and rules overview
+- [ ] **Subtask 7.1.3.3:** Add call-to-action buttons (Get Started, Learn More)
+- [ ] **Subtask 7.1.3.4:** Add feature highlights section
+- [ ] **Subtask 7.1.3.5:** Add screenshots/demo section
+- [ ] **Subtask 7.1.3.6:** Add navigation to login/register or table list
+- [ ] **Subtask 7.1.3.7:** Update root route to show landing page (currently redirects to `/tables`)
 
-#### Task 7.2.1: Card Visual Component
-- [ ] **Subtask 7.2.1.1:** Create Card component (SVG or image-based)
-- [ ] **Subtask 7.2.1.2:** Display rank and suit
-- [ ] **Subtask 7.2.1.3:** Card styling (back, face, selected state)
-- [ ] **Subtask 7.2.1.4:** Hover effects
-- [ ] **Subtask 7.2.1.5:** Animation support (flip, slide)
+### Story 7.2: Table List Page
 
-#### Task 7.2.2: Hand Display Component
-- [ ] **Subtask 7.2.2.1:** Create Hand component
-- [ ] **Subtask 7.2.2.2:** Display cards horizontally
-- [ ] **Subtask 7.2.2.3:** Click-to-select functionality
-- [ ] **Subtask 7.2.2.4:** Visual feedback for selected cards
-- [ ] **Subtask 7.2.2.5:** Auto-sort functionality
-- [ ] **Subtask 7.2.2.6:** Selected cards counter
+#### Task 7.2.1: Table List Page Layout
+- [ ] **Subtask 7.2.1.1:** Create `TableListPage.tsx` component
+- [ ] **Subtask 7.2.1.2:** Add table list header with "Create Table" button
+- [ ] **Subtask 7.2.1.3:** Add filter/search controls
+- [ ] **Subtask 7.2.1.4:** Implement responsive grid layout (2-3 columns on mobile, 3-4 on desktop)
+- [ ] **Subtask 7.2.1.5:** Add pagination controls (prev/next, page numbers)
+- [ ] **Subtask 7.2.1.6:** Add infinite scroll option (optional)
+- [ ] **Subtask 7.2.1.7:** Ensure bottom menu bar is visible
 
-#### Task 7.2.3: Opponent Hand Display
-- [ ] **Subtask 7.2.3.1:** Show card back for opponents
-- [ ] **Subtask 7.2.3.2:** Display card count
-- [ ] **Subtask 7.2.3.3:** Last played cards display
-- [ ] **Subtask 7.2.3.4:** Toggle to show/hide count (optional)
+#### Task 7.2.2: Table Card Component
+- [ ] **Subtask 7.2.2.1:** Create table card component
+- [ ] **Subtask 7.2.2.2:** Display table name (or "Table #123")
+- [ ] **Subtask 7.2.2.3:** Display player count (e.g., "2/4 players")
+- [ ] **Subtask 7.2.2.4:** Add status badges (🟢 Waiting, 🟡 In Progress, ⚪ Full)
+- [ ] **Subtask 7.2.2.5:** Display game mode (Casual, Bot Arena, Hybrid, Practice)
+- [ ] **Subtask 7.2.2.6:** Display host avatar/name
+- [ ] **Subtask 7.2.2.7:** Add join button (if not full and user not in table)
+- [ ] **Subtask 7.2.2.8:** Add info icon for table details
 
-### Story 7.3: Game Board Screen
+#### Task 7.2.3: Table List Functionality
+- [ ] **Subtask 7.2.3.1:** Implement table creation modal/form
+  - Player count selector (2-4)
+  - Game mode selector
+  - Session length selector (16/32 games)
+  - Table name input (optional)
+- [ ] **Subtask 7.2.3.2:** Implement join table functionality
+  - Navigate to table lobby on join
+  - Handle full table error
+  - Handle already in table case
+- [ ] **Subtask 7.2.3.3:** Implement table details modal
+  - Show current players
+  - Show game mode
+  - Show session progress
+  - Show share link
+- [ ] **Subtask 7.2.3.4:** Implement filter functionality
+  - Filter by status (Waiting, In Progress, Full)
+  - Filter by game mode
+  - Filter by player count
+- [ ] **Subtask 7.2.3.5:** Implement search functionality
+  - Search by table name
+  - Search by host name
+- [ ] **Subtask 7.2.3.6:** Implement pagination
+  - Load next/previous page
+  - Show current page number
+  - Handle infinite scroll (optional)
 
-#### Task 7.3.1: Game Board Layout
-- [ ] **Subtask 7.3.1.1:** Create game board container
-- [ ] **Subtask 7.3.1.2:** Position players (4-player layout: top, left, right, bottom)
-- [ ] **Subtask 7.3.1.3:** Center play area
-- [ ] **Subtask 7.3.1.4:** Responsive layout for 2-3 players
-- [ ] **Subtask 7.3.1.5:** Mobile-responsive design
+### Story 7.3: Table Lobby Page
 
-#### Task 7.3.2: Player Information Display
-- [ ] **Subtask 7.3.2.1:** Player name/bot indicator
-- [ ] **Subtask 7.3.2.2:** Cards remaining count
-- [ ] **Subtask 7.3.2.3:** Last action display
-- [ ] **Subtask 7.3.2.4:** Turn indicator (highlight)
-- [ ] **Subtask 7.3.2.5:** Turn timer display (30s countdown)
+#### Task 7.3.1: Table Lobby Layout
+- [ ] **Subtask 7.3.1.1:** Create `TableLobbyPage.tsx` component
+- [ ] **Subtask 7.3.1.2:** Add top bar with back button, table name, and share button
+- [ ] **Subtask 7.3.1.3:** Create player slots grid (2x2 layout for 4 slots)
+- [ ] **Subtask 7.3.1.4:** Display player slot component (empty/human/bot status)
+- [ ] **Subtask 7.3.1.5:** Add ready status indicators on player slots
+- [ ] **Subtask 7.3.1.6:** Add table settings panel
+  - Game mode display
+  - Session length display
+  - Player count display
+- [ ] **Subtask 7.3.1.7:** Add action buttons ([Add Bot] [Ready] [Start Game])
+- [ ] **Subtask 7.3.1.8:** Ensure bottom menu bar is visible
 
-#### Task 7.3.3: Center Play Area
-- [ ] **Subtask 7.3.3.1:** Display last played cards
-- [ ] **Subtask 7.3.3.2:** Show combination type label
-- [ ] **Subtask 7.3.3.3:** Show "Round won" message
-- [ ] **Subtask 7.3.3.4:** Animations for card plays
-- [ ] **Subtask 7.3.3.5:** Clear play area on new round
+#### Task 7.3.2: Table Lobby Functionality
+- [ ] **Subtask 7.3.2.1:** Implement ready/unready toggle
+- [ ] **Subtask 7.3.2.2:** Implement add bot functionality (host only, coming soon - disabled)
+  - Bot selection modal
+  - Bot list display
+- [ ] **Subtask 7.3.2.3:** Implement remove player/bot (host only)
+  - Long press on player slot
+  - Confirmation dialog
+- [ ] **Subtask 7.3.2.4:** Implement start game button (host only)
+  - Enable when all slots filled and all players ready
+  - Navigate to game board on start
+- [ ] **Subtask 7.3.2.5:** Implement leave table functionality
+  - Confirmation dialog
+  - Navigate back to table list
+- [ ] **Subtask 7.3.2.6:** Implement share table functionality
+  - Copy table link to clipboard
+  - Show share options (if available)
 
-#### Task 7.3.4: Action Buttons
-- [ ] **Subtask 7.3.4.1:** Play button (enabled when valid move)
-- [ ] **Subtask 7.3.4.2:** Pass button
-- [ ] **Subtask 7.3.4.3:** Auto-sort button
-- [ ] **Subtask 7.3.4.4:** Suggestion button (show valid moves)
-- [ ] **Subtask 7.3.4.5:** Button states (disabled/enabled)
+### Story 7.4: Authentication Pages
 
-#### Task 7.3.5: Sidebar Components
-- [ ] **Subtask 7.3.5.1:** Game log panel
-- [ ] **Subtask 7.3.5.2:** Chat panel
-- [ ] **Subtask 7.3.5.3:** Score board (current game points)
-- [ ] **Subtask 7.3.5.4:** Session score board (accumulated points)
-- [ ] **Subtask 7.3.5.5:** Collapsible panels
+#### Task 7.4.1: Login Page
+- [ ] **Subtask 7.4.1.1:** Create `LoginPage.tsx` component
+- [ ] **Subtask 7.4.1.2:** Add username/email input field
+- [ ] **Subtask 7.4.1.3:** Add password input field
+- [ ] **Subtask 7.4.1.4:** Add login button
+- [ ] **Subtask 7.4.1.5:** Add "Sign Up" link/button
+- [ ] **Subtask 7.4.1.6:** Implement form validation
+- [ ] **Subtask 7.4.1.7:** Handle login success (store token, update state, redirect)
+- [ ] **Subtask 7.4.1.8:** Display error messages
 
-#### Task 7.3.6: Top Bar
-- [ ] **Subtask 7.3.6.1:** Round number display
-- [ ] **Subtask 7.3.6.2:** Game number display (Game X of 16/32)
-- [ ] **Subtask 7.3.6.3:** Leave Game button
-- [ ] **Subtask 7.3.6.4:** Settings menu
-- [ ] **Subtask 7.3.6.5:** Hand count toggle (show/hide)
+#### Task 7.4.2: Registration Page
+- [ ] **Subtask 7.4.2.1:** Create `RegisterPage.tsx` component
+- [ ] **Subtask 7.4.2.2:** Add username input field
+- [ ] **Subtask 7.4.2.3:** Add email input field
+- [ ] **Subtask 7.4.2.4:** Add password input field
+- [ ] **Subtask 7.4.2.5:** Add confirm password input field
+- [ ] **Subtask 7.4.2.6:** Add "Create Account" button
+- [ ] **Subtask 7.4.2.7:** Add "Login" link/button
+- [ ] **Subtask 7.4.2.8:** Implement form validation
+- [ ] **Subtask 7.4.2.9:** Handle registration success (auto-login, redirect to table list)
+- [ ] **Subtask 7.4.2.10:** Display error messages
 
-### Story 7.4: Post-Game Screen
+### Story 7.5: User Profile / Info Page
 
-#### Task 7.4.1: Result Display
-- [ ] **Subtask 7.4.1.1:** Winner announcement
-- [ ] **Subtask 7.4.1.2:** Player rankings
-- [ ] **Subtask 7.4.1.3:** Score breakdown per player
-- [ ] **Subtask 7.4.1.4:** Detailed stats (cards left, penalties, etc.)
-- [ ] **Subtask 7.4.1.5:** Visual card reveal (all hands)
+#### Task 7.5.1: Profile Page Layout
+- [ ] **Subtask 7.5.1.1:** Create `UserInfoPage.tsx` or `ProfilePage.tsx` component
+- [ ] **Subtask 7.5.1.2:** Add top bar with back button, "Profile" title, and settings icon
+- [ ] **Subtask 7.5.1.3:** Create profile header section
+  - User avatar/profile picture
+  - Username display
+  - User ID or handle
+  - Account creation date
+  - Online/offline status (if applicable)
+- [ ] **Subtask 7.5.1.4:** Create statistics section
+  - Games Played count
+  - Games Won count
+  - Win Rate percentage
+  - Total Points
+  - Best Score
+  - Average Score
+  - Current Rank (if leaderboard exists)
+- [ ] **Subtask 7.5.1.5:** Create "My Bots" section
+  - Bot count display
+  - Link to Bot Editor page
+  - "Coming Soon" indicator if not available
+- [ ] **Subtask 7.5.1.6:** Create "Recent Games" section
+  - List of last 3-5 games
+  - Game ID, date, result (Won/Lost), points
+  - Link to full game history
+- [ ] **Subtask 7.5.1.7:** Add action buttons ([Edit Profile] [Change Password])
+- [ ] **Subtask 7.5.1.8:** Ensure bottom menu bar is visible
 
-#### Task 7.4.2: Post-Game Actions
-- [ ] **Subtask 7.4.2.1:** Play Again button (next game in session)
-- [ ] **Subtask 7.4.2.2:** Back to Lobby button
-- [ ] **Subtask 7.4.2.3:** Share result button (copyable text)
-- [ ] **Subtask 7.4.2.4:** View Replay button (future)
+#### Task 7.5.2: Profile Page Functionality
+- [ ] **Subtask 7.5.2.1:** Implement edit profile functionality
+  - Edit form modal/page
+  - Update username (if allowed)
+  - Update avatar/profile picture
+  - Update bio/description (if applicable)
+  - Update display preferences
+- [ ] **Subtask 7.5.2.2:** Implement change password functionality
+  - Password change form
+  - Current password validation
+  - New password strength validation
+- [ ] **Subtask 7.5.2.3:** Implement view game history
+  - Navigate to game history page
+  - Paginated list of all games
+  - Filter by date, result, points
+  - View game details/replay
+- [ ] **Subtask 7.5.2.4:** Implement logout functionality
+  - Confirmation dialog
+  - Clear authentication token
+  - Redirect to login or table list
+- [ ] **Subtask 7.5.2.5:** Add mobile-optimized features
+  - Swipe gestures for navigation
+  - Pull to refresh statistics
+  - Collapsible sections
+  - Long press on avatar to change picture
 
-### Story 7.5: Session Summary Screen
+#### Task 7.5.3: Settings Menu (Optional)
+- [ ] **Subtask 7.5.3.1:** Create settings menu/drawer
+- [ ] **Subtask 7.5.3.2:** Add account settings section
+  - Edit profile
+  - Change password
+  - Email preferences
+  - Notification settings
+- [ ] **Subtask 7.5.3.3:** Add game settings section
+  - Sound effects toggle
+  - Animation preferences
+  - Card display options
+  - Language selection
+- [ ] **Subtask 7.5.3.4:** Add privacy settings section
+  - Profile visibility
+  - Game history visibility
+  - Data sharing preferences
 
-#### Task 7.5.1: Session Summary Display
-- [ ] **Subtask 7.5.1.1:** Final ranking display
-- [ ] **Subtask 7.5.1.2:** Total points per player
-- [ ] **Subtask 7.5.1.3:** Session winner announcement
-- [ ] **Subtask 7.5.1.4:** Detailed breakdown (points per game)
-- [ ] **Subtask 7.5.1.5:** Expandable game-by-game view
+### Story 7.6: Card Components
 
-#### Task 7.5.2: Session Summary Actions
-- [ ] **Subtask 7.5.2.1:** Create New Table button
-- [ ] **Subtask 7.5.2.2:** View Game History button
-- [ ] **Subtask 7.5.2.3:** Share Results button
+#### Task 7.6.1: Card Visual Component
+- [ ] **Subtask 7.6.1.1:** Create Card component (SVG or image-based)
+- [ ] **Subtask 7.6.1.2:** Display rank and suit
+- [ ] **Subtask 7.6.1.3:** Card styling (back, face, selected state)
+- [ ] **Subtask 7.6.1.4:** Hover effects
+- [ ] **Subtask 7.6.1.5:** Animation support (flip, slide)
+
+#### Task 7.6.2: Hand Display Component
+- [ ] **Subtask 7.6.2.1:** Create Hand component
+- [ ] **Subtask 7.6.2.2:** Display cards horizontally
+- [ ] **Subtask 7.6.2.3:** Click-to-select functionality
+- [ ] **Subtask 7.6.2.4:** Visual feedback for selected cards
+- [ ] **Subtask 7.6.2.5:** Auto-sort functionality
+- [ ] **Subtask 7.6.2.6:** Selected cards counter
+
+#### Task 7.6.3: Opponent Hand Display
+- [ ] **Subtask 7.6.3.1:** Show card back for opponents
+- [ ] **Subtask 7.6.3.2:** Display card count
+- [ ] **Subtask 7.6.3.3:** Last played cards display
+- [ ] **Subtask 7.6.3.4:** Toggle to show/hide count (optional)
+
+### Story 7.7: Game Board Screen
+
+#### Task 7.7.1: Game Board Layout (Mobile-Optimized)
+- [ ] **Subtask 7.7.1.1:** Create `GameBoardPage.tsx` component
+- [ ] **Subtask 7.7.1.2:** Add top bar with round number, game number (Game X/16), and settings icon
+- [ ] **Subtask 7.7.1.3:** Position players (mobile-optimized layout)
+  - Opponent 1 (Top)
+  - Opponent 2 (Left)
+  - Opponent 3 (Right)
+  - Your hand (Bottom)
+- [ ] **Subtask 7.7.1.4:** Create center play area for last played cards
+- [ ] **Subtask 7.7.1.5:** Add action buttons bar ([Play] [Pass] [Sort] [Suggest])
+- [ ] **Subtask 7.7.1.6:** Ensure bottom menu bar is visible
+- [ ] **Subtask 7.7.1.7:** Implement responsive layout for 2-3 players
+- [ ] **Subtask 7.7.1.8:** Optimize for mobile touch interactions
+
+#### Task 7.7.2: Player Information Display
+- [ ] **Subtask 7.7.2.1:** Display player name/bot indicator for each opponent
+- [ ] **Subtask 7.7.2.2:** Display cards remaining count for each opponent
+- [ ] **Subtask 7.7.2.3:** Display last action for each player
+- [ ] **Subtask 7.7.2.4:** Add turn indicator (highlight current player)
+- [ ] **Subtask 7.7.2.5:** Add turn timer display (30s countdown)
+
+#### Task 7.7.3: Center Play Area
+- [ ] **Subtask 7.7.3.1:** Display last played cards in center area
+- [ ] **Subtask 7.7.3.2:** Show combination type label
+- [ ] **Subtask 7.7.3.3:** Show "Round won" message
+- [ ] **Subtask 7.7.3.4:** Add animations for card plays
+- [ ] **Subtask 7.7.3.5:** Clear play area on new round
+
+#### Task 7.7.4: Action Buttons & User Interactions
+- [ ] **Subtask 7.7.4.1:** Implement card selection (tap to select/deselect)
+- [ ] **Subtask 7.7.4.2:** Add Play button (enabled when valid move selected)
+- [ ] **Subtask 7.7.4.3:** Add Pass button
+- [ ] **Subtask 7.7.4.4:** Add Auto-sort button (sorts hand by rank and suit)
+- [ ] **Subtask 7.7.4.5:** Add Suggestion button (highlights valid moves, shows combination type)
+- [ ] **Subtask 7.7.4.6:** Implement button states (disabled/enabled based on game state)
+- [ ] **Subtask 7.7.4.7:** Add move validation and error messages
+
+#### Task 7.7.5: Sidebar/Settings Panel
+- [ ] **Subtask 7.7.5.1:** Create settings sidebar (opens from settings icon)
+- [ ] **Subtask 7.7.5.2:** Add game log panel
+- [ ] **Subtask 7.7.5.3:** Add chat panel
+- [ ] **Subtask 7.7.5.4:** Add score board (current game points)
+- [ ] **Subtask 7.7.5.5:** Add session score board (accumulated points)
+- [ ] **Subtask 7.7.5.6:** Add leave game option
+- [ ] **Subtask 7.7.5.7:** Implement collapsible panels
+
+### Story 7.8: Post-Game Screen
+
+#### Task 7.8.1: Result Display
+- [ ] **Subtask 7.8.1.1:** Winner announcement
+- [ ] **Subtask 7.8.1.2:** Player rankings
+- [ ] **Subtask 7.8.1.3:** Score breakdown per player
+- [ ] **Subtask 7.8.1.4:** Detailed stats (cards left, penalties, etc.)
+- [ ] **Subtask 7.8.1.5:** Visual card reveal (all hands)
+
+#### Task 7.8.2: Post-Game Actions
+- [ ] **Subtask 7.8.2.1:** Play Again button (next game in session)
+- [ ] **Subtask 7.8.2.2:** Back to Lobby button
+- [ ] **Subtask 7.8.2.3:** Share result button (copyable text)
+- [ ] **Subtask 7.8.2.4:** View Replay button (future)
+
+### Story 7.9: Session Summary Screen
+
+#### Task 7.9.1: Session Summary Display
+- [ ] **Subtask 7.9.1.1:** Final ranking display
+- [ ] **Subtask 7.9.1.2:** Total points per player
+- [ ] **Subtask 7.9.1.3:** Session winner announcement
+- [ ] **Subtask 7.9.1.4:** Detailed breakdown (points per game)
+- [ ] **Subtask 7.9.1.5:** Expandable game-by-game view
+
+#### Task 7.9.2: Session Summary Actions
+- [ ] **Subtask 7.9.2.1:** Create New Table button
+- [ ] **Subtask 7.9.2.2:** View Game History button
+- [ ] **Subtask 7.9.2.3:** Share Results button
 
 ---
 
@@ -900,11 +1174,30 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 - [ ] **Subtask 12.1.2.3:** Game end sounds
 - [ ] **Subtask 12.1.2.4:** Volume controls
 
-#### Task 12.1.3: Responsive Design
-- [ ] **Subtask 12.1.3.1:** Mobile optimization
-- [ ] **Subtask 12.1.3.2:** Tablet optimization
-- [ ] **Subtask 12.1.3.3:** Touch-friendly controls
-- [ ] **Subtask 12.1.3.4:** Responsive game board
+#### Task 12.1.3: Responsive Design (Mobile-First)
+- [ ] **Subtask 12.1.3.1:** Mobile optimization (< 768px)
+  - Bottom menu bar always visible
+  - Single column table list
+  - Full-screen modals for forms
+  - Swipe gestures for navigation
+  - Touch-optimized buttons (min 44x44px)
+- [ ] **Subtask 12.1.3.2:** Tablet optimization (768px - 1024px)
+  - 2-3 column table grid
+  - Sidebar for game info
+  - Bottom menu or top navigation
+- [ ] **Subtask 12.1.3.3:** Desktop optimization (> 1024px)
+  - 3-4 column table grid
+  - Top navigation bar (bottom menu optional)
+  - Sidebar panels
+  - Hover states for interactions
+- [ ] **Subtask 12.1.3.4:** Touch-friendly controls
+  - Tap for primary actions
+  - Long press for secondary actions
+  - Swipe for navigation
+- [ ] **Subtask 12.1.3.5:** Responsive game board
+  - Adapt layout for 2-4 players
+  - Mobile-optimized card display
+  - Responsive action buttons
 
 ### Story 12.2: How to Play Documentation
 
