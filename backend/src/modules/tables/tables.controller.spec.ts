@@ -91,25 +91,131 @@ describe('TablesController', () => {
   });
 
   describe('findAll', () => {
-    it('should return all tables', async () => {
-      const mockTables = [mockTableSession, { ...mockTableSession, id: 2 }];
+    it('should return paginated tables with default parameters', async () => {
+      const mockPaginatedResponse = {
+        data: [mockTableSession, { ...mockTableSession, id: 2 }],
+        pagination: {
+          page: 1,
+          limit: 20,
+          total: 2,
+          totalPages: 1,
+          hasNext: false,
+          hasPrev: false,
+        },
+      };
 
-      mockTablesService.findAll.mockResolvedValue(mockTables);
+      mockTablesService.findAll.mockResolvedValue(mockPaginatedResponse);
 
-      const result = await controller.findAll();
+      const result = await controller.findAll({});
 
-      expect(tablesService.findAll).toHaveBeenCalled();
-      expect(result).toEqual(mockTables);
-      expect(result).toHaveLength(2);
+      expect(tablesService.findAll).toHaveBeenCalledWith({});
+      expect(result).toEqual(mockPaginatedResponse);
+      expect(result.data).toHaveLength(2);
+      expect(result.pagination).toBeDefined();
     });
 
-    it('should return empty array if no tables exist', async () => {
-      mockTablesService.findAll.mockResolvedValue([]);
+    it('should return paginated tables with query parameters', async () => {
+      const queryParams = {
+        page: 1,
+        limit: 10,
+        status: 'Waiting' as const,
+        sortBy: 'createdAt' as const,
+        sortOrder: 'desc' as const,
+      };
 
-      const result = await controller.findAll();
+      const mockPaginatedResponse = {
+        data: [mockTableSession],
+        pagination: {
+          page: 1,
+          limit: 10,
+          total: 1,
+          totalPages: 1,
+          hasNext: false,
+          hasPrev: false,
+        },
+      };
 
-      expect(tablesService.findAll).toHaveBeenCalled();
-      expect(result).toEqual([]);
+      mockTablesService.findAll.mockResolvedValue(mockPaginatedResponse);
+
+      const result = await controller.findAll(queryParams);
+
+      expect(tablesService.findAll).toHaveBeenCalledWith(queryParams);
+      expect(result).toEqual(mockPaginatedResponse);
+    });
+
+    it('should return empty paginated response if no tables exist', async () => {
+      const mockPaginatedResponse = {
+        data: [],
+        pagination: {
+          page: 1,
+          limit: 20,
+          total: 0,
+          totalPages: 0,
+          hasNext: false,
+          hasPrev: false,
+        },
+      };
+
+      mockTablesService.findAll.mockResolvedValue(mockPaginatedResponse);
+
+      const result = await controller.findAll({});
+
+      expect(tablesService.findAll).toHaveBeenCalledWith({});
+      expect(result.data).toEqual([]);
+      expect(result.pagination.total).toBe(0);
+    });
+
+    it('should handle filtering by status', async () => {
+      const queryParams = {
+        status: 'In Progress' as const,
+      };
+
+      const mockPaginatedResponse = {
+        data: [{ ...mockTableSession, status: 'In Progress' }],
+        pagination: {
+          page: 1,
+          limit: 20,
+          total: 1,
+          totalPages: 1,
+          hasNext: false,
+          hasPrev: false,
+        },
+      };
+
+      mockTablesService.findAll.mockResolvedValue(mockPaginatedResponse);
+
+      const result = await controller.findAll(queryParams);
+
+      expect(tablesService.findAll).toHaveBeenCalledWith(queryParams);
+      expect(result.data[0].status).toBe('In Progress');
+    });
+
+    it('should handle pagination with page and limit', async () => {
+      const queryParams = {
+        page: 2,
+        limit: 5,
+      };
+
+      const mockPaginatedResponse = {
+        data: [mockTableSession],
+        pagination: {
+          page: 2,
+          limit: 5,
+          total: 10,
+          totalPages: 2,
+          hasNext: false,
+          hasPrev: true,
+        },
+      };
+
+      mockTablesService.findAll.mockResolvedValue(mockPaginatedResponse);
+
+      const result = await controller.findAll(queryParams);
+
+      expect(tablesService.findAll).toHaveBeenCalledWith(queryParams);
+      expect(result.pagination.page).toBe(2);
+      expect(result.pagination.limit).toBe(5);
+      expect(result.pagination.hasPrev).toBe(true);
     });
   });
 

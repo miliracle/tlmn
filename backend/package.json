@@ -38,6 +38,7 @@
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
+    "shared": "workspace:^",
     "socket.io": "^4.6.0",
     "zod": "^3.22.4"
   },
@@ -88,4 +89,3 @@
     "seed": "ts-node prisma/seed.ts"
   }
 }
-

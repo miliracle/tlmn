@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateTableDto } from './dto/create-table.dto';
+import { FindTablesDto } from './dto/find-tables.dto';
 import { NotFoundException, ForbiddenException } from '../../common/exceptions';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class TablesService {
@@ -54,8 +56,73 @@ export class TablesService {
     return tableSession;
   }
 
-  async findAll() {
-    return this.prisma.tableSession.findMany({
+  async findAll(query: FindTablesDto) {
+    const {
+      page = 1,
+      limit = 20,
+      offset,
+      status,
+      playerCount,
+      minPlayers,
+      maxPlayers,
+      search,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+    } = query;
+
+    // Build where clause
+    const where: Prisma.TableSessionWhereInput = {};
+
+    if (status) {
+      where.status = status;
+    }
+
+    // Filter by player count in config JSON
+    if (playerCount !== undefined) {
+      where.config = {
+        path: ['playerCount'],
+        equals: playerCount,
+      } as Prisma.JsonNullableFilter;
+    } else if (minPlayers !== undefined || maxPlayers !== undefined) {
+      const jsonFilter: any = {
+        path: ['playerCount'],
+      };
+      if (minPlayers !== undefined) {
+        jsonFilter.gte = minPlayers;
+      }
+      if (maxPlayers !== undefined) {
+        jsonFilter.lte = maxPlayers;
+      }
+      where.config = jsonFilter as Prisma.JsonNullableFilter;
+    }
+
+    // Search functionality (search in status or config)
+    if (search) {
+      where.OR = [
+        { status: { contains: search, mode: 'insensitive' } },
+        // Note: JSON search in Prisma is limited, this is a basic implementation
+      ];
+    }
+
+    // Build orderBy
+    const orderBy: Prisma.TableSessionOrderByWithRelationInput = {};
+    if (sortBy === 'createdAt') {
+      orderBy.createdAt = sortOrder;
+    } else if (sortBy === 'updatedAt') {
+      orderBy.updatedAt = sortOrder;
+    } else if (sortBy === 'startedAt') {
+      orderBy.startedAt = sortOrder;
+    }
+
+    // Calculate pagination
+    const skip = offset !== undefined ? offset : (page - 1) * limit;
+
+    // Get total count for pagination
+    const total = await this.prisma.tableSession.count({ where });
+
+    // Get paginated results
+    const data = await this.prisma.tableSession.findMany({
+      where,
       select: {
         id: true,
         config: true,
@@ -86,10 +153,27 @@ export class TablesService {
           },
         },
       },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      orderBy,
+      skip,
+      take: limit,
     });
+
+    // Calculate pagination metadata
+    const totalPages = Math.ceil(total / limit);
+    const hasNext = page < totalPages;
+    const hasPrev = page > 1;
+
+    return {
+      data,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages,
+        hasNext,
+        hasPrev,
+      },
+    };
   }
 
   async findOne(id: number) {

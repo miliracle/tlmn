@@ -6,6 +6,7 @@ import {
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import { CLIENT_EVENTS, SERVER_EVENTS } from 'shared';
 
 @WebSocketGateway({
   cors: {
@@ -25,27 +26,27 @@ export class AppWebSocketGateway implements OnGatewayConnection, OnGatewayDiscon
     console.log(`Client disconnected: ${client.id}`);
   }
 
-  @SubscribeMessage('create_table')
-  handleCreateTable(client: Socket, payload: any) {
+  @SubscribeMessage(CLIENT_EVENTS.CREATE_TABLE)
+  handleCreateTable(client: Socket, payload: unknown) {
     // Handle table creation
-    this.server.emit('table_created', payload);
+    this.server.emit(SERVER_EVENTS.TABLE_CREATED, payload);
   }
 
-  @SubscribeMessage('join_table')
-  handleJoinTable(client: Socket, payload: any) {
+  @SubscribeMessage(CLIENT_EVENTS.JOIN_TABLE)
+  handleJoinTable(client: Socket, payload: { tableId: string | number }) {
     client.join(`table:${payload.tableId}`);
-    this.server.to(`table:${payload.tableId}`).emit('player_joined', payload);
+    this.server.to(`table:${payload.tableId}`).emit(SERVER_EVENTS.PLAYER_JOINED, payload);
   }
 
-  @SubscribeMessage('play_cards')
-  handlePlayCards(client: Socket, payload: any) {
+  @SubscribeMessage(CLIENT_EVENTS.PLAY_CARDS)
+  handlePlayCards(client: Socket, payload: unknown) {
     // Handle card play
-    this.server.emit('game_state_update', payload);
+    this.server.emit(SERVER_EVENTS.GAME_STATE_UPDATE, payload);
   }
 
-  @SubscribeMessage('pass_turn')
-  handlePassTurn(client: Socket, payload: any) {
+  @SubscribeMessage(CLIENT_EVENTS.PASS_TURN)
+  handlePassTurn(client: Socket, payload: unknown) {
     // Handle pass turn
-    this.server.emit('game_state_update', payload);
+    this.server.emit(SERVER_EVENTS.GAME_STATE_UPDATE, payload);
   }
 }

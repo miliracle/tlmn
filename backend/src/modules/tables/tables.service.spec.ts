@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TablesService } from './tables.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateTableDto } from './dto/create-table.dto';
+import { FindTablesDto } from './dto/find-tables.dto';
 import { NotFoundException, ForbiddenException } from '../../common/exceptions';
 
 describe('TablesService', () => {
@@ -14,6 +15,7 @@ describe('TablesService', () => {
       findMany: jest.fn(),
       findUnique: jest.fn(),
       delete: jest.fn(),
+      count: jest.fn(),
     },
     gamePlayer: {
       create: jest.fn(),
@@ -119,29 +121,266 @@ describe('TablesService', () => {
   });
 
   describe('findAll', () => {
-    it('should return all table sessions', async () => {
+    it('should return paginated table sessions with default parameters', async () => {
+      const query: FindTablesDto = {};
       const mockTables = [mockTableSession, { ...mockTableSession, id: 2, status: 'In Progress' }];
 
+      mockPrismaService.tableSession.count.mockResolvedValue(2);
       mockPrismaService.tableSession.findMany.mockResolvedValue(mockTables);
 
-      const result = await service.findAll();
+      const result = await service.findAll(query);
 
+      expect(prismaService.tableSession.count).toHaveBeenCalledWith({ where: {} });
       expect(prismaService.tableSession.findMany).toHaveBeenCalledWith({
+        where: {},
         select: expect.any(Object),
-        orderBy: {
-          createdAt: 'desc',
-        },
+        orderBy: { createdAt: 'desc' },
+        skip: 0,
+        take: 20,
       });
-      expect(result).toEqual(mockTables);
-      expect(result).toHaveLength(2);
+      expect(result.data).toEqual(mockTables);
+      expect(result.data).toHaveLength(2);
+      expect(result.pagination).toEqual({
+        page: 1,
+        limit: 20,
+        total: 2,
+        totalPages: 1,
+        hasNext: false,
+        hasPrev: false,
+      });
     });
 
-    it('should return empty array if no tables exist', async () => {
+    it('should return empty paginated response if no tables exist', async () => {
+      const query: FindTablesDto = {};
+
+      mockPrismaService.tableSession.count.mockResolvedValue(0);
       mockPrismaService.tableSession.findMany.mockResolvedValue([]);
 
-      const result = await service.findAll();
+      const result = await service.findAll(query);
 
-      expect(result).toEqual([]);
+      expect(result.data).toEqual([]);
+      expect(result.pagination.total).toBe(0);
+      expect(result.pagination.totalPages).toBe(0);
+    });
+
+    it('should filter by status', async () => {
+      const query: FindTablesDto = {
+        status: 'Waiting',
+      };
+      const mockTables = [mockTableSession];
+
+      mockPrismaService.tableSession.count.mockResolvedValue(1);
+      mockPrismaService.tableSession.findMany.mockResolvedValue(mockTables);
+
+      const result = await service.findAll(query);
+
+      expect(prismaService.tableSession.count).toHaveBeenCalledWith({
+        where: { status: 'Waiting' },
+      });
+      expect(prismaService.tableSession.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { status: 'Waiting' },
+        }),
+      );
+      expect(result.data).toHaveLength(1);
+    });
+
+    it('should filter by player count', async () => {
+      const query: FindTablesDto = {
+        playerCount: 4,
+      };
+      const mockTables = [mockTableSession];
+
+      mockPrismaService.tableSession.count.mockResolvedValue(1);
+      mockPrismaService.tableSession.findMany.mockResolvedValue(mockTables);
+
+      const result = await service.findAll(query);
+
+      expect(prismaService.tableSession.count).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({
+            config: expect.objectContaining({
+              path: ['playerCount'],
+              equals: 4,
+            }),
+          }),
+        }),
+      );
+      expect(result.data).toHaveLength(1);
+    });
+
+    it('should filter by min and max players', async () => {
+      const query: FindTablesDto = {
+        minPlayers: 2,
+        maxPlayers: 4,
+      };
+      const mockTables = [mockTableSession];
+
+      mockPrismaService.tableSession.count.mockResolvedValue(1);
+      mockPrismaService.tableSession.findMany.mockResolvedValue(mockTables);
+
+      const result = await service.findAll(query);
+
+      expect(prismaService.tableSession.count).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({
+            config: expect.objectContaining({
+              path: ['playerCount'],
+              gte: 2,
+              lte: 4,
+            }),
+          }),
+        }),
+      );
+      expect(result.data).toHaveLength(1);
+    });
+
+    it('should handle search query', async () => {
+      const query: FindTablesDto = {
+        search: 'waiting',
+      };
+      const mockTables = [mockTableSession];
+
+      mockPrismaService.tableSession.count.mockResolvedValue(1);
+      mockPrismaService.tableSession.findMany.mockResolvedValue(mockTables);
+
+      const result = await service.findAll(query);
+
+      expect(prismaService.tableSession.count).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({
+            OR: expect.arrayContaining([
+              expect.objectContaining({
+                status: expect.objectContaining({
+                  contains: 'waiting',
+                  mode: 'insensitive',
+                }),
+              }),
+            ]),
+          }),
+        }),
+      );
+      expect(result.data).toHaveLength(1);
+    });
+
+    it('should handle pagination with page and limit', async () => {
+      const query: FindTablesDto = {
+        page: 2,
+        limit: 10,
+      };
+      const mockTables = [mockTableSession];
+
+      mockPrismaService.tableSession.count.mockResolvedValue(25);
+      mockPrismaService.tableSession.findMany.mockResolvedValue(mockTables);
+
+      const result = await service.findAll(query);
+
+      expect(prismaService.tableSession.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          skip: 10, // (page - 1) * limit = (2 - 1) * 10
+          take: 10,
+        }),
+      );
+      expect(result.pagination).toEqual({
+        page: 2,
+        limit: 10,
+        total: 25,
+        totalPages: 3,
+        hasNext: true,
+        hasPrev: true,
+      });
+    });
+
+    it('should handle offset parameter', async () => {
+      const query: FindTablesDto = {
+        offset: 5,
+        limit: 10,
+      };
+      const mockTables = [mockTableSession];
+
+      mockPrismaService.tableSession.count.mockResolvedValue(15);
+      mockPrismaService.tableSession.findMany.mockResolvedValue(mockTables);
+
+      const result = await service.findAll(query);
+
+      expect(prismaService.tableSession.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          skip: 5,
+          take: 10,
+        }),
+      );
+    });
+
+    it('should sort by createdAt descending by default', async () => {
+      const query: FindTablesDto = {};
+
+      mockPrismaService.tableSession.count.mockResolvedValue(1);
+      mockPrismaService.tableSession.findMany.mockResolvedValue([mockTableSession]);
+
+      await service.findAll(query);
+
+      expect(prismaService.tableSession.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          orderBy: { createdAt: 'desc' },
+        }),
+      );
+    });
+
+    it('should sort by updatedAt when specified', async () => {
+      const query: FindTablesDto = {
+        sortBy: 'updatedAt',
+        sortOrder: 'asc',
+      };
+
+      mockPrismaService.tableSession.count.mockResolvedValue(1);
+      mockPrismaService.tableSession.findMany.mockResolvedValue([mockTableSession]);
+
+      await service.findAll(query);
+
+      expect(prismaService.tableSession.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          orderBy: { updatedAt: 'asc' },
+        }),
+      );
+    });
+
+    it('should sort by startedAt when specified', async () => {
+      const query: FindTablesDto = {
+        sortBy: 'startedAt',
+        sortOrder: 'desc',
+      };
+
+      mockPrismaService.tableSession.count.mockResolvedValue(1);
+      mockPrismaService.tableSession.findMany.mockResolvedValue([mockTableSession]);
+
+      await service.findAll(query);
+
+      expect(prismaService.tableSession.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          orderBy: { startedAt: 'desc' },
+        }),
+      );
+    });
+
+    it('should calculate pagination metadata correctly', async () => {
+      const query: FindTablesDto = {
+        page: 3,
+        limit: 5,
+      };
+
+      mockPrismaService.tableSession.count.mockResolvedValue(23);
+      mockPrismaService.tableSession.findMany.mockResolvedValue([mockTableSession]);
+
+      const result = await service.findAll(query);
+
+      expect(result.pagination).toEqual({
+        page: 3,
+        limit: 5,
+        total: 23,
+        totalPages: 5, // Math.ceil(23 / 5) = 5
+        hasNext: true, // page 3 < totalPages 5
+        hasPrev: true, // page 3 > 1
+      });
     });
   });
 

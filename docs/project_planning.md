@@ -304,7 +304,10 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 
 #### Task 3.2.3: Table Management Endpoints
 - [x] **Subtask 3.2.3.1:** POST /api/tables (create table)
-- [x] **Subtask 3.2.3.2:** GET /api/tables (list all tables)
+- [x] **Subtask 3.2.3.2:** GET /api/tables (list all tables with pagination and filtering support)
+  - [x] Pagination (page, limit, offset)
+  - [x] Filtering (status, playerCount, minPlayers, maxPlayers, search)
+  - [x] Sorting (sortBy, sortOrder)
 - [x] **Subtask 3.2.3.3:** GET /api/tables/:id (get table info)
 - [x] **Subtask 3.2.3.4:** POST /api/tables/:id/join (join table)
 - [x] **Subtask 3.2.3.5:** DELETE /api/tables/:id/leave (leave table, will remove the table if no player left)
@@ -466,7 +469,7 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 ### Story 5.5.1: Redux Store Setup
 
 #### Task 5.5.1.1: Redux Slices Implementation
-- [ ] **Subtask 5.5.1.1:** Create `uiSlice` for UI state
+- [x] **Subtask 5.5.1.1:** Create `uiSlice` for UI state
   - Navigation state (sidebarOpen, bottomMenuActiveItem)
   - Modal state (currentModal, modalStack)
   - Theme and appearance preferences
@@ -474,65 +477,66 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
   - Loading states (page transitions, dragging)
   - Form drafts
   - UI preferences (sound, animations, card display)
-- [ ] **Subtask 5.5.1.2:** Create `gameSlice` for game UI state
+- [x] **Subtask 5.5.1.2:** Create `gameSlice` for game UI state
   - Current context (currentTableId, currentGameId)
   - WebSocket connection state (isConnected, connectionError)
   - Game UI state (selectedCards, isSortingHand, showSuggestions)
   - Turn UI state (turnTimer, isMyTurn, canPlay, canPass)
   - Game board UI (animations, optimistic updates)
-- [ ] **Subtask 5.5.1.3:** Create `authSlice` for authentication UI state
+- [x] **Subtask 5.5.1.3:** Create `authSlice` for authentication UI state
   - Authentication status (isAuthenticated, token, tokenExpiry)
   - Auth form drafts (loginForm, registerForm)
   - Auth flow state (isLoggingIn, isRegistering, authError)
-- [ ] **Subtask 5.5.1.4:** Configure Redux store with all slices
-- [ ] **Subtask 5.5.1.5:** Set up Redux persist for critical UI state (theme, preferences)
+- [x] **Subtask 5.5.1.4:** Configure Redux store with all slices
+- [x] **Subtask 5.5.1.5:** Set up Redux persist for critical UI state (theme, preferences)
 
 ### Story 5.5.2: TanStack Query Setup
 
 #### Task 5.5.2.1: Query Keys Factory
-- [ ] **Subtask 5.5.2.1:** Create query keys factory pattern
+- [x] **Subtask 5.5.2.1:** Create query keys factory pattern
   - User queries (all, detail, me, stats, games)
   - Table queries (all, detail, players)
   - Game queries (all, detail, history)
   - Bot queries (all, detail, myBots)
   - Session queries (all, detail, summary)
-- [ ] **Subtask 5.5.2.2:** Configure TanStack Query client
-- [ ] **Subtask 5.5.2.3:** Set up query client provider
+- [x] **Subtask 5.5.2.2:** Configure TanStack Query client
+- [x] **Subtask 5.5.2.3:** Set up query client provider
 
 #### Task 5.5.2.2: User Queries
-- [ ] **Subtask 5.5.2.2.1:** Implement `useCurrentUser` query
-- [ ] **Subtask 5.5.2.2.2:** Implement `useUserStats` query
-- [ ] **Subtask 5.5.2.2.3:** Implement `useUserGames` infinite query
+- [x] **Subtask 5.5.2.2.1:** Implement `useCurrentUser` query
+- [x] **Subtask 5.5.2.2.2:** Implement `useUserStats` query
+- [x] **Subtask 5.5.2.2.3:** Implement `useUserGames` infinite query
 
 #### Task 5.5.2.3: Table Queries
-- [ ] **Subtask 5.5.2.3.1:** Implement `useTables` infinite query
-- [ ] **Subtask 5.5.2.3.2:** Implement `useTable` query
-- [ ] **Subtask 5.5.2.3.3:** Implement `useTablePlayers` query
+- [x] **Subtask 5.5.2.3.1:** Implement `useTables` infinite query (with pagination and filtering support)
+- [x] **Subtask 5.5.2.3.2:** Implement `useTable` query
+- [x] **Subtask 5.5.2.3.3:** Implement `useTablePlayers` query
+- [x] **Subtask 5.5.2.3.4:** Implement `useTablesPaginated` query (page-based pagination)
 
 #### Task 5.5.2.4: Game Queries
-- [ ] **Subtask 5.5.2.4.1:** Implement `useGame` query
-- [ ] **Subtask 5.5.2.4.2:** Implement `useGameHistory` query
+- [x] **Subtask 5.5.2.4.1:** Implement `useGame` query
+- [x] **Subtask 5.5.2.4.2:** Implement `useGameHistory` query
 
 #### Task 5.5.2.5: Bot Queries
-- [ ] **Subtask 5.5.2.5.1:** Implement `useMyBots` query
-- [ ] **Subtask 5.5.2.5.2:** Implement `useBot` query
+- [x] **Subtask 5.5.2.5.1:** Implement `useMyBots` query
+- [x] **Subtask 5.5.2.5.2:** Implement `useBot` query
 
 #### Task 5.5.2.6: Session Queries
-- [ ] **Subtask 5.5.2.6.1:** Implement `useSession` query
-- [ ] **Subtask 5.5.2.6.2:** Implement `useSessionSummary` query
+- [x] **Subtask 5.5.2.6.1:** Implement `useSession` query
+- [x] **Subtask 5.5.2.6.2:** Implement `useSessionSummary` query
 
 #### Task 5.5.2.7: Mutations
-- [ ] **Subtask 5.5.2.7.1:** Implement user mutations (updateProfile, changePassword)
-- [ ] **Subtask 5.5.2.7.2:** Implement table mutations (createTable, joinTable, leaveTable)
-- [ ] **Subtask 5.5.2.7.3:** Implement bot mutations (createBot, updateBot, deleteBot)
-- [ ] **Subtask 5.5.2.7.4:** Set up query invalidation on mutations
+- [x] **Subtask 5.5.2.7.1:** Implement user mutations (updateProfile, changePassword)
+- [x] **Subtask 5.5.2.7.2:** Implement table mutations (createTable, joinTable, leaveTable)
+- [x] **Subtask 5.5.2.7.3:** Implement bot mutations (createBot, updateBot, deleteBot)
+- [x] **Subtask 5.5.2.7.4:** Set up query invalidation on mutations
 
 ### Story 5.5.3: WebSocket State Integration
 
 #### Task 5.5.3.1: WebSocket Connection Management
-- [ ] **Subtask 5.5.3.1.1:** Create WebSocket service/hook
-- [ ] **Subtask 5.5.3.1.2:** Update Redux gameSlice with connection state
-- [ ] **Subtask 5.5.3.1.3:** Handle WebSocket events and update TanStack Query cache
+- [x] **Subtask 5.5.3.1.1:** Create WebSocket service/hook
+- [x] **Subtask 5.5.3.1.2:** Update Redux gameSlice with connection state
+- [x] **Subtask 5.5.3.1.3:** Handle WebSocket events and update TanStack Query cache
   - `table_updated` → Invalidate table queries
   - `player_joined` → Invalidate player queries
   - `game_state_update` → Update Redux gameSlice (optimistic) and sync with server
@@ -1083,13 +1087,19 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 #### Task 10.1.2: API Endpoint Tests
 - [ ] **Subtask 10.1.2.1:** Test authentication endpoints
 - [ ] **Subtask 10.1.2.2:** Test bot CRUD endpoints
-- [ ] **Subtask 10.1.2.3:** Test table management endpoints
+- [x] **Subtask 10.1.2.3:** Test table management endpoints (with pagination and filtering tests)
 - [ ] **Subtask 10.1.2.4:** Test error handling
 
 #### Task 10.1.3: Component Tests
 - [ ] **Subtask 10.1.3.1:** Test card components
 - [ ] **Subtask 10.1.3.2:** Test game board components
 - [ ] **Subtask 10.1.3.3:** Test bot editor components
+
+#### Task 10.1.4: State Management Tests
+- [x] **Subtask 10.1.4.1:** Test Redux slices (uiSlice, gameSlice, authSlice)
+- [x] **Subtask 10.1.4.2:** Test API service
+- [x] **Subtask 10.1.4.3:** Test query keys factory
+- [x] **Subtask 10.1.4.4:** Test store configuration
 
 ### Story 10.2: Integration Testing
 

@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Delete, Body, Param, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, Param, Query, UseGuards, Request } from '@nestjs/common';
 import { TablesService } from './tables.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AdminGuard } from '../auth/guards/admin.guard';
 import { CreateTableDto } from './dto/create-table.dto';
+import { FindTablesDto } from './dto/find-tables.dto';
 
 @Controller('tables')
 @UseGuards(JwtAuthGuard)
@@ -15,8 +16,8 @@ export class TablesController {
   }
 
   @Get()
-  findAll() {
-    return this.tablesService.findAll();
+  findAll(@Query() query: FindTablesDto) {
+    return this.tablesService.findAll(query);
   }
 
   @Get(':id')

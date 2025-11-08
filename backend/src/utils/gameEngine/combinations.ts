@@ -1,27 +1,11 @@
 import { Card, CARD_RANK_ORDER, RANK_2 } from '../../types/game';
+import { CardCombination, CombinationType } from 'shared';
 import { ValidationException } from '../../common/exceptions';
 import { getCardValue } from './cardValue';
 
-/**
- * Combination types in Tiến Lên Miền Nam
- */
-export type CombinationType =
-  | 'single'
-  | 'pair'
-  | 'triple'
-  | 'straight'
-  | 'consecutive_pairs'
-  | 'four_of_kind';
-
-/**
- * Represents a detected card combination
- */
-export interface CardCombination {
-  type: CombinationType;
-  cards: Card[];
-  rank?: number; // For comparison purposes
-  highestCard?: Card; // Highest card in the combination
-}
+// Re-export for backward compatibility
+export type { CombinationType };
+export type { CardCombination };
 
 /**
  * Detects if cards form a single card combination
