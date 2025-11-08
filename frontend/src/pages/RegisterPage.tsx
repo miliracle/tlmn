@@ -29,18 +29,14 @@ export function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+    <div className="flex min-h-svh w-full items-center justify-center bg-background p-3 sm:p-6 md:p-10">
       <div className="w-full max-w-sm">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl">Sign up</CardTitle>
-            <CardDescription>Enter your information to create an account</CardDescription>
-          </CardHeader>
+        <Card className="max-h-[calc(100svh-1.5rem)] overflow-y-auto border-border">
           <CardContent>
             <form onSubmit={handleSubmit}>
-              <div className="flex flex-col gap-6">
-                <div className="grid gap-2">
-                  <Label htmlFor="username">Username</Label>
+              <div className="flex flex-col gap-3 sm:gap-4 md:gap-6">
+                <div className="grid gap-1.5 sm:gap-2">
+                  <Label htmlFor="username" className="text-sm">Username</Label>
                   <Input
                     id="username"
                     type="text"
@@ -48,10 +44,11 @@ export function RegisterPage() {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
+                    className="h-8 sm:h-9"
                   />
                 </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
+                <div className="grid gap-1.5 sm:gap-2">
+                  <Label htmlFor="email" className="text-sm">Email</Label>
                   <Input
                     id="email"
                     type="email"
@@ -59,39 +56,42 @@ export function RegisterPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    className="h-8 sm:h-9"
                   />
                 </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="password">Password</Label>
+                <div className="grid gap-1.5 sm:gap-2">
+                  <Label htmlFor="password" className="text-sm">Password</Label>
                   <Input
                     id="password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    className="h-8 sm:h-9"
                   />
                 </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="confirm-password">Confirm Password</Label>
+                <div className="grid gap-1.5 sm:gap-2">
+                  <Label htmlFor="confirm-password" className="text-sm">Confirm Password</Label>
                   <Input
                     id="confirm-password"
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
+                    className="h-8 sm:h-9"
                   />
                   {password && confirmPassword && password !== confirmPassword && (
-                    <p className="text-sm text-destructive">Passwords do not match</p>
+                    <p className="text-xs sm:text-sm text-destructive">Passwords do not match</p>
                   )}
                 </div>
                 {authError && (
-                  <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+                  <div className="text-xs sm:text-sm text-destructive bg-destructive/10 p-2 sm:p-3 rounded-md">
                     {authError}
                   </div>
                 )}
                 <Button
                   type="submit"
-                  className="w-full"
+                  className="w-full h-8 sm:h-9 md:h-10"
                   disabled={
                     isRegistering || (password !== confirmPassword && confirmPassword !== '')
                   }
@@ -99,7 +99,7 @@ export function RegisterPage() {
                   {isRegistering ? 'Creating account...' : 'Create Account'}
                 </Button>
               </div>
-              <div className="mt-4 text-center text-sm">
+              <div className="mt-3 sm:mt-4 text-center text-xs sm:text-sm">
                 Already have an account?{' '}
                 <Link to="/login" className="underline underline-offset-4 text-primary">
                   Login

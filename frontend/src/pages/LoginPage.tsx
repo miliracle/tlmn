@@ -21,18 +21,14 @@ export function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+    <div className="flex min-h-svh w-full items-center justify-center bg-background p-3 sm:p-6 md:p-10">
       <div className="w-full max-w-sm">
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl">Login</CardTitle>
-            <CardDescription>Enter your email below to login to your account</CardDescription>
-          </CardHeader>
+        <Card className="max-h-[calc(100svh-1.5rem)] overflow-y-auto border-border">
           <CardContent>
             <form onSubmit={handleSubmit}>
-              <div className="flex flex-col gap-6">
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
+              <div className="flex flex-col gap-3 sm:gap-4 md:gap-6">
+                <div className="grid gap-1.5 sm:gap-2">
+                  <Label htmlFor="email" className="text-sm">Email</Label>
                   <Input
                     id="email"
                     type="email"
@@ -40,16 +36,17 @@ export function LoginPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    className="h-8 sm:h-9"
                   />
                 </div>
-                <div className="grid gap-2">
+                <div className="grid gap-1.5 sm:gap-2">
                   <div className="flex items-center">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password" className="text-sm">Password</Label>
                     <a
                       href="#"
-                      className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                      className="ml-auto inline-block text-xs sm:text-sm underline-offset-4 hover:underline"
                     >
-                      Forgot your password?
+                      Forgot password?
                     </a>
                   </div>
                   <Input
@@ -58,18 +55,19 @@ export function LoginPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    className="h-8 sm:h-9"
                   />
                 </div>
                 {authError && (
-                  <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
+                  <div className="text-xs sm:text-sm text-destructive bg-destructive/10 p-2 sm:p-3 rounded-md">
                     {authError}
                   </div>
                 )}
-                <Button type="submit" className="w-full" disabled={isLoggingIn}>
+                <Button type="submit" className="w-full h-8 sm:h-9 md:h-10" disabled={isLoggingIn}>
                   {isLoggingIn ? 'Logging in...' : 'Login'}
                 </Button>
               </div>
-              <div className="mt-4 text-center text-sm">
+              <div className="mt-3 sm:mt-4 text-center text-xs sm:text-sm">
                 Don&apos;t have an account?{' '}
                 <Link to="/register" className="underline underline-offset-4 text-primary">
                   Sign up
