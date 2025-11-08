@@ -665,11 +665,22 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 - [ ] **Subtask 7.2.2.8:** Add info icon for table details
 
 #### Task 7.2.3: Table List Functionality
-- [ ] **Subtask 7.2.3.1:** Implement table creation modal/form
-  - Player count selector (2-4)
-  - Game mode selector
-  - Session length selector (16/32 games)
-  - Table name input (optional)
+- [ ] **Subtask 7.2.3.1:** Implement table creation modal/form (`CreateTableModal.tsx`)
+  - Create full-screen modal component (mobile) / centered modal (desktop)
+  - Add header with back button, "Create Table" title, and close button
+  - Implement table name input field (optional, max 50 chars, with helper text)
+  - Implement player count selector (2, 3, or 4 players, default: 4, radio buttons or segmented control)
+  - Implement game mode selector (Casual, Bot Arena, Hybrid, Practice, default: Casual, card-style selection with icons)
+  - Implement session length selector (16 or 32 games, default: 16, with estimated duration helper text)
+  - Implement privacy settings (Public/Private toggle, default: Public)
+  - Add Cancel and Create Table buttons
+  - Implement form validation (inline and on submit)
+  - Add loading state on submit (button disabled, spinner)
+  - Handle success (navigate to table lobby, show success notification)
+  - Handle errors (display error messages, highlight error fields)
+  - Implement swipe to dismiss on mobile (with confirmation if form has changes)
+  - Implement keyboard navigation on desktop (Tab, Enter, Escape)
+  - Save form draft to Redux (optional, for recovery)
 - [ ] **Subtask 7.2.3.2:** Implement join table functionality
   - Navigate to table lobby on join
   - Handle full table error
@@ -679,6 +690,7 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
   - Show game mode
   - Show session progress
   - Show share link
+  - Long press or tap info icon on table card to open
 - [ ] **Subtask 7.2.3.4:** Implement filter functionality
   - Filter by status (Waiting, In Progress, Full)
   - Filter by game mode
@@ -727,26 +739,26 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 ### Story 7.4: Authentication Pages
 
 #### Task 7.4.1: Login Page
-- [ ] **Subtask 7.4.1.1:** Create `LoginPage.tsx` component
-- [ ] **Subtask 7.4.1.2:** Add username/email input field
-- [ ] **Subtask 7.4.1.3:** Add password input field
-- [ ] **Subtask 7.4.1.4:** Add login button
-- [ ] **Subtask 7.4.1.5:** Add "Sign Up" link/button
-- [ ] **Subtask 7.4.1.6:** Implement form validation
-- [ ] **Subtask 7.4.1.7:** Handle login success (store token, update state, redirect)
-- [ ] **Subtask 7.4.1.8:** Display error messages
+- [x] **Subtask 7.4.1.1:** Create `LoginPage.tsx` component
+- [x] **Subtask 7.4.1.2:** Add username/email input field
+- [x] **Subtask 7.4.1.3:** Add password input field
+- [x] **Subtask 7.4.1.4:** Add login button
+- [x] **Subtask 7.4.1.5:** Add "Sign Up" link/button
+- [x] **Subtask 7.4.1.6:** Implement form validation
+- [x] **Subtask 7.4.1.7:** Handle login success (store token, update state, redirect)
+- [x] **Subtask 7.4.1.8:** Display error messages
 
 #### Task 7.4.2: Registration Page
-- [ ] **Subtask 7.4.2.1:** Create `RegisterPage.tsx` component
-- [ ] **Subtask 7.4.2.2:** Add username input field
-- [ ] **Subtask 7.4.2.3:** Add email input field
-- [ ] **Subtask 7.4.2.4:** Add password input field
-- [ ] **Subtask 7.4.2.5:** Add confirm password input field
-- [ ] **Subtask 7.4.2.6:** Add "Create Account" button
-- [ ] **Subtask 7.4.2.7:** Add "Login" link/button
-- [ ] **Subtask 7.4.2.8:** Implement form validation
-- [ ] **Subtask 7.4.2.9:** Handle registration success (auto-login, redirect to table list)
-- [ ] **Subtask 7.4.2.10:** Display error messages
+- [x] **Subtask 7.4.2.1:** Create `RegisterPage.tsx` component
+- [x] **Subtask 7.4.2.2:** Add username input field
+- [x] **Subtask 7.4.2.3:** Add email input field
+- [x] **Subtask 7.4.2.4:** Add password input field
+- [x] **Subtask 7.4.2.5:** Add confirm password input field
+- [x] **Subtask 7.4.2.6:** Add "Create Account" button
+- [x] **Subtask 7.4.2.7:** Add "Login" link/button
+- [x] **Subtask 7.4.2.8:** Implement form validation
+- [x] **Subtask 7.4.2.9:** Handle registration success (auto-login, redirect to table list)
+- [x] **Subtask 7.4.2.10:** Display error messages
 
 ### Story 7.5: User Profile / Info Page
 

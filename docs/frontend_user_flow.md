@@ -137,12 +137,13 @@ Each table card displays:
 
 1. **Create Table**
    - Tap "Create Table" button (top of page)
-   - Opens table creation modal/form
+   - Opens table creation modal/form (see [Create Table Modal/Form](#user-flow-create-table-modalform) section for details)
    - User configures:
      - Player count (2-4)
-     - Game mode
+     - Game mode (Casual, Bot Arena, Hybrid, Practice)
      - Session length (16/32 games)
      - Table name (optional)
+     - Privacy settings (Public/Private)
    - On submit → Creates table → Navigates to table lobby
 
 2. **Join Table**
@@ -171,6 +172,223 @@ Each table card displays:
      - Game Mode
      - Player Count
    - Search by table name or host name
+
+---
+
+## User Flow: Create Table Modal/Form
+
+### Entry Point
+- **Trigger:** Tap "Create Table" button on Table List page
+- **Component:** `CreateTableModal.tsx` or `CreateTableForm.tsx`
+- **Display:** Full-screen modal on mobile, centered modal on desktop
+
+### Layout Structure (Mobile-Optimized)
+
+```
+┌─────────────────────────────────┐
+│  ← Back    Create Table    [X]  │
+├─────────────────────────────────┤
+│                                 │
+│  ┌───────────────────────────┐  │
+│  │  Table Name (Optional)    │  │
+│  │  [___________________]     │  │
+│  │  Leave empty for default  │  │
+│  └───────────────────────────┘  │
+│                                 │
+│  ┌───────────────────────────┐  │
+│  │  Number of Players        │  │
+│  │  ┌──┐  ┌──┐  ┌──┐  ┌──┐  │  │
+│  │  │ 2│  │ 3│  │ 4│  │ 4│  │  │
+│  │  └──┘  └──┘  └──┘  └──┘  │  │
+│  │  (Selected: 4)            │  │
+│  └───────────────────────────┘  │
+│                                 │
+│  ┌───────────────────────────┐  │
+│  │  Game Mode                │  │
+│  │  ┌──────────┐              │  │
+│  │  │ Casual   │  (Selected) │  │
+│  │  └──────────┘              │  │
+│  │  ┌──────────┐              │  │
+│  │  │ Bot Arena│              │  │
+│  │  └──────────┘              │  │
+│  │  ┌──────────┐              │  │
+│  │  │ Hybrid   │              │  │
+│  │  └──────────┘              │  │
+│  │  ┌──────────┐              │  │
+│  │  │ Practice │              │  │
+│  │  └──────────┘              │  │
+│  └───────────────────────────┘  │
+│                                 │
+│  ┌───────────────────────────┐  │
+│  │  Session Length            │  │
+│  │  ┌──────────┐              │  │
+│  │  │ 16 Games │  (Selected)  │  │
+│  │  └──────────┘              │  │
+│  │  ┌──────────┐              │  │
+│  │  │ 32 Games │              │  │
+│  │  └──────────┘              │  │
+│  └───────────────────────────┘  │
+│                                 │
+│  ┌───────────────────────────┐  │
+│  │  Privacy Settings          │  │
+│  │  ☑ Public (anyone can join)│ │
+│  │  ☐ Private (invite only)   │  │
+│  └───────────────────────────┘  │
+│                                 │
+│  [Cancel]        [Create Table] │
+│                                 │
+└─────────────────────────────────┘
+```
+
+### Form Fields
+
+1. **Table Name** (Optional)
+   - **Type:** Text input
+   - **Placeholder:** "Table #123" or "My Game Table"
+   - **Default:** Auto-generated if left empty
+   - **Validation:** 
+     - Max length: 50 characters
+     - Allowed characters: letters, numbers, spaces, hyphens
+   - **Helper Text:** "Leave empty for auto-generated name"
+
+2. **Number of Players**
+   - **Type:** Radio buttons or segmented control
+   - **Options:** 2, 3, or 4 players
+   - **Default:** 4 players
+   - **Visual:** Large, touch-friendly buttons
+   - **Display:** Shows selected count prominently
+
+3. **Game Mode**
+   - **Type:** Radio buttons or card selection
+   - **Options:**
+     - **Casual:** Play with other players (default)
+     - **Bot Arena:** Play against bots only
+     - **Hybrid:** Mix of players and bots
+     - **Practice:** Solo practice mode (if available)
+   - **Visual:** Card-style selection with icons
+   - **Helper Text:** Brief description under each option
+   - **Default:** Casual
+
+4. **Session Length**
+   - **Type:** Radio buttons or segmented control
+   - **Options:** 
+     - 16 games (shorter session)
+     - 32 games (longer session)
+   - **Default:** 16 games
+   - **Helper Text:** Estimated duration (e.g., "~30 minutes" for 16 games)
+
+5. **Privacy Settings** (Optional)
+   - **Type:** Checkbox or toggle
+   - **Options:**
+     - **Public:** Anyone can join (default)
+     - **Private:** Invite-only (requires invite link)
+   - **Default:** Public
+   - **Note:** Private tables may require additional setup (invite link generation)
+
+### User Actions
+
+1. **Fill Form**
+   - User selects/taps options
+   - Real-time validation feedback
+   - Selected options highlighted visually
+   - Form state saved to Redux draft (optional, for recovery)
+
+2. **Cancel**
+   - Tap "Cancel" or back button
+   - Shows confirmation if form has changes
+   - Closes modal
+   - Returns to Table List page
+
+3. **Create Table**
+   - Tap "Create Table" button
+   - Validates all required fields
+   - Shows loading state (button disabled, spinner)
+   - On success:
+     - Creates table via API mutation
+     - Navigates to table lobby (`/tables/:tableId`)
+     - Shows success notification
+   - On error:
+     - Shows error message
+     - Keeps modal open
+     - Highlights error fields
+
+### Validation Rules
+
+- **Table Name:**
+  - Optional field
+  - If provided: 1-50 characters
+  - No special characters except hyphens and spaces
+  - Trimmed of leading/trailing spaces
+
+- **Number of Players:**
+  - Required
+  - Must be 2, 3, or 4
+
+- **Game Mode:**
+  - Required
+  - Must be one of: Casual, Bot Arena, Hybrid, Practice
+
+- **Session Length:**
+  - Required
+  - Must be 16 or 32 games
+
+### Mobile-Optimized Features
+
+- **Full-Screen Modal:** On mobile (< 768px), modal takes full screen
+- **Large Touch Targets:** All buttons and options are at least 44x44px
+- **Swipe to Dismiss:** Swipe down to close modal (with confirmation if form has changes)
+- **Keyboard Handling:** 
+  - Text input focuses properly
+  - Keyboard doesn't cover form fields
+  - "Done" button on keyboard closes keyboard
+- **Scrollable:** Form scrolls if content exceeds screen height
+- **Auto-Save Draft:** Form state saved to Redux (optional) to recover if user accidentally closes
+
+### Desktop-Optimized Features
+
+- **Centered Modal:** Modal appears centered on screen
+- **Max Width:** Modal has max-width (e.g., 500px) for better readability
+- **Keyboard Navigation:** 
+  - Tab through fields
+  - Enter to submit
+  - Escape to cancel
+- **Hover States:** Visual feedback on hover for all interactive elements
+
+### Error Handling
+
+- **Inline Validation:** 
+  - Real-time validation as user types/selects
+  - Error messages appear below fields
+  - Fields highlighted in red if invalid
+
+- **Submit Validation:**
+  - All errors shown at once on submit attempt
+  - Scroll to first error field
+  - Error summary at top (optional)
+
+- **API Errors:**
+  - Network errors: "Unable to connect. Please try again."
+  - Validation errors: Show specific field errors from server
+  - Server errors: "Something went wrong. Please try again later."
+
+### Success Flow
+
+1. User taps "Create Table"
+2. Loading state shown
+3. API call succeeds
+4. Table created
+5. Modal closes
+6. Navigation to `/tables/:tableId` (Table Lobby)
+7. Success notification: "Table created successfully!"
+
+### State Management
+
+- **Form State:** Stored in Redux `uiSlice.formDrafts['createTable']` (optional, for draft recovery)
+- **Mutation:** Uses TanStack Query `useCreateTable` mutation
+- **On Success:** 
+  - Invalidates `queryKeys.tables.all()` to refresh table list
+  - Sets `currentTableId` in Redux `gameSlice`
+  - Navigates to table lobby
 
 ---
 
