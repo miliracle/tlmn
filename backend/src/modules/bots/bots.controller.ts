@@ -1,7 +1,18 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, UseGuards, Request } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
 import { BotsService } from './bots.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CreateBotDto } from './dto/create-bot.dto';
+import { UpdateBotDto } from './dto/update-bot.dto';
 
 @Controller('bots')
 @UseGuards(JwtAuthGuard)
@@ -19,23 +30,22 @@ export class BotsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.botsService.findOne(+id);
+  findOne(@Request() req, @Param('id') id: string) {
+    return this.botsService.findOne(+id, req.user.id);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateBotDto: Partial<CreateBotDto>) {
-    return this.botsService.update(+id, updateBotDto);
+  update(@Request() req, @Param('id') id: string, @Body() updateBotDto: UpdateBotDto) {
+    return this.botsService.update(+id, req.user.id, updateBotDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.botsService.remove(+id);
+  remove(@Request() req, @Param('id') id: string) {
+    return this.botsService.remove(+id, req.user.id);
   }
 
   @Post(':id/test')
-  testBot(@Param('id') id: string, @Body() testDto: any) {
-    return this.botsService.testBot(+id, testDto);
+  testBot(@Request() req, @Param('id') id: string, @Body() testDto: any) {
+    return this.botsService.testBot(+id, req.user.id, testDto);
   }
 }
-

@@ -2,18 +2,13 @@ import { Controller, Get, UseGuards, Request, Param } from '@nestjs/common';
 import { GamesService } from './games.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
-@Controller('games')
+@Controller('sessions')
 @UseGuards(JwtAuthGuard)
-export class GamesController {
+export class SessionsController {
   constructor(private readonly gamesService: GamesService) {}
 
-  @Get()
-  findAll(@Request() req) {
-    return this.gamesService.findAll(req.user.id);
-  }
-
   @Get(':id')
-  findOne(@Request() req, @Param('id') id: string) {
-    return this.gamesService.findOne(+id, req.user.id);
+  getSession(@Request() req, @Param('id') id: string) {
+    return this.gamesService.getSession(+id, req.user.id);
   }
 }

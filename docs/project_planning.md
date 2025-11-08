@@ -288,30 +288,33 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 ### Story 3.2: API Endpoints (REST)
 
 #### Task 3.2.1: Authentication Endpoints
-- [ ] **Subtask 3.2.1.1:** POST /api/auth/register
-- [ ] **Subtask 3.2.1.2:** POST /api/auth/login
-- [ ] **Subtask 3.2.1.3:** POST /api/auth/logout
-- [ ] **Subtask 3.2.1.4:** GET /api/auth/me (get current user)
-- [ ] **Subtask 3.2.1.5:** Implement JWT token generation and validation
+- [x] **Subtask 3.2.1.1:** POST /api/auth/register
+- [x] **Subtask 3.2.1.2:** POST /api/auth/login
+- [x] **Subtask 3.2.1.3:** POST /api/auth/logout
+- [x] **Subtask 3.2.1.4:** GET /api/auth/me (get current user)
+- [x] **Subtask 3.2.1.5:** Implement JWT token generation and validation
 
 #### Task 3.2.2: Bot Management Endpoints
-- [ ] **Subtask 3.2.2.1:** GET /api/bots (list user's bots)
-- [ ] **Subtask 3.2.2.2:** POST /api/bots (create bot)
-- [ ] **Subtask 3.2.2.3:** GET /api/bots/:id (get bot)
-- [ ] **Subtask 3.2.2.4:** PUT /api/bots/:id (update bot)
-- [ ] **Subtask 3.2.2.5:** DELETE /api/bots/:id (delete bot)
-- [ ] **Subtask 3.2.2.6:** POST /api/bots/:id/test (test bot)
+- [x] **Subtask 3.2.2.1:** GET /api/bots (list user's bots)
+- [x] **Subtask 3.2.2.2:** POST /api/bots (create bot)
+- [x] **Subtask 3.2.2.3:** GET /api/bots/:id (get bot)
+- [x] **Subtask 3.2.2.4:** PUT /api/bots/:id (update bot)
+- [x] **Subtask 3.2.2.5:** DELETE /api/bots/:id (delete bot)
+- [x] **Subtask 3.2.2.6:** POST /api/bots/:id/test (test bot)
 
 #### Task 3.2.3: Table Management Endpoints
-- [ ] **Subtask 3.2.3.1:** POST /api/tables (create table)
-- [ ] **Subtask 3.2.3.2:** GET /api/tables/:id (get table info)
-- [ ] **Subtask 3.2.3.3:** POST /api/tables/:id/join (join table)
-- [ ] **Subtask 3.2.3.4:** DELETE /api/tables/:id/leave (leave table)
+- [x] **Subtask 3.2.3.1:** POST /api/tables (create table)
+- [x] **Subtask 3.2.3.2:** GET /api/tables (list all tables)
+- [x] **Subtask 3.2.3.3:** GET /api/tables/:id (get table info)
+- [x] **Subtask 3.2.3.4:** POST /api/tables/:id/join (join table)
+- [x] **Subtask 3.2.3.5:** DELETE /api/tables/:id/leave (leave table, will remove the table if no player left)
+- [x] **Subtask 3.2.3.6:** DELETE /api/tables/:id (remove table when no one is playing - verifies no active players)
+- [x] **Subtask 3.2.3.7:** DELETE /api/tables/:id/force (admin: force remove all players and delete table)
 
 #### Task 3.2.4: Game History Endpoints
-- [ ] **Subtask 3.2.4.1:** GET /api/games (list user's games)
-- [ ] **Subtask 3.2.4.2:** GET /api/games/:id (get game details)
-- [ ] **Subtask 3.2.4.3:** GET /api/sessions/:id (get session summary)
+- [x] **Subtask 3.2.4.1:** GET /api/games (list user's games)
+- [x] **Subtask 3.2.4.2:** GET /api/games/:id (get game details)
+- [x] **Subtask 3.2.4.3:** GET /api/sessions/:id (get session summary)
 
 ### Story 3.3: Middleware & Validation
 
@@ -320,15 +323,22 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 - [ ] **Subtask 3.3.1.2:** Handle token expiration
 - [ ] **Subtask 3.3.1.3:** Attach user to request object
 
-#### Task 3.3.2: Input Validation
-- [ ] **Subtask 3.3.2.1:** Create Zod schemas for all endpoints
-- [ ] **Subtask 3.3.2.2:** Implement validation middleware
-- [ ] **Subtask 3.3.2.3:** Return detailed validation errors
+#### Task 3.3.2: Authorization & Role-Based Access Control
+- [ ] **Subtask 3.3.2.1:** Add role field to User model (admin, user)
+- [ ] **Subtask 3.3.2.2:** Create AdminGuard for admin-only endpoints
+- [ ] **Subtask 3.3.2.3:** Implement role checking logic
+- [ ] **Subtask 3.3.2.4:** Apply AdminGuard to DELETE /api/tables/:id/force endpoint
+- [ ] **Subtask 3.3.2.5:** Add role-based access control for other admin endpoints
 
-#### Task 3.3.3: Error Handling
-- [ ] **Subtask 3.3.3.1:** Create error handler middleware
-- [ ] **Subtask 3.3.3.2:** Standardize error response format
-- [ ] **Subtask 3.3.3.3:** Log errors appropriately
+#### Task 3.3.3: Input Validation
+- [ ] **Subtask 3.3.3.1:** Create Zod schemas for all endpoints
+- [ ] **Subtask 3.3.3.2:** Implement validation middleware
+- [ ] **Subtask 3.3.3.3:** Return detailed validation errors
+
+#### Task 3.3.4: Error Handling
+- [ ] **Subtask 3.3.4.1:** Create error handler middleware
+- [ ] **Subtask 3.3.4.2:** Standardize error response format
+- [ ] **Subtask 3.3.4.3:** Log errors appropriately
 
 ---
 

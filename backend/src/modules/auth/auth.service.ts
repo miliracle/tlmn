@@ -8,7 +8,7 @@ import { RegisterDto } from './dto/register.dto';
 export class AuthService {
   constructor(
     private prisma: PrismaService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
   ) {}
 
   async register(registerDto: RegisterDto) {
@@ -28,6 +28,8 @@ export class AuthService {
       where: { email },
     });
     if (user && (await bcrypt.compare(password, user.passwordHash))) {
+      // Exclude passwordHash before returning user data
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { passwordHash, ...result } = user;
       return result;
     }
@@ -46,4 +48,3 @@ export class AuthService {
     };
   }
 }
-

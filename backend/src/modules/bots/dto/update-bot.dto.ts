@@ -1,13 +1,16 @@
 import { IsString, IsOptional } from 'class-validator';
 
-export class CreateBotDto {
+export class UpdateBotDto {
   @IsString()
-  name: string;
+  @IsOptional()
+  name?: string;
 
   @IsString()
-  code: string;
+  @IsOptional()
+  code?: string;
 
   @IsString()
   @IsOptional()
   description?: string;
 }
+

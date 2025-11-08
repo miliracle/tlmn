@@ -16,8 +16,8 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Request() req, @Body() loginDto: LoginDto) {
-    return this.authService.login(req.user);
+  async login(@Body() loginDto: LoginDto) {
+    return this.authService.login(loginDto);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -25,5 +25,14 @@ export class AuthController {
   getProfile(@Request() req) {
     return req.user;
   }
-}
 
+  @UseGuards(JwtAuthGuard)
+  @Post('logout')
+  async logout() {
+    // JWT tokens are stateless, so logout is handled client-side
+    // by removing the token. This endpoint provides a consistent API.
+    return {
+      message: 'Logged out successfully',
+    };
+  }
+}
