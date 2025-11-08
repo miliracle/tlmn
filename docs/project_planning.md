@@ -223,37 +223,37 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 ### Story 2.8: Scoring & Penalty System
 
 #### Task 2.8.1: Chặt Penalty Calculation
-- [ ] **Subtask 2.8.1.1:** Calculate penalty for cutting 1 heo (1-2 points)
-- [ ] **Subtask 2.8.1.2:** Calculate penalty for cutting 2-4 heo (sum of values)
-- [ ] **Subtask 2.8.1.3:** Calculate penalty for cutting đôi heo (2 × heo value)
-- [ ] **Subtask 2.8.1.4:** Calculate penalty for cutting hàng (4 points)
-- [ ] **Subtask 2.8.1.5:** Track penalties per player during game
-- [ ] **Subtask 2.8.1.6:** Handle penalty transfer (chặt chồng)
+- [x] **Subtask 2.8.1.1:** Calculate penalty for cutting 1 heo (1-2 points)
+- [x] **Subtask 2.8.1.2:** Calculate penalty for cutting 2-4 heo (sum of values)
+- [x] **Subtask 2.8.1.3:** Calculate penalty for cutting đôi heo (2 × heo value)
+- [x] **Subtask 2.8.1.4:** Calculate penalty for cutting hàng (4 points)
+- [x] **Subtask 2.8.1.5:** Track penalties per player during game
+- [x] **Subtask 2.8.1.6:** Handle penalty transfer (chặt chồng)
 
 #### Task 2.8.2: Thúi Penalty Calculation
-- [ ] **Subtask 2.8.2.1:** Check if last-place player has heo in hand
-- [ ] **Subtask 2.8.2.2:** Check if last-place player has hàng in hand
-- [ ] **Subtask 2.8.2.3:** Calculate thúi penalties (heo values + hàng × 4)
-- [ ] **Subtask 2.8.2.4:** Determine who receives thúi penalties (3rd place or winner)
+- [x] **Subtask 2.8.2.1:** Check if last-place player has heo in hand
+- [x] **Subtask 2.8.2.2:** Check if last-place player has hàng in hand
+- [x] **Subtask 2.8.2.3:** Calculate thúi penalties (heo values + hàng × 4)
+- [x] **Subtask 2.8.2.4:** Determine who receives thúi penalties (3rd place or winner)
 
 #### Task 2.8.3: Cóng Penalty Calculation
-- [ ] **Subtask 2.8.3.1:** Calculate tới trắng penalty value (13 × player count)
-- [ ] **Subtask 2.8.3.2:** Apply cóng penalty per stuck player
-- [ ] **Subtask 2.8.3.3:** Handle đền bài penalty (all cóng penalties)
-- [ ] **Subtask 2.8.3.4:** Apply cóng penalty to winner's total
+- [x] **Subtask 2.8.3.1:** Calculate tới trắng penalty value (13 × player count)
+- [x] **Subtask 2.8.3.2:** Apply cóng penalty per stuck player
+- [x] **Subtask 2.8.3.3:** Handle đền bài penalty (all cóng penalties)
+- [x] **Subtask 2.8.3.4:** Apply cóng penalty to winner's total
 
 #### Task 2.8.4: Game Score Calculation
-- [ ] **Subtask 2.8.4.1:** Calculate winner's card points (1 per card remaining in losers)
-- [ ] **Subtask 2.8.4.2:** Calculate winner's total points (cards + cóng + chặt received + thúi)
-- [ ] **Subtask 2.8.4.3:** Calculate loser points (negative: cards + cóng + chặt paid + thúi)
-- [ ] **Subtask 2.8.4.4:** Calculate tới trắng scoring
-- [ ] **Subtask 2.8.4.5:** Return complete score breakdown
+- [x] **Subtask 2.8.4.1:** Calculate winner's card points (1 per card remaining in losers)
+- [x] **Subtask 2.8.4.2:** Calculate winner's total points (cards + cóng + chặt received + thúi)
+- [x] **Subtask 2.8.4.3:** Calculate loser points (negative: cards + cóng + chặt paid + thúi)
+- [x] **Subtask 2.8.4.4:** Calculate tới trắng scoring
+- [x] **Subtask 2.8.4.5:** Return complete score breakdown
 
 #### Task 2.8.5: Session Score Accumulation
-- [ ] **Subtask 2.8.5.1:** Track points per game for each player
-- [ ] **Subtask 2.8.5.2:** Accumulate points across all games in session
-- [ ] **Subtask 2.8.5.3:** Calculate session totals
-- [ ] **Subtask 2.8.5.4:** Determine final session ranking
+- [x] **Subtask 2.8.5.1:** Track points per game for each player
+- [x] **Subtask 2.8.5.2:** Accumulate points across all games in session
+- [x] **Subtask 2.8.5.3:** Calculate session totals
+- [x] **Subtask 2.8.5.4:** Determine final session ranking
 
 ---
 

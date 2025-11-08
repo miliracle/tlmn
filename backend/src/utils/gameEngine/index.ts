@@ -97,6 +97,65 @@ export {
   type CutEntry,
 } from './cuttingChain';
 export {
+  getHeoPenaltyValue,
+  calculateSingleHeoPenalty,
+  calculateMultipleHeoPenalty,
+  calculateDoiHeoPenalty,
+  calculateHangPenalty,
+  calculateChatPenalty,
+  initializePenaltyTracking,
+  recordPenaltyPayment,
+  recordPenaltyReceipt,
+  recordCuttingWithTransfer,
+  getPlayerPenaltiesPaid,
+  getPlayerPenaltiesReceived,
+  getPlayerNetPenaltyScore,
+  type PlayerPenaltyState,
+  type GamePenaltyState,
+} from './chatPenalty';
+export {
+  checkVeBetHasHeo,
+  checkVeBetHasHang,
+  calculateThuiPenalty,
+  determineThuiPenaltyReceiver,
+  calculateThuiPenaltyResult,
+  type ThuiPenaltyResult,
+} from './thuiPenalty';
+export {
+  calculateToiTrangPenalty,
+  calculateCongPenaltyPerPlayer,
+  applyCongPenaltyPerPlayer,
+  calculateTotalCongPenalties,
+  handleDenBaiPenalty,
+  calculateWinnerCongPenalties,
+  calculateCongPenaltyResult,
+  type CongPenaltyResult,
+} from './congPenalty';
+export {
+  calculateWinnerCardPoints,
+  calculateWinnerTotalPoints,
+  calculateLoserPoints,
+  calculateToiTrangScoring,
+  calculateGameScore,
+  type PlayerScore,
+  type GameScoreResult,
+} from './gameScore';
+export {
+  initializeSessionScore,
+  recordGameScores,
+  accumulateSessionPoints,
+  calculateSessionTotals,
+  determineSessionRanking,
+  calculateSessionScoreResult,
+  getPlayerGameScore,
+  getPlayerTotalPoints,
+  getPlayerGameScores,
+  type GamePlayerScore,
+  type SessionScoreState,
+  type SessionRanking,
+  type SessionScoreResult,
+} from './sessionScore';
+export {
   initializeRoundState,
   getCurrentRoundNumber,
   setLastPlay,
