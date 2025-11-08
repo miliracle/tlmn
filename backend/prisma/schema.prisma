@@ -21,6 +21,7 @@ model User {
   bots        Bot[]
   gamePlayers GamePlayer[]
 
+  @@index([createdAt])
   @@map("users")
 }
 
@@ -34,6 +35,8 @@ model Bot {
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
+  @@index([userId])
+  @@index([createdAt])
   @@map("bots")
 }
 
@@ -48,6 +51,8 @@ model TableSession {
 
   games Game[]
 
+  @@index([status])
+  @@index([createdAt])
   @@map("table_sessions")
 }
 
@@ -65,6 +70,9 @@ model Game {
 
   gamePlayers GamePlayer[]
 
+  @@index([sessionId])
+  @@index([winnerId])
+  @@index([startedAt])
   @@map("games")
 }
 
@@ -78,6 +86,8 @@ model GamePlayer {
   finalScore Int? @map("final_score")
 
   @@unique([gameId, userId])
+  @@index([gameId])
+  @@index([userId])
   @@map("game_players")
 }
 

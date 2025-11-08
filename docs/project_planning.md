@@ -262,28 +262,28 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 ### Story 3.1: Database Schema Design
 
 #### Task 3.1.1: Users Table
-- [ ] **Subtask 3.1.1.1:** Create users table schema (id, username, email, password_hash, created_at)
-- [ ] **Subtask 3.1.1.2:** Add unique constraints
-- [ ] **Subtask 3.1.1.3:** Create indexes for performance
-- [ ] **Subtask 3.1.1.4:** Set up Prisma models
+- [x] **Subtask 3.1.1.1:** Create users table schema (id, username, email, password_hash, created_at)
+- [x] **Subtask 3.1.1.2:** Add unique constraints
+- [x] **Subtask 3.1.1.3:** Create indexes for performance
+- [x] **Subtask 3.1.1.4:** Set up Prisma models
 
 #### Task 3.1.2: Bots Table
-- [ ] **Subtask 3.1.2.1:** Create bots table schema (id, user_id, name, code, description, timestamps)
-- [ ] **Subtask 3.1.2.2:** Set up foreign key relation to users table
-- [ ] **Subtask 3.1.2.3:** Add indexes
-- [ ] **Subtask 3.1.2.4:** Set up Prisma models
+- [x] **Subtask 3.1.2.1:** Create bots table schema (id, user_id, name, code, description, timestamps)
+- [x] **Subtask 3.1.2.2:** Set up foreign key relation to users table
+- [x] **Subtask 3.1.2.3:** Add indexes
+- [x] **Subtask 3.1.2.4:** Set up Prisma models
 
 #### Task 3.1.3: Games & Sessions Tables
-- [ ] **Subtask 3.1.3.1:** Create table_sessions table (id, config, status, started_at, ended_at)
-- [ ] **Subtask 3.1.3.2:** Create games table (id, session_id, table_id, winner_id, scores, game_log, total_rounds, timestamps)
-- [ ] **Subtask 3.1.3.3:** Create game_players junction table (game_id, user_id, position, final_score)
-- [ ] **Subtask 3.1.3.4:** Set up foreign key relationships in Prisma
-- [ ] **Subtask 3.1.3.5:** Create indexes for queries
+- [x] **Subtask 3.1.3.1:** Create table_sessions table (id, config, status, started_at, ended_at)
+- [x] **Subtask 3.1.3.2:** Create games table (id, session_id, table_id, winner_id, scores, game_log, total_rounds, timestamps)
+- [x] **Subtask 3.1.3.3:** Create game_players junction table (game_id, user_id, position, final_score)
+- [x] **Subtask 3.1.3.4:** Set up foreign key relationships in Prisma
+- [x] **Subtask 3.1.3.5:** Create indexes for queries
 
 #### Task 3.1.4: Database Migrations
-- [ ] **Subtask 3.1.4.1:** Create initial migration
-- [ ] **Subtask 3.1.4.2:** Test migrations (up and down)
-- [ ] **Subtask 3.1.4.3:** Document schema changes
+- [x] **Subtask 3.1.4.1:** Create initial migration
+- [x] **Subtask 3.1.4.2:** Test migrations (up and down)
+- [x] **Subtask 3.1.4.3:** Document schema changes
 
 ### Story 3.2: API Endpoints (REST)
 
