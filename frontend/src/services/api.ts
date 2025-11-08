@@ -1,4 +1,19 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+import type {
+  User,
+  AuthResponse,
+  Bot,
+  Game,
+  TableJoinResponse,
+  TableLeaveResponse,
+  BotTestResponse,
+  CreateTableData,
+  CreateBotData,
+  UpdateBotData,
+  BotTestData,
+} from '../types/api';
+import type { Table, PaginatedResponse } from '../types/table';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 interface RequestOptions extends RequestInit {
   token?: string | null;
@@ -7,9 +22,9 @@ interface RequestOptions extends RequestInit {
 async function request<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
   const { token, ...fetchOptions } = options;
 
-  const headers: HeadersInit = {
+  const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    ...fetchOptions.headers,
+    ...(fetchOptions.headers as Record<string, string>),
   };
 
   if (token) {
@@ -41,17 +56,17 @@ export const api = {
   // Auth endpoints
   auth: {
     register: (data: { email: string; username: string; password: string }) =>
-      request<{ access_token: string; user: any }>('/auth/register', {
+      request<AuthResponse>('/auth/register', {
         method: 'POST',
         body: JSON.stringify(data),
       }),
-    login: (data: { email: string; password: string }) =>
-      request<{ access_token: string; user: any }>('/auth/login', {
+    login: (data: { username: string; password: string }) =>
+      request<AuthResponse>('/auth/login', {
         method: 'POST',
         body: JSON.stringify(data),
       }),
     me: (token: string) =>
-      request<any>('/auth/me', {
+      request<User>('/auth/me', {
         method: 'GET',
         token,
       }),
@@ -65,7 +80,7 @@ export const api = {
   // User endpoints
   users: {
     getProfile: (token: string) =>
-      request<any>('/users/profile', {
+      request<{ message: string }>('/users/profile', {
         method: 'GET',
         token,
       }),
@@ -106,29 +121,29 @@ export const api = {
       const queryString = queryParams.toString();
       const url = queryString ? `/tables?${queryString}` : '/tables';
 
-      return request<any[] | { data: any[]; pagination: any }>(url, {
+      return request<PaginatedResponse<Table>>(url, {
         method: 'GET',
         token,
       });
     },
     getOne: (id: string | number, token: string) =>
-      request<any>(`/tables/${id}`, {
+      request<Table>(`/tables/${id}`, {
         method: 'GET',
         token,
       }),
-    create: (data: any, token: string) =>
-      request<any>('/tables', {
+    create: (data: CreateTableData, token: string) =>
+      request<Table>('/tables', {
         method: 'POST',
         body: JSON.stringify(data),
         token,
       }),
     join: (id: string | number, token: string) =>
-      request<any>(`/tables/${id}/join`, {
+      request<TableJoinResponse>(`/tables/${id}/join`, {
         method: 'POST',
         token,
       }),
     leave: (id: string | number, token: string) =>
-      request<any>(`/tables/${id}/leave`, {
+      request<TableLeaveResponse>(`/tables/${id}/leave`, {
         method: 'DELETE',
         token,
       }),
@@ -137,12 +152,12 @@ export const api = {
   // Game endpoints
   games: {
     getAll: (token: string) =>
-      request<any[]>('/games', {
+      request<Game[]>('/games', {
         method: 'GET',
         token,
       }),
     getOne: (id: string | number, token: string) =>
-      request<any>(`/games/${id}`, {
+      request<Game>(`/games/${id}`, {
         method: 'GET',
         token,
       }),
@@ -151,7 +166,7 @@ export const api = {
   // Session endpoints
   sessions: {
     getOne: (id: string | number, token: string) =>
-      request<any>(`/sessions/${id}`, {
+      request<Table>(`/sessions/${id}`, {
         method: 'GET',
         token,
       }),
@@ -160,34 +175,34 @@ export const api = {
   // Bot endpoints
   bots: {
     getAll: (token: string) =>
-      request<any[]>('/bots', {
+      request<Omit<Bot, 'code'>[]>('/bots', {
         method: 'GET',
         token,
       }),
     getOne: (id: string | number, token: string) =>
-      request<any>(`/bots/${id}`, {
+      request<Bot>(`/bots/${id}`, {
         method: 'GET',
         token,
       }),
-    create: (data: any, token: string) =>
-      request<any>('/bots', {
+    create: (data: CreateBotData, token: string) =>
+      request<Bot>('/bots', {
         method: 'POST',
         body: JSON.stringify(data),
         token,
       }),
-    update: (id: string | number, data: any, token: string) =>
-      request<any>(`/bots/${id}`, {
+    update: (id: string | number, data: UpdateBotData, token: string) =>
+      request<Bot>(`/bots/${id}`, {
         method: 'PUT',
         body: JSON.stringify(data),
         token,
       }),
     delete: (id: string | number, token: string) =>
-      request<any>(`/bots/${id}`, {
+      request<Bot>(`/bots/${id}`, {
         method: 'DELETE',
         token,
       }),
-    test: (id: string | number, data: any, token: string) =>
-      request<any>(`/bots/${id}/test`, {
+    test: (id: string | number, data: BotTestData, token: string) =>
+      request<BotTestResponse>(`/bots/${id}/test`, {
         method: 'POST',
         body: JSON.stringify(data),
         token,

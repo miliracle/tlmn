@@ -111,16 +111,16 @@ describe('AuthService', () => {
 
   describe('validateUser', () => {
     it('should return user without password hash if credentials are valid', async () => {
-      const email = 'test@example.com';
+      const username = 'testuser';
       const password = 'password123';
 
       mockPrismaService.user.findUnique.mockResolvedValue(mockUser);
       (bcrypt.compare as jest.Mock).mockResolvedValue(true);
 
-      const result = await service.validateUser(email, password);
+      const result = await service.validateUser(username, password);
 
       expect(prismaService.user.findUnique).toHaveBeenCalledWith({
-        where: { email },
+        where: { username },
       });
       expect(bcrypt.compare).toHaveBeenCalledWith(password, mockUser.passwordHash);
       expect(result).not.toHaveProperty('passwordHash');
@@ -130,31 +130,31 @@ describe('AuthService', () => {
     });
 
     it('should return null if user does not exist', async () => {
-      const email = 'nonexistent@example.com';
+      const username = 'nonexistentuser';
       const password = 'password123';
 
       mockPrismaService.user.findUnique.mockResolvedValue(null);
 
-      const result = await service.validateUser(email, password);
+      const result = await service.validateUser(username, password);
 
       expect(prismaService.user.findUnique).toHaveBeenCalledWith({
-        where: { email },
+        where: { username },
       });
       expect(bcrypt.compare).not.toHaveBeenCalled();
       expect(result).toBeNull();
     });
 
     it('should return null if password is incorrect', async () => {
-      const email = 'test@example.com';
+      const username = 'testuser';
       const password = 'wrongpassword';
 
       mockPrismaService.user.findUnique.mockResolvedValue(mockUser);
       (bcrypt.compare as jest.Mock).mockResolvedValue(false);
 
-      const result = await service.validateUser(email, password);
+      const result = await service.validateUser(username, password);
 
       expect(prismaService.user.findUnique).toHaveBeenCalledWith({
-        where: { email },
+        where: { username },
       });
       expect(bcrypt.compare).toHaveBeenCalledWith(password, mockUser.passwordHash);
       expect(result).toBeNull();

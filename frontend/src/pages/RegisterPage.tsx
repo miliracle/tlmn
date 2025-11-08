@@ -29,7 +29,7 @@ export function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-svh w-full items-center justify-center bg-background p-3 sm:p-6 md:p-10">
+    <div className="flex min-h-[calc(100svh-4rem)] w-full items-center justify-center bg-background p-3 sm:p-6 md:p-10">
       <div className="w-full max-w-sm">
         <Card className="max-h-[calc(100svh-1.5rem)] overflow-y-auto border-border">
           <CardContent>

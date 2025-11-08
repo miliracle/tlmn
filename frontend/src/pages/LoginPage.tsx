@@ -9,7 +9,7 @@ import { useLogin } from '../hooks/mutations/useAuthMutations';
 import type { RootState } from '../store';
 
 export function LoginPage() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const loginMutation = useLogin();
   const authError = useSelector((state: RootState) => state.auth.authError);
@@ -17,24 +17,24 @@ export function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    loginMutation.mutate({ email, password });
+    loginMutation.mutate({ username, password });
   };
 
   return (
-    <div className="flex min-h-svh w-full items-center justify-center bg-background p-3 sm:p-6 md:p-10">
+    <div className="flex min-h-[calc(100svh-4rem)] w-full items-center justify-center bg-background p-3 sm:p-6 md:p-10">
       <div className="w-full max-w-sm">
         <Card className="max-h-[calc(100svh-1.5rem)] overflow-y-auto border-border">
           <CardContent>
             <form onSubmit={handleSubmit}>
               <div className="flex flex-col gap-3 sm:gap-4 md:gap-6">
                 <div className="grid gap-1.5 sm:gap-2">
-                  <Label htmlFor="email" className="text-sm">Email</Label>
+                  <Label htmlFor="username" className="text-sm">Username</Label>
                   <Input
-                    id="email"
-                    type="email"
-                    placeholder="m@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    id="username"
+                    type="text"
+                    placeholder="Enter your username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     required
                     className="h-8 sm:h-9"
                   />

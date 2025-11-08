@@ -4,7 +4,6 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -94,14 +93,13 @@ describe('AuthController', () => {
 
   describe('login', () => {
     it('should login user and return access token', async () => {
-      const loginDto: LoginDto = {
-        email: 'test@example.com',
-        password: 'password123',
+      const mockRequest = {
+        user: mockUser,
       };
 
       mockAuthService.login.mockResolvedValue(mockLoginResponse);
 
-      const result = await controller.login(loginDto);
+      const result = await controller.login(mockRequest);
 
       expect(authService.login).toHaveBeenCalledWith(mockUser);
       expect(result).toEqual(mockLoginResponse);
@@ -110,15 +108,14 @@ describe('AuthController', () => {
     });
 
     it('should throw error if login fails', async () => {
-      const loginDto: LoginDto = {
-        email: 'test@example.com',
-        password: 'wrongpassword',
+      const mockRequest = {
+        user: mockUser,
       };
 
       const error = new Error('Unauthorized');
       mockAuthService.login.mockRejectedValue(error);
 
-      await expect(controller.login(loginDto)).rejects.toThrow(error);
+      await expect(controller.login(mockRequest)).rejects.toThrow(error);
     });
   });
 
