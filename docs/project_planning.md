@@ -740,7 +740,7 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 
 #### Task 7.4.1: Login Page
 - [x] **Subtask 7.4.1.1:** Create `LoginPage.tsx` component
-- [x] **Subtask 7.4.1.2:** Add username/email input field
+- [x] **Subtask 7.4.1.2:** Add username input field
 - [x] **Subtask 7.4.1.3:** Add password input field
 - [x] **Subtask 7.4.1.4:** Add login button
 - [x] **Subtask 7.4.1.5:** Add "Sign Up" link/button
