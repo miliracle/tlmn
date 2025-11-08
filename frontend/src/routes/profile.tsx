@@ -4,4 +4,3 @@ import { ProfilePage } from '../pages/ProfilePage';
 export const Route = createFileRoute('/profile')({
   component: ProfilePage,
 });
-

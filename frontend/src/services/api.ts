@@ -4,12 +4,9 @@ interface RequestOptions extends RequestInit {
   token?: string | null;
 }
 
-async function request<T>(
-  endpoint: string,
-  options: RequestOptions = {}
-): Promise<T> {
+async function request<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
   const { token, ...fetchOptions } = options;
-  
+
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
     ...fetchOptions.headers,
@@ -36,7 +33,7 @@ async function request<T>(
   if (contentType && contentType.includes('application/json')) {
     return response.json();
   }
-  
+
   return {} as T;
 }
 
@@ -96,9 +93,12 @@ export const api = {
       if (params?.limit !== undefined) queryParams.append('limit', params.limit.toString());
       if (params?.offset !== undefined) queryParams.append('offset', params.offset.toString());
       if (params?.status) queryParams.append('status', params.status);
-      if (params?.playerCount !== undefined) queryParams.append('playerCount', params.playerCount.toString());
-      if (params?.minPlayers !== undefined) queryParams.append('minPlayers', params.minPlayers.toString());
-      if (params?.maxPlayers !== undefined) queryParams.append('maxPlayers', params.maxPlayers.toString());
+      if (params?.playerCount !== undefined)
+        queryParams.append('playerCount', params.playerCount.toString());
+      if (params?.minPlayers !== undefined)
+        queryParams.append('minPlayers', params.minPlayers.toString());
+      if (params?.maxPlayers !== undefined)
+        queryParams.append('maxPlayers', params.maxPlayers.toString());
       if (params?.search) queryParams.append('search', params.search);
       if (params?.sortBy) queryParams.append('sortBy', params.sortBy);
       if (params?.sortOrder) queryParams.append('sortOrder', params.sortOrder);

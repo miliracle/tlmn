@@ -8,7 +8,7 @@ describe('uiSlice', () => {
     it('should toggle sidebar', () => {
       const state = uiSlice.reducer(initialState, uiSlice.actions.toggleSidebar());
       expect(state.sidebarOpen).toBe(true);
-      
+
       const newState = uiSlice.reducer(state, uiSlice.actions.toggleSidebar());
       expect(newState.sidebarOpen).toBe(false);
     });
@@ -19,55 +19,40 @@ describe('uiSlice', () => {
     });
 
     it('should set bottom menu active item', () => {
-      const state = uiSlice.reducer(
-        initialState,
-        uiSlice.actions.setBottomMenuActiveItem('home')
-      );
+      const state = uiSlice.reducer(initialState, uiSlice.actions.setBottomMenuActiveItem('home'));
       expect(state.bottomMenuActiveItem).toBe('home');
     });
   });
 
   describe('Modal management', () => {
     it('should open modal', () => {
-      const state = uiSlice.reducer(
-        initialState,
-        uiSlice.actions.openModal('settings')
-      );
+      const state = uiSlice.reducer(initialState, uiSlice.actions.openModal('settings'));
       expect(state.currentModal).toBe('settings');
       expect(state.modalStack).toEqual([]);
     });
 
     it('should stack modals', () => {
-      let state = uiSlice.reducer(
-        initialState,
-        uiSlice.actions.openModal('first')
-      );
+      let state = uiSlice.reducer(initialState, uiSlice.actions.openModal('first'));
       state = uiSlice.reducer(state, uiSlice.actions.openModal('second'));
-      
+
       expect(state.currentModal).toBe('second');
       expect(state.modalStack).toEqual(['first']);
     });
 
     it('should close modal and restore previous', () => {
-      let state = uiSlice.reducer(
-        initialState,
-        uiSlice.actions.openModal('first')
-      );
+      let state = uiSlice.reducer(initialState, uiSlice.actions.openModal('first'));
       state = uiSlice.reducer(state, uiSlice.actions.openModal('second'));
       state = uiSlice.reducer(state, uiSlice.actions.closeModal());
-      
+
       expect(state.currentModal).toBe('first');
       expect(state.modalStack).toEqual([]);
     });
 
     it('should close all modals', () => {
-      let state = uiSlice.reducer(
-        initialState,
-        uiSlice.actions.openModal('first')
-      );
+      let state = uiSlice.reducer(initialState, uiSlice.actions.openModal('first'));
       state = uiSlice.reducer(state, uiSlice.actions.openModal('second'));
       state = uiSlice.reducer(state, uiSlice.actions.closeAllModals());
-      
+
       expect(state.currentModal).toBeNull();
       expect(state.modalStack).toEqual([]);
     });
@@ -82,7 +67,7 @@ describe('uiSlice', () => {
     it('should toggle theme', () => {
       const state = uiSlice.reducer(initialState, uiSlice.actions.toggleTheme());
       expect(state.theme).toBe('light');
-      
+
       const newState = uiSlice.reducer(state, uiSlice.actions.toggleTheme());
       expect(newState.theme).toBe('dark');
     });
@@ -97,7 +82,7 @@ describe('uiSlice', () => {
           type: 'info',
         })
       );
-      
+
       expect(state.notifications).toHaveLength(1);
       expect(state.notifications[0].message).toBe('Test notification');
       expect(state.notifications[0].type).toBe('info');
@@ -113,10 +98,10 @@ describe('uiSlice', () => {
           type: 'info',
         })
       );
-      
+
       const notificationId = state.notifications[0].id;
       state = uiSlice.reducer(state, uiSlice.actions.removeNotification(notificationId));
-      
+
       expect(state.notifications).toHaveLength(0);
     });
 
@@ -130,25 +115,19 @@ describe('uiSlice', () => {
         uiSlice.actions.addNotification({ message: 'Test 2', type: 'error' })
       );
       state = uiSlice.reducer(state, uiSlice.actions.clearNotifications());
-      
+
       expect(state.notifications).toHaveLength(0);
     });
   });
 
   describe('Loading states', () => {
     it('should set page transitioning', () => {
-      const state = uiSlice.reducer(
-        initialState,
-        uiSlice.actions.setPageTransitioning(true)
-      );
+      const state = uiSlice.reducer(initialState, uiSlice.actions.setPageTransitioning(true));
       expect(state.pageTransitioning).toBe(true);
     });
 
     it('should set dragging state', () => {
-      const state = uiSlice.reducer(
-        initialState,
-        uiSlice.actions.setIsDragging(true)
-      );
+      const state = uiSlice.reducer(initialState, uiSlice.actions.setIsDragging(true));
       expect(state.isDragging).toBe(true);
     });
 
@@ -180,7 +159,7 @@ describe('uiSlice', () => {
         initialState,
         uiSlice.actions.saveFormDraft({ formId: 'login', draft })
       );
-      
+
       expect(state.formDrafts.login).toEqual(draft);
     });
 
@@ -190,7 +169,7 @@ describe('uiSlice', () => {
         uiSlice.actions.saveFormDraft({ formId: 'login', draft: { email: 'test' } })
       );
       state = uiSlice.reducer(state, uiSlice.actions.clearFormDraft('login'));
-      
+
       expect(state.formDrafts.login).toBeUndefined();
     });
 
@@ -204,35 +183,25 @@ describe('uiSlice', () => {
         uiSlice.actions.saveFormDraft({ formId: 'register', draft: { name: 'test' } })
       );
       state = uiSlice.reducer(state, uiSlice.actions.clearAllFormDrafts());
-      
+
       expect(state.formDrafts).toEqual({});
     });
   });
 
   describe('UI preferences', () => {
     it('should set sound enabled', () => {
-      const state = uiSlice.reducer(
-        initialState,
-        uiSlice.actions.setSoundEnabled(false)
-      );
+      const state = uiSlice.reducer(initialState, uiSlice.actions.setSoundEnabled(false));
       expect(state.soundEnabled).toBe(false);
     });
 
     it('should set animations enabled', () => {
-      const state = uiSlice.reducer(
-        initialState,
-        uiSlice.actions.setAnimationsEnabled(false)
-      );
+      const state = uiSlice.reducer(initialState, uiSlice.actions.setAnimationsEnabled(false));
       expect(state.animationsEnabled).toBe(false);
     });
 
     it('should set card display mode', () => {
-      const state = uiSlice.reducer(
-        initialState,
-        uiSlice.actions.setCardDisplayMode('compact')
-      );
+      const state = uiSlice.reducer(initialState, uiSlice.actions.setCardDisplayMode('compact'));
       expect(state.cardDisplayMode).toBe('compact');
     });
   });
 });
-

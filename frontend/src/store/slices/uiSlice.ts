@@ -18,25 +18,25 @@ interface UiState {
   // Navigation state
   sidebarOpen: boolean;
   bottomMenuActiveItem: BottomMenuActiveItem;
-  
+
   // Modal state
   currentModal: ModalType;
   modalStack: ModalType[];
-  
+
   // Theme and appearance
   theme: 'light' | 'dark';
-  
+
   // Notifications
   notifications: Notification[];
-  
+
   // Loading states
   pageTransitioning: boolean;
   isDragging: boolean;
   loadingStates: Record<string, boolean>;
-  
+
   // Form drafts
   formDrafts: Record<string, FormDraft>;
-  
+
   // UI preferences
   soundEnabled: boolean;
   animationsEnabled: boolean;
@@ -73,7 +73,7 @@ export const uiSlice = createSlice({
     setBottomMenuActiveItem: (state, action: PayloadAction<BottomMenuActiveItem>) => {
       state.bottomMenuActiveItem = action.payload;
     },
-    
+
     // Modal management
     openModal: (state, action: PayloadAction<ModalType>) => {
       if (state.currentModal) {
@@ -88,7 +88,7 @@ export const uiSlice = createSlice({
       state.currentModal = null;
       state.modalStack = [];
     },
-    
+
     // Theme
     setTheme: (state, action: PayloadAction<'light' | 'dark'>) => {
       state.theme = action.payload;
@@ -96,7 +96,7 @@ export const uiSlice = createSlice({
     toggleTheme: (state) => {
       state.theme = state.theme === 'light' ? 'dark' : 'light';
     },
-    
+
     // Notifications
     addNotification: (state, action: PayloadAction<Omit<Notification, 'id' | 'timestamp'>>) => {
       state.notifications.push({
@@ -106,14 +106,12 @@ export const uiSlice = createSlice({
       });
     },
     removeNotification: (state, action: PayloadAction<string>) => {
-      state.notifications = state.notifications.filter(
-        (n) => n.id !== action.payload
-      );
+      state.notifications = state.notifications.filter((n) => n.id !== action.payload);
     },
     clearNotifications: (state) => {
       state.notifications = [];
     },
-    
+
     // Loading states
     setPageTransitioning: (state, action: PayloadAction<boolean>) => {
       state.pageTransitioning = action.payload;
@@ -128,7 +126,7 @@ export const uiSlice = createSlice({
         delete state.loadingStates[action.payload.key];
       }
     },
-    
+
     // Form drafts
     saveFormDraft: (state, action: PayloadAction<{ formId: string; draft: FormDraft }>) => {
       state.formDrafts[action.payload.formId] = action.payload.draft;
@@ -139,7 +137,7 @@ export const uiSlice = createSlice({
     clearAllFormDrafts: (state) => {
       state.formDrafts = {};
     },
-    
+
     // UI preferences
     setSoundEnabled: (state, action: PayloadAction<boolean>) => {
       state.soundEnabled = action.payload;
@@ -175,4 +173,3 @@ export const {
   setAnimationsEnabled,
   setCardDisplayMode,
 } = uiSlice.actions;
-

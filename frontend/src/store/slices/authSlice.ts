@@ -12,11 +12,11 @@ interface AuthState {
   isAuthenticated: boolean;
   token: string | null;
   tokenExpiry: number | null;
-  
+
   // Auth form drafts
   loginForm: AuthFormDraft;
   registerForm: AuthFormDraft;
-  
+
   // Auth flow state
   isLoggingIn: boolean;
   isRegistering: boolean;
@@ -56,7 +56,7 @@ export const authSlice = createSlice({
       state.tokenExpiry = null;
       state.isAuthenticated = false;
     },
-    
+
     // Auth form drafts
     updateLoginForm: (state, action: PayloadAction<Partial<AuthFormDraft>>) => {
       state.loginForm = { ...state.loginForm, ...action.payload };
@@ -70,7 +70,7 @@ export const authSlice = createSlice({
     clearRegisterForm: (state) => {
       state.registerForm = {};
     },
-    
+
     // Auth flow state
     setIsLoggingIn: (state, action: PayloadAction<boolean>) => {
       state.isLoggingIn = action.payload;
@@ -87,7 +87,7 @@ export const authSlice = createSlice({
     setAuthError: (state, action: PayloadAction<string | null>) => {
       state.authError = action.payload;
     },
-    
+
     // Logout
     logout: (state) => {
       state.isAuthenticated = false;

@@ -7,7 +7,7 @@ import type { RootState } from '../../store';
 export function useUpdateProfile() {
   const token = useSelector((state: RootState) => state.auth.token);
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (data: any) => {
       // TODO: Implement when backend endpoint is available
@@ -21,7 +21,7 @@ export function useUpdateProfile() {
 
 export function useChangePassword() {
   const token = useSelector((state: RootState) => state.auth.token);
-  
+
   return useMutation({
     mutationFn: async (data: { oldPassword: string; newPassword: string }) => {
       // TODO: Implement when backend endpoint is available
@@ -29,4 +29,3 @@ export function useChangePassword() {
     },
   });
 }
-

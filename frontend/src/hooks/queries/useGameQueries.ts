@@ -6,7 +6,7 @@ import type { RootState } from '../../store';
 
 export function useGame(id: string | number) {
   const token = useSelector((state: RootState) => state.auth.token);
-  
+
   return useQuery({
     queryKey: queryKeys.games.detail(id),
     queryFn: () => api.games.getOne(id, token!),
@@ -16,7 +16,7 @@ export function useGame(id: string | number) {
 
 export function useGameHistory(id: string | number) {
   const token = useSelector((state: RootState) => state.auth.token);
-  
+
   return useQuery({
     queryKey: queryKeys.games.history(id),
     queryFn: async () => {
@@ -27,4 +27,3 @@ export function useGameHistory(id: string | number) {
     enabled: !!token && !!id,
   });
 }
-

@@ -109,7 +109,10 @@ export function useSocket() {
     currentHandlers.set(SERVER_EVENTS.TABLE_UPDATED, handleTableUpdated as SocketEventHandler);
     currentHandlers.set(SERVER_EVENTS.PLAYER_JOINED, handlePlayerJoined as SocketEventHandler);
     currentHandlers.set(SERVER_EVENTS.PLAYER_LEFT, handlePlayerJoined as SocketEventHandler);
-    currentHandlers.set(SERVER_EVENTS.GAME_STATE_UPDATE, handleGameStateUpdate as SocketEventHandler);
+    currentHandlers.set(
+      SERVER_EVENTS.GAME_STATE_UPDATE,
+      handleGameStateUpdate as SocketEventHandler
+    );
     currentHandlers.set(SERVER_EVENTS.TABLE_CREATED, handleTableUpdated as SocketEventHandler);
 
     return () => {
@@ -127,4 +130,3 @@ export function useSocket() {
     passTurn: socketService.passTurn.bind(socketService),
   };
 }
-

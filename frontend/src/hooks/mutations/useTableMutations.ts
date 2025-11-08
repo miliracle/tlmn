@@ -7,7 +7,7 @@ import type { RootState } from '../../store';
 export function useCreateTable() {
   const token = useSelector((state: RootState) => state.auth.token);
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: (data: unknown) => api.tables.create(data, token!),
     onSuccess: () => {
@@ -20,7 +20,7 @@ export function useCreateTable() {
 export function useJoinTable() {
   const token = useSelector((state: RootState) => state.auth.token);
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: (tableId: string | number) => api.tables.join(tableId, token!),
     onSuccess: (_, tableId) => {
@@ -35,7 +35,7 @@ export function useJoinTable() {
 export function useLeaveTable() {
   const token = useSelector((state: RootState) => state.auth.token);
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: (tableId: string | number) => api.tables.leave(tableId, token!),
     onSuccess: (_, tableId) => {
@@ -46,4 +46,3 @@ export function useLeaveTable() {
     },
   });
 }
-

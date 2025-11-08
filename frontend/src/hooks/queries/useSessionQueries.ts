@@ -6,7 +6,7 @@ import type { RootState } from '../../store';
 
 export function useSession(id: string | number) {
   const token = useSelector((state: RootState) => state.auth.token);
-  
+
   return useQuery({
     queryKey: queryKeys.sessions.detail(id),
     queryFn: () => api.sessions.getOne(id, token!),
@@ -16,7 +16,7 @@ export function useSession(id: string | number) {
 
 export function useSessionSummary(id: string | number) {
   const token = useSelector((state: RootState) => state.auth.token);
-  
+
   return useQuery({
     queryKey: queryKeys.sessions.summary(id),
     queryFn: async () => {
@@ -27,4 +27,3 @@ export function useSessionSummary(id: string | number) {
     enabled: !!token && !!id,
   });
 }
-

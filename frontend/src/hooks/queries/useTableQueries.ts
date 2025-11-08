@@ -16,7 +16,7 @@ interface UseTablesOptions {
 export function useTables(options: UseTablesOptions = {}) {
   const token = useSelector((state: RootState) => state.auth.token);
   const { filters, sortBy, sortOrder, limit = 20, enabled = true } = options;
-  
+
   const queryKey = queryKeys.tables.all({
     filters,
     sortBy,
@@ -62,13 +62,7 @@ export function useTables(options: UseTablesOptions = {}) {
 
 export function useTablesPaginated(params: TableListParams = {}) {
   const token = useSelector((state: RootState) => state.auth.token);
-  const {
-    page = 1,
-    limit = 20,
-    filters,
-    sortBy,
-    sortOrder,
-  } = params;
+  const { page = 1, limit = 20, filters, sortBy, sortOrder } = params;
 
   const queryKey = queryKeys.tables.all({
     page,
@@ -113,7 +107,7 @@ export function useTablesPaginated(params: TableListParams = {}) {
 
 export function useTable(id: string | number) {
   const token = useSelector((state: RootState) => state.auth.token);
-  
+
   return useQuery({
     queryKey: queryKeys.tables.detail(id),
     queryFn: () => api.tables.getOne(id, token!),
@@ -123,7 +117,7 @@ export function useTable(id: string | number) {
 
 export function useTablePlayers(id: string | number) {
   const token = useSelector((state: RootState) => state.auth.token);
-  
+
   return useQuery({
     queryKey: queryKeys.tables.players(id),
     queryFn: async () => {
@@ -134,4 +128,3 @@ export function useTablePlayers(id: string | number) {
     enabled: !!token && !!id,
   });
 }
-

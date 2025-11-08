@@ -8,7 +8,6 @@ export const Route = createRootRoute({
 function RootComponent() {
   // Initialize WebSocket connection
   useSocket();
-  
+
   return <Outlet />;
 }
-

@@ -4,22 +4,22 @@ interface GameState {
   // Current context
   currentTableId: string | null;
   currentGameId: string | null;
-  
+
   // WebSocket connection state
   isConnected: boolean;
   connectionError: string | null;
-  
+
   // Game UI state
   selectedCards: string[];
   isSortingHand: boolean;
   showSuggestions: boolean;
-  
+
   // Turn UI state
   turnTimer: number | null;
   isMyTurn: boolean;
   canPlay: boolean;
   canPass: boolean;
-  
+
   // Game board UI
   animations: Record<string, boolean>;
   optimisticUpdates: Record<string, any>;
@@ -60,7 +60,7 @@ export const gameSlice = createSlice({
     setCurrentGame: (state, action: PayloadAction<string | null>) => {
       state.currentGameId = action.payload;
     },
-    
+
     // WebSocket connection
     setConnected: (state, action: PayloadAction<boolean>) => {
       state.isConnected = action.payload;
@@ -74,7 +74,7 @@ export const gameSlice = createSlice({
         state.isConnected = false;
       }
     },
-    
+
     // Game UI state
     setSelectedCards: (state, action: PayloadAction<string[]>) => {
       state.selectedCards = action.payload;
@@ -96,7 +96,7 @@ export const gameSlice = createSlice({
     setShowSuggestions: (state, action: PayloadAction<boolean>) => {
       state.showSuggestions = action.payload;
     },
-    
+
     // Turn UI state
     setTurnTimer: (state, action: PayloadAction<number | null>) => {
       state.turnTimer = action.payload;
@@ -110,12 +110,15 @@ export const gameSlice = createSlice({
     setCanPass: (state, action: PayloadAction<boolean>) => {
       state.canPass = action.payload;
     },
-    setTurnState: (state, action: PayloadAction<{
-      isMyTurn?: boolean;
-      canPlay?: boolean;
-      canPass?: boolean;
-      turnTimer?: number | null;
-    }>) => {
+    setTurnState: (
+      state,
+      action: PayloadAction<{
+        isMyTurn?: boolean;
+        canPlay?: boolean;
+        canPass?: boolean;
+        turnTimer?: number | null;
+      }>
+    ) => {
       if (action.payload.isMyTurn !== undefined) {
         state.isMyTurn = action.payload.isMyTurn;
       }
@@ -129,7 +132,7 @@ export const gameSlice = createSlice({
         state.turnTimer = action.payload.turnTimer;
       }
     },
-    
+
     // Game board UI
     setAnimation: (state, action: PayloadAction<{ key: string; active: boolean }>) => {
       state.animations[action.payload.key] = action.payload.active;
@@ -149,7 +152,7 @@ export const gameSlice = createSlice({
     clearAllOptimisticUpdates: (state) => {
       state.optimisticUpdates = {};
     },
-    
+
     // Reset game state
     resetGameState: (state) => {
       state.selectedCards = [];
@@ -188,4 +191,3 @@ export const {
   clearAllOptimisticUpdates,
   resetGameState,
 } = gameSlice.actions;
-

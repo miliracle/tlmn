@@ -51,4 +51,3 @@ export interface InfiniteQueryResponse<T> {
   nextPage: number | null;
   hasMore: boolean;
 }
-

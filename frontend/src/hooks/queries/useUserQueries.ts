@@ -6,7 +6,7 @@ import type { RootState } from '../../store';
 
 export function useCurrentUser() {
   const token = useSelector((state: RootState) => state.auth.token);
-  
+
   return useQuery({
     queryKey: queryKeys.users.me(),
     queryFn: () => api.auth.me(token!),
@@ -16,7 +16,7 @@ export function useCurrentUser() {
 
 export function useUserStats(userId: string | number) {
   const token = useSelector((state: RootState) => state.auth.token);
-  
+
   return useQuery({
     queryKey: queryKeys.users.stats(userId),
     queryFn: async () => {
@@ -29,7 +29,7 @@ export function useUserStats(userId: string | number) {
 
 export function useUserGames(userId: string | number) {
   const token = useSelector((state: RootState) => state.auth.token);
-  
+
   return useInfiniteQuery({
     queryKey: queryKeys.users.games(userId),
     queryFn: async ({ pageParam = 0 }) => {
@@ -45,4 +45,3 @@ export function useUserGames(userId: string | number) {
     initialPageParam: 0,
   });
 }
-

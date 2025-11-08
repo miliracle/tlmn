@@ -7,7 +7,7 @@ import type { RootState } from '../../store';
 export function useCreateBot() {
   const token = useSelector((state: RootState) => state.auth.token);
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: (data: any) => api.bots.create(data, token!),
     onSuccess: () => {
@@ -20,7 +20,7 @@ export function useCreateBot() {
 export function useUpdateBot() {
   const token = useSelector((state: RootState) => state.auth.token);
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: ({ id, data }: { id: string | number; data: any }) =>
       api.bots.update(id, data, token!),
@@ -35,7 +35,7 @@ export function useUpdateBot() {
 export function useDeleteBot() {
   const token = useSelector((state: RootState) => state.auth.token);
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: (id: string | number) => api.bots.delete(id, token!),
     onSuccess: (_, id) => {
@@ -45,4 +45,3 @@ export function useDeleteBot() {
     },
   });
 }
-

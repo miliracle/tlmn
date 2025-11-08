@@ -4,4 +4,3 @@ import { TableLobbyPage } from '../pages/TableLobbyPage';
 export const Route = createFileRoute('/tables/$tableId')({
   component: TableLobbyPage,
 });
-

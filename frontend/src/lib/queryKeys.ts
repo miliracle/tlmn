@@ -22,12 +22,15 @@ export const queryKeys = {
       // Create a stable key by sorting keys and stringifying
       const sortedParams = Object.keys(params)
         .sort()
-        .reduce((acc, key) => {
-          if (params[key] !== undefined && params[key] !== null) {
-            acc[key] = params[key];
-          }
-          return acc;
-        }, {} as Record<string, unknown>);
+        .reduce(
+          (acc, key) => {
+            if (params[key] !== undefined && params[key] !== null) {
+              acc[key] = params[key];
+            }
+            return acc;
+          },
+          {} as Record<string, unknown>
+        );
       return ['tables', 'list', sortedParams] as const;
     },
     detail: (id: string | number) => ['tables', id] as const,
@@ -55,4 +58,3 @@ export const queryKeys = {
     summary: (id: string | number) => ['sessions', id, 'summary'] as const,
   },
 };
-

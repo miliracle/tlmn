@@ -6,10 +6,7 @@ describe('authSlice', () => {
 
   describe('Authentication status', () => {
     it('should set authenticated state', () => {
-      const state = authSlice.reducer(
-        initialState,
-        authSlice.actions.setAuthenticated(true)
-      );
+      const state = authSlice.reducer(initialState, authSlice.actions.setAuthenticated(true));
       expect(state.isAuthenticated).toBe(true);
     });
 
@@ -19,7 +16,7 @@ describe('authSlice', () => {
         authSlice.actions.setToken({ token: 'test-token', expiry: 123456 })
       );
       state = authSlice.reducer(state, authSlice.actions.setAuthenticated(false));
-      
+
       expect(state.isAuthenticated).toBe(false);
       expect(state.token).toBeNull();
       expect(state.tokenExpiry).toBeNull();
@@ -30,7 +27,7 @@ describe('authSlice', () => {
         initialState,
         authSlice.actions.setToken({ token: 'test-token', expiry: 123456 })
       );
-      
+
       expect(state.token).toBe('test-token');
       expect(state.tokenExpiry).toBe(123456);
       expect(state.isAuthenticated).toBe(true);
@@ -41,7 +38,7 @@ describe('authSlice', () => {
         initialState,
         authSlice.actions.setToken({ token: 'test-token' })
       );
-      
+
       expect(state.token).toBe('test-token');
       expect(state.tokenExpiry).toBeNull();
       expect(state.isAuthenticated).toBe(true);
@@ -53,7 +50,7 @@ describe('authSlice', () => {
         authSlice.actions.setToken({ token: 'test-token' })
       );
       state = authSlice.reducer(state, authSlice.actions.clearToken());
-      
+
       expect(state.token).toBeNull();
       expect(state.tokenExpiry).toBeNull();
       expect(state.isAuthenticated).toBe(false);
@@ -66,7 +63,7 @@ describe('authSlice', () => {
         initialState,
         authSlice.actions.updateLoginForm({ email: 'test@example.com' })
       );
-      
+
       expect(state.loginForm.email).toBe('test@example.com');
     });
 
@@ -79,7 +76,7 @@ describe('authSlice', () => {
         state,
         authSlice.actions.updateLoginForm({ password: 'password123' })
       );
-      
+
       expect(state.loginForm.email).toBe('test@example.com');
       expect(state.loginForm.password).toBe('password123');
     });
@@ -90,7 +87,7 @@ describe('authSlice', () => {
         authSlice.actions.updateLoginForm({ email: 'test@example.com' })
       );
       state = authSlice.reducer(state, authSlice.actions.clearLoginForm());
-      
+
       expect(state.loginForm).toEqual({});
     });
 
@@ -99,7 +96,7 @@ describe('authSlice', () => {
         initialState,
         authSlice.actions.updateRegisterForm({ username: 'testuser' })
       );
-      
+
       expect(state.registerForm.username).toBe('testuser');
     });
 
@@ -109,46 +106,34 @@ describe('authSlice', () => {
         authSlice.actions.updateRegisterForm({ username: 'testuser' })
       );
       state = authSlice.reducer(state, authSlice.actions.clearRegisterForm());
-      
+
       expect(state.registerForm).toEqual({});
     });
   });
 
   describe('Auth flow state', () => {
     it('should set is logging in', () => {
-      const state = authSlice.reducer(
-        initialState,
-        authSlice.actions.setIsLoggingIn(true)
-      );
+      const state = authSlice.reducer(initialState, authSlice.actions.setIsLoggingIn(true));
       expect(state.isLoggingIn).toBe(true);
     });
 
     it('should clear auth error when starting login', () => {
-      let state = authSlice.reducer(
-        initialState,
-        authSlice.actions.setAuthError('Previous error')
-      );
+      let state = authSlice.reducer(initialState, authSlice.actions.setAuthError('Previous error'));
       state = authSlice.reducer(state, authSlice.actions.setIsLoggingIn(true));
-      
+
       expect(state.isLoggingIn).toBe(true);
       expect(state.authError).toBeNull();
     });
 
     it('should set is registering', () => {
-      const state = authSlice.reducer(
-        initialState,
-        authSlice.actions.setIsRegistering(true)
-      );
+      const state = authSlice.reducer(initialState, authSlice.actions.setIsRegistering(true));
       expect(state.isRegistering).toBe(true);
     });
 
     it('should clear auth error when starting registration', () => {
-      let state = authSlice.reducer(
-        initialState,
-        authSlice.actions.setAuthError('Previous error')
-      );
+      let state = authSlice.reducer(initialState, authSlice.actions.setAuthError('Previous error'));
       state = authSlice.reducer(state, authSlice.actions.setIsRegistering(true));
-      
+
       expect(state.isRegistering).toBe(true);
       expect(state.authError).toBeNull();
     });
@@ -172,12 +157,9 @@ describe('authSlice', () => {
         state,
         authSlice.actions.updateLoginForm({ email: 'test@example.com' })
       );
-      state = authSlice.reducer(
-        state,
-        authSlice.actions.setAuthError('Some error')
-      );
+      state = authSlice.reducer(state, authSlice.actions.setAuthError('Some error'));
       state = authSlice.reducer(state, authSlice.actions.logout());
-      
+
       expect(state.isAuthenticated).toBe(false);
       expect(state.token).toBeNull();
       expect(state.tokenExpiry).toBeNull();
@@ -187,4 +169,3 @@ describe('authSlice', () => {
     });
   });
 });
-
