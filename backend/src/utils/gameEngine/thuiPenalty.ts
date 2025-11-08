@@ -318,11 +318,15 @@ export function calculateThuiPenaltyResult(
   veBetIndex: number,
 ): ThuiPenaltyResult {
   const penaltyCalculation = calculateThuiPenalty(veBetHand);
-  const receiverIndex = determineThuiPenaltyReceiver(rankings, isInstantWin, congPlayers, veBetIndex);
+  const receiverIndex = determineThuiPenaltyReceiver(
+    rankings,
+    isInstantWin,
+    congPlayers,
+    veBetIndex,
+  );
 
   return {
     ...penaltyCalculation,
     receiverIndex,
   };
 }
-

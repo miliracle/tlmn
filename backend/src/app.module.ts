@@ -24,4 +24,3 @@ import { PrismaModule } from './modules/prisma/prisma.module';
   ],
 })
 export class AppModule {}
-

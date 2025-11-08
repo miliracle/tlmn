@@ -21,7 +21,7 @@ async function bootstrap() {
       whitelist: true,
       forbidNonWhitelisted: true,
       transform: true,
-    })
+    }),
   );
 
   // Global prefix for API routes
@@ -33,4 +33,3 @@ async function bootstrap() {
 }
 
 bootstrap();
-

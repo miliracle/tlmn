@@ -1,16 +1,6 @@
-import {
-  canCut,
-  type CanCutResult,
-} from './cuttingRules';
-import {
-  initializeVongState,
-  markPlayerPlayed,
-  hasVong,
-} from './vongDetection';
-import {
-  initializeSingleHeoTracking,
-  recordPlay,
-} from './singleHeoTracking';
+import { canCut, type CanCutResult } from './cuttingRules';
+import { initializeVongState, markPlayerPlayed, hasVong } from './vongDetection';
+import { initializeSingleHeoTracking, recordPlay } from './singleHeoTracking';
 import { detectCombination } from './combinations';
 import { createCard, createCardsOfRank } from './testHelpers';
 
@@ -51,7 +41,9 @@ describe('Cutting Rules', () => {
           createCard('2', 'Clubs'),
           createCard('2', 'Diamonds'),
         ]);
-        const tuQuy = detectCombination(createCardsOfRank('A', ['Spades', 'Clubs', 'Diamonds', 'Hearts']));
+        const tuQuy = detectCombination(
+          createCardsOfRank('A', ['Spades', 'Clubs', 'Diamonds', 'Hearts']),
+        );
 
         expect(baConHeo).not.toBeNull();
         expect(tuQuy).not.toBeNull();
@@ -248,7 +240,9 @@ describe('Cutting Rules', () => {
     describe('Subtask 2.5.3.2: Implement tứ quý cutting rules', () => {
       it('should require vòng for tứ quý to cut', () => {
         const singleHeo = detectCombination([createCard('2', 'Spades')]);
-        const tuQuy = detectCombination(createCardsOfRank('A', ['Spades', 'Clubs', 'Diamonds', 'Hearts']));
+        const tuQuy = detectCombination(
+          createCardsOfRank('A', ['Spades', 'Clubs', 'Diamonds', 'Hearts']),
+        );
 
         expect(singleHeo).not.toBeNull();
         expect(tuQuy).not.toBeNull();
@@ -271,7 +265,9 @@ describe('Cutting Rules', () => {
       });
 
       it('should allow tứ quý to cut 1-4 single heos', () => {
-        const tuQuy = detectCombination(createCardsOfRank('A', ['Spades', 'Clubs', 'Diamonds', 'Hearts']));
+        const tuQuy = detectCombination(
+          createCardsOfRank('A', ['Spades', 'Clubs', 'Diamonds', 'Hearts']),
+        );
 
         expect(tuQuy).not.toBeNull();
 
@@ -291,7 +287,9 @@ describe('Cutting Rules', () => {
       });
 
       it('should allow tứ quý to cut 3 đôi thông of any rank', () => {
-        const tuQuy = detectCombination(createCardsOfRank('A', ['Spades', 'Clubs', 'Diamonds', 'Hearts']));
+        const tuQuy = detectCombination(
+          createCardsOfRank('A', ['Spades', 'Clubs', 'Diamonds', 'Hearts']),
+        );
         const baDoiThong = detectCombination([
           createCard('3', 'Spades'),
           createCard('3', 'Clubs'),
@@ -316,8 +314,12 @@ describe('Cutting Rules', () => {
       });
 
       it('should allow tứ quý to cut tứ quý of smaller rank', () => {
-        const tuQuy1 = detectCombination(createCardsOfRank('A', ['Spades', 'Clubs', 'Diamonds', 'Hearts']));
-        const tuQuy2 = detectCombination(createCardsOfRank('K', ['Spades', 'Clubs', 'Diamonds', 'Hearts']));
+        const tuQuy1 = detectCombination(
+          createCardsOfRank('A', ['Spades', 'Clubs', 'Diamonds', 'Hearts']),
+        );
+        const tuQuy2 = detectCombination(
+          createCardsOfRank('K', ['Spades', 'Clubs', 'Diamonds', 'Hearts']),
+        );
 
         expect(tuQuy1).not.toBeNull();
         expect(tuQuy2).not.toBeNull();
@@ -436,7 +438,9 @@ describe('Cutting Rules', () => {
           createCard('6', 'Spades'),
           createCard('6', 'Clubs'),
         ]);
-        const tuQuy = detectCombination(createCardsOfRank('A', ['Spades', 'Clubs', 'Diamonds', 'Hearts']));
+        const tuQuy = detectCombination(
+          createCardsOfRank('A', ['Spades', 'Clubs', 'Diamonds', 'Hearts']),
+        );
 
         expect(bonDoiThong).not.toBeNull();
         expect(tuQuy).not.toBeNull();
@@ -453,4 +457,3 @@ describe('Cutting Rules', () => {
     });
   });
 });
-

@@ -114,24 +114,17 @@ describe('GamesController', () => {
 
       const mockRequest = { user: mockUser };
 
-      await expect(controller.findOne(mockRequest, '999')).rejects.toThrow(
-        NotFoundException,
-      );
+      await expect(controller.findOne(mockRequest, '999')).rejects.toThrow(NotFoundException);
       expect(gamesService.findOne).toHaveBeenCalledWith(999, mockUser.id);
     });
 
     it('should throw ForbiddenException if user did not participate', async () => {
-      const error = new ForbiddenException(
-        'You do not have permission to view this game',
-      );
+      const error = new ForbiddenException('You do not have permission to view this game');
       mockGamesService.findOne.mockRejectedValue(error);
 
       const mockRequest = { user: mockUser };
 
-      await expect(controller.findOne(mockRequest, '2')).rejects.toThrow(
-        ForbiddenException,
-      );
+      await expect(controller.findOne(mockRequest, '2')).rejects.toThrow(ForbiddenException);
     });
   });
 });
-

@@ -7,4 +7,3 @@ import { WebSocketService } from './websocket.service';
   exports: [AppWebSocketGateway, WebSocketService],
 })
 export class WebSocketModule {}
-

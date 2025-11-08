@@ -6,7 +6,14 @@ import {
   calculateThuiPenaltyResult,
   type ThuiPenaltyResult,
 } from './thuiPenalty';
-import { Card, RANK_2, SUIT_SPADES, SUIT_CLUBS, SUIT_DIAMONDS, SUIT_HEARTS } from '../../types/game';
+import {
+  Card,
+  RANK_2,
+  SUIT_SPADES,
+  SUIT_CLUBS,
+  SUIT_DIAMONDS,
+  SUIT_HEARTS,
+} from '../../types/game';
 import { PlayerRanking } from './gameEndDetection';
 import { createCard } from './testHelpers';
 import { ValidationException } from '../../common/exceptions';
@@ -15,7 +22,11 @@ describe('Thúi Penalty Calculation', () => {
   describe('checkVeBetHasHeo', () => {
     describe('Subtask 2.8.2.1: Check if last-place player has heo in hand', () => {
       it('should return true if hand contains heo', () => {
-        const hand = [createCard('A', 'Hearts'), createCard(RANK_2, SUIT_SPADES), createCard('K', 'Spades')];
+        const hand = [
+          createCard('A', 'Hearts'),
+          createCard(RANK_2, SUIT_SPADES),
+          createCard('K', 'Spades'),
+        ];
         expect(checkVeBetHasHeo(hand)).toBe(true);
       });
 
@@ -29,7 +40,11 @@ describe('Thúi Penalty Calculation', () => {
       });
 
       it('should return false if hand does not contain heo', () => {
-        const hand = [createCard('A', 'Hearts'), createCard('K', 'Spades'), createCard('Q', 'Diamonds')];
+        const hand = [
+          createCard('A', 'Hearts'),
+          createCard('K', 'Spades'),
+          createCard('Q', 'Diamonds'),
+        ];
         expect(checkVeBetHasHeo(hand)).toBe(false);
       });
 
@@ -78,7 +93,11 @@ describe('Thúi Penalty Calculation', () => {
       });
 
       it('should return false if hand does not contain hàng', () => {
-        const hand = [createCard('A', 'Hearts'), createCard('K', 'Spades'), createCard('Q', 'Diamonds')];
+        const hand = [
+          createCard('A', 'Hearts'),
+          createCard('K', 'Spades'),
+          createCard('Q', 'Diamonds'),
+        ];
         expect(checkVeBetHasHang(hand)).toBe(false);
       });
 
@@ -99,7 +118,11 @@ describe('Thúi Penalty Calculation', () => {
       });
 
       it('should return 0 penalty if hand has no heo or hàng', () => {
-        const hand = [createCard('A', 'Hearts'), createCard('K', 'Spades'), createCard('Q', 'Diamonds')];
+        const hand = [
+          createCard('A', 'Hearts'),
+          createCard('K', 'Spades'),
+          createCard('Q', 'Diamonds'),
+        ];
         const result = calculateThuiPenalty(hand);
         expect(result.hasThui).toBe(false);
         expect(result.penaltyPoints).toBe(0);
@@ -268,8 +291,12 @@ describe('Thúi Penalty Calculation', () => {
 
       it('should throw ValidationException for invalid về bét index', () => {
         const rankings = createRankings();
-        expect(() => determineThuiPenaltyReceiver(rankings, false, [], -1)).toThrow(ValidationException);
-        expect(() => determineThuiPenaltyReceiver(rankings, false, [], 4)).toThrow(ValidationException);
+        expect(() => determineThuiPenaltyReceiver(rankings, false, [], -1)).toThrow(
+          ValidationException,
+        );
+        expect(() => determineThuiPenaltyReceiver(rankings, false, [], 4)).toThrow(
+          ValidationException,
+        );
       });
 
       it('should throw ValidationException if winner not found in tới trắng game', () => {
@@ -277,7 +304,9 @@ describe('Thúi Penalty Calculation', () => {
           { playerIndex: 1, rank: 2, cardCount: 5, totalCardValue: 50 },
           { playerIndex: 2, rank: 3, cardCount: 8, totalCardValue: 80 },
         ];
-        expect(() => determineThuiPenaltyReceiver(rankings, true, [], 1)).toThrow(ValidationException);
+        expect(() => determineThuiPenaltyReceiver(rankings, true, [], 1)).toThrow(
+          ValidationException,
+        );
       });
 
       it('should throw ValidationException if 3rd place not found in normal game (invalid rankings)', () => {
@@ -287,7 +316,9 @@ describe('Thúi Penalty Calculation', () => {
           { playerIndex: 1, rank: 2, cardCount: 5, totalCardValue: 50 },
           { playerIndex: 2, rank: 2, cardCount: 6, totalCardValue: 60 }, // Invalid: two rank 2s
         ];
-        expect(() => determineThuiPenaltyReceiver(rankings, false, [], 1)).toThrow(ValidationException);
+        expect(() => determineThuiPenaltyReceiver(rankings, false, [], 1)).toThrow(
+          ValidationException,
+        );
       });
 
       it('should handle 2-player game correctly', () => {
@@ -368,7 +399,11 @@ describe('Thúi Penalty Calculation', () => {
     });
 
     it('should return no thúi if hand has no heo or hàng', () => {
-      const veBetHand = [createCard('A', 'Hearts'), createCard('K', 'Spades'), createCard('Q', 'Diamonds')];
+      const veBetHand = [
+        createCard('A', 'Hearts'),
+        createCard('K', 'Spades'),
+        createCard('Q', 'Diamonds'),
+      ];
       const rankings: PlayerRanking[] = [
         { playerIndex: 0, rank: 1, cardCount: 0, totalCardValue: 0 },
         { playerIndex: 1, rank: 2, cardCount: 5, totalCardValue: 50 },
@@ -384,4 +419,3 @@ describe('Thúi Penalty Calculation', () => {
     });
   });
 });
-

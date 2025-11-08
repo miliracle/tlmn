@@ -65,18 +65,17 @@ export class HttpExceptionFilter implements ExceptionFilter {
           !(exceptionResponse as any).message && { ...exceptionResponse }),
       };
 
-      this.logger.warn(
-        `${request.method} ${request.url} - ${status} - ${errorResponse.message}`,
-      );
+      this.logger.warn(`${request.method} ${request.url} - ${status} - ${errorResponse.message}`);
     } else {
       // Handle unexpected errors (non-HTTP exceptions)
       status = HttpStatus.INTERNAL_SERVER_ERROR;
       const error = exception as Error;
 
       errorResponse = {
-        message: process.env.NODE_ENV === 'production'
-          ? 'Internal server error'
-          : error.message || 'An unexpected error occurred',
+        message:
+          process.env.NODE_ENV === 'production'
+            ? 'Internal server error'
+            : error.message || 'An unexpected error occurred',
         code: 'INTERNAL_SERVER_ERROR',
         statusCode: status,
         timestamp: new Date().toISOString(),
@@ -116,4 +115,3 @@ export class HttpExceptionFilter implements ExceptionFilter {
     return codeMap[status] || 'UNKNOWN_ERROR';
   }
 }
-

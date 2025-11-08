@@ -13,4 +13,3 @@ export class UpdateBotDto {
   @IsOptional()
   description?: string;
 }
-

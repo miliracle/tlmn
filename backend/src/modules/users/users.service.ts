@@ -7,4 +7,3 @@ export class UsersService {
 
   // User service methods
 }
-

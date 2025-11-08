@@ -8,4 +8,3 @@ import { TablesService } from './tables.service';
   exports: [TablesService],
 })
 export class TablesModule {}
-

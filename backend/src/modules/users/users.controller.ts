@@ -12,4 +12,3 @@ export class UsersController {
     return { message: 'Profile endpoint - coming soon' };
   }
 }
-

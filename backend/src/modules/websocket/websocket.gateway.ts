@@ -49,4 +49,3 @@ export class AppWebSocketGateway implements OnGatewayConnection, OnGatewayDiscon
     this.server.emit('game_state_update', payload);
   }
 }
-

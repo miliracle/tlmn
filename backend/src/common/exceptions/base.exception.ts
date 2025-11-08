@@ -22,7 +22,7 @@ export class AppException extends HttpException {
     metadata?: Record<string, any>,
   ) {
     const errorCode = code || AppException.getDefaultCode(statusCode);
-    
+
     super(
       {
         message,
@@ -56,4 +56,3 @@ export class AppException extends HttpException {
     return codeMap[statusCode] || 'UNKNOWN_ERROR';
   }
 }
-
