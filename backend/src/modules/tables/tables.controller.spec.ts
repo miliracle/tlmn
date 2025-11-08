@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TablesController } from './tables.controller';
 import { TablesService } from './tables.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { AdminGuard } from '../auth/guards/admin.guard';
 import { CreateTableDto } from './dto/create-table.dto';
 import { NotFoundException, ForbiddenException } from '../../common/exceptions';
 
@@ -45,6 +46,8 @@ describe('TablesController', () => {
       ],
     })
       .overrideGuard(JwtAuthGuard)
+      .useValue({ canActivate: jest.fn(() => true) })
+      .overrideGuard(AdminGuard)
       .useValue({ canActivate: jest.fn(() => true) })
       .compile();
 
@@ -271,7 +274,7 @@ describe('TablesController', () => {
   });
 
   describe('forceRemove', () => {
-    it('should force remove a table and all players', async () => {
+    it('should force remove a table and all players (admin only)', async () => {
       const forceRemoveResult = {
         message: 'Table force removed successfully',
         tableId: 1,
@@ -280,7 +283,7 @@ describe('TablesController', () => {
 
       mockTablesService.forceRemove.mockResolvedValue(forceRemoveResult);
 
-      const mockRequest = { user: mockUser };
+      const mockRequest = { user: { ...mockUser, role: 'admin' } };
       const result = await controller.forceRemove(mockRequest, '1');
 
       expect(tablesService.forceRemove).toHaveBeenCalledWith(1);
@@ -294,7 +297,7 @@ describe('TablesController', () => {
       const error = new NotFoundException('Table', 999);
       mockTablesService.forceRemove.mockRejectedValue(error);
 
-      const mockRequest = { user: mockUser };
+      const mockRequest = { user: { ...mockUser, role: 'admin' } };
 
       await expect(controller.forceRemove(mockRequest, '999')).rejects.toThrow(NotFoundException);
     });

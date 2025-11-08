@@ -51,21 +51,33 @@ export class HttpExceptionFilter implements ExceptionFilter {
       status = exception.getStatus();
       const exceptionResponse = exception.getResponse();
 
+      // Handle validation errors from class-validator
+      const validationErrors = (exceptionResponse as any)?.message;
+      const isValidationError = Array.isArray(validationErrors);
+
       errorResponse = {
         message:
           typeof exceptionResponse === 'string'
             ? exceptionResponse
-            : (exceptionResponse as any).message || exception.message,
+            : isValidationError
+              ? 'Validation failed'
+              : (exceptionResponse as any).message || exception.message,
         code: this.getErrorCode(status),
         statusCode: status,
         timestamp: new Date().toISOString(),
         path: request.url,
         method: request.method,
+        ...(isValidationError && { errors: validationErrors }),
         ...(typeof exceptionResponse === 'object' &&
-          !(exceptionResponse as any).message && { ...exceptionResponse }),
+          !(exceptionResponse as any).message &&
+          !isValidationError && { ...exceptionResponse }),
       };
 
-      this.logger.warn(`${request.method} ${request.url} - ${status} - ${errorResponse.message}`);
+      const logLevel = status >= 500 ? 'error' : 'warn';
+      this.logger[logLevel](
+        `${request.method} ${request.url} - ${status} - ${errorResponse.message}`,
+        status >= 500 ? exception.stack : undefined,
+      );
     } else {
       // Handle unexpected errors (non-HTTP exceptions)
       status = HttpStatus.INTERNAL_SERVER_ERROR;

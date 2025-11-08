@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Delete, Body, Param, UseGuards, Request } from '@nestjs/common';
 import { TablesService } from './tables.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { AdminGuard } from '../auth/guards/admin.guard';
 import { CreateTableDto } from './dto/create-table.dto';
 
 @Controller('tables')
@@ -38,11 +39,9 @@ export class TablesController {
     return this.tablesService.remove(+id);
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':id/force')
   forceRemove(@Request() req, @Param('id') id: string) {
-    // TODO: Add admin role check
-    // For now, any authenticated user can force remove
-    // In production, add: @UseGuards(JwtAuthGuard, AdminGuard)
     return this.tablesService.forceRemove(+id);
   }
 }

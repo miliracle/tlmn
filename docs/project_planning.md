@@ -319,26 +319,26 @@ This document breaks down the Tiến Lên Miền Nam web game platform into Epic
 ### Story 3.3: Middleware & Validation
 
 #### Task 3.3.1: Authentication Middleware
-- [ ] **Subtask 3.3.1.1:** Create JWT verification middleware
-- [ ] **Subtask 3.3.1.2:** Handle token expiration
-- [ ] **Subtask 3.3.1.3:** Attach user to request object
+- [x] **Subtask 3.3.1.1:** Create JWT verification middleware
+- [x] **Subtask 3.3.1.2:** Handle token expiration
+- [x] **Subtask 3.3.1.3:** Attach user to request object
 
 #### Task 3.3.2: Authorization & Role-Based Access Control
-- [ ] **Subtask 3.3.2.1:** Add role field to User model (admin, user)
-- [ ] **Subtask 3.3.2.2:** Create AdminGuard for admin-only endpoints
-- [ ] **Subtask 3.3.2.3:** Implement role checking logic
-- [ ] **Subtask 3.3.2.4:** Apply AdminGuard to DELETE /api/tables/:id/force endpoint
-- [ ] **Subtask 3.3.2.5:** Add role-based access control for other admin endpoints
+- [x] **Subtask 3.3.2.1:** Add role field to User model (admin, user)
+- [x] **Subtask 3.3.2.2:** Create AdminGuard for admin-only endpoints
+- [x] **Subtask 3.3.2.3:** Implement role checking logic
+- [x] **Subtask 3.3.2.4:** Apply AdminGuard to DELETE /api/tables/:id/force endpoint
+- [x] **Subtask 3.3.2.5:** Add role-based access control for other admin endpoints
 
 #### Task 3.3.3: Input Validation
-- [ ] **Subtask 3.3.3.1:** Create Zod schemas for all endpoints
-- [ ] **Subtask 3.3.3.2:** Implement validation middleware
-- [ ] **Subtask 3.3.3.3:** Return detailed validation errors
+- [x] **Subtask 3.3.3.1:** Create Zod schemas for all endpoints
+- [x] **Subtask 3.3.3.2:** Implement validation middleware
+- [x] **Subtask 3.3.3.3:** Return detailed validation errors
 
 #### Task 3.3.4: Error Handling
-- [ ] **Subtask 3.3.4.1:** Create error handler middleware
-- [ ] **Subtask 3.3.4.2:** Standardize error response format
-- [ ] **Subtask 3.3.4.3:** Log errors appropriately
+- [x] **Subtask 3.3.4.1:** Create error handler middleware
+- [x] **Subtask 3.3.4.2:** Standardize error response format
+- [x] **Subtask 3.3.4.3:** Log errors appropriately
 
 ---
 
