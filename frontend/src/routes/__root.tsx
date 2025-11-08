@@ -1,4 +1,4 @@
-import { createRootRoute } from '@tanstack/react-router';
+import { createRootRoute, Outlet } from '@tanstack/react-router';
 import { useSocket } from '../hooks/useSocket';
 
 export const Route = createRootRoute({
@@ -9,6 +9,6 @@ function RootComponent() {
   // Initialize WebSocket connection
   useSocket();
   
-  return null;
+  return <Outlet />;
 }
 

@@ -9,15 +9,28 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TablesRouteImport } from './routes/tables'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as BotsRouteImport } from './routes/bots'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as TableTableIdRouteImport } from './routes/table.$tableId'
+import { Route as TablesTableIdRouteImport } from './routes/tables.$tableId'
+import { Route as TablesTableIdGameRouteImport } from './routes/tables.$tableId.game'
 
+const TablesRoute = TablesRouteImport.update({
+  id: '/tables',
+  path: '/tables',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -35,57 +48,111 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TableTableIdRoute = TableTableIdRouteImport.update({
-  id: '/table/$tableId',
-  path: '/table/$tableId',
-  getParentRoute: () => rootRouteImport,
+const TablesTableIdRoute = TablesTableIdRouteImport.update({
+  id: '/$tableId',
+  path: '/$tableId',
+  getParentRoute: () => TablesRoute,
+} as any)
+const TablesTableIdGameRoute = TablesTableIdGameRouteImport.update({
+  id: '/game',
+  path: '/game',
+  getParentRoute: () => TablesTableIdRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/bots': typeof BotsRoute
   '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
-  '/table/$tableId': typeof TableTableIdRoute
+  '/tables': typeof TablesRouteWithChildren
+  '/tables/$tableId': typeof TablesTableIdRouteWithChildren
+  '/tables/$tableId/game': typeof TablesTableIdGameRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/bots': typeof BotsRoute
   '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
-  '/table/$tableId': typeof TableTableIdRoute
+  '/tables': typeof TablesRouteWithChildren
+  '/tables/$tableId': typeof TablesTableIdRouteWithChildren
+  '/tables/$tableId/game': typeof TablesTableIdGameRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/bots': typeof BotsRoute
   '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
   '/register': typeof RegisterRoute
-  '/table/$tableId': typeof TableTableIdRoute
+  '/tables': typeof TablesRouteWithChildren
+  '/tables/$tableId': typeof TablesTableIdRouteWithChildren
+  '/tables/$tableId/game': typeof TablesTableIdGameRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/bots' | '/login' | '/register' | '/table/$tableId'
+  fullPaths:
+    | '/'
+    | '/bots'
+    | '/login'
+    | '/profile'
+    | '/register'
+    | '/tables'
+    | '/tables/$tableId'
+    | '/tables/$tableId/game'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/bots' | '/login' | '/register' | '/table/$tableId'
-  id: '__root__' | '/' | '/bots' | '/login' | '/register' | '/table/$tableId'
+  to:
+    | '/'
+    | '/bots'
+    | '/login'
+    | '/profile'
+    | '/register'
+    | '/tables'
+    | '/tables/$tableId'
+    | '/tables/$tableId/game'
+  id:
+    | '__root__'
+    | '/'
+    | '/bots'
+    | '/login'
+    | '/profile'
+    | '/register'
+    | '/tables'
+    | '/tables/$tableId'
+    | '/tables/$tableId/game'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BotsRoute: typeof BotsRoute
   LoginRoute: typeof LoginRoute
+  ProfileRoute: typeof ProfileRoute
   RegisterRoute: typeof RegisterRoute
-  TableTableIdRoute: typeof TableTableIdRoute
+  TablesRoute: typeof TablesRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tables': {
+      id: '/tables'
+      path: '/tables'
+      fullPath: '/tables'
+      preLoaderRoute: typeof TablesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/register': {
       id: '/register'
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -109,22 +176,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/table/$tableId': {
-      id: '/table/$tableId'
-      path: '/table/$tableId'
-      fullPath: '/table/$tableId'
-      preLoaderRoute: typeof TableTableIdRouteImport
-      parentRoute: typeof rootRouteImport
+    '/tables/$tableId': {
+      id: '/tables/$tableId'
+      path: '/$tableId'
+      fullPath: '/tables/$tableId'
+      preLoaderRoute: typeof TablesTableIdRouteImport
+      parentRoute: typeof TablesRoute
+    }
+    '/tables/$tableId/game': {
+      id: '/tables/$tableId/game'
+      path: '/game'
+      fullPath: '/tables/$tableId/game'
+      preLoaderRoute: typeof TablesTableIdGameRouteImport
+      parentRoute: typeof TablesTableIdRoute
     }
   }
 }
+
+interface TablesTableIdRouteChildren {
+  TablesTableIdGameRoute: typeof TablesTableIdGameRoute
+}
+
+const TablesTableIdRouteChildren: TablesTableIdRouteChildren = {
+  TablesTableIdGameRoute: TablesTableIdGameRoute,
+}
+
+const TablesTableIdRouteWithChildren = TablesTableIdRoute._addFileChildren(
+  TablesTableIdRouteChildren,
+)
+
+interface TablesRouteChildren {
+  TablesTableIdRoute: typeof TablesTableIdRouteWithChildren
+}
+
+const TablesRouteChildren: TablesRouteChildren = {
+  TablesTableIdRoute: TablesTableIdRouteWithChildren,
+}
+
+const TablesRouteWithChildren =
+  TablesRoute._addFileChildren(TablesRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BotsRoute: BotsRoute,
   LoginRoute: LoginRoute,
+  ProfileRoute: ProfileRoute,
   RegisterRoute: RegisterRoute,
-  TableTableIdRoute: TableTableIdRoute,
+  TablesRoute: TablesRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
